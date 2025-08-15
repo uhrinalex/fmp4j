@@ -1,7 +1,8 @@
 package dev.sorn.fmp4j.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.List;
+import dev.sorn.fmp4j.TestObject;
+import dev.sorn.fmp4j.TestObjectValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
@@ -9,9 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FmpJsonDeserializerTest {
-    record TestObjectValue(int value) {}
-    record TestObject(String key, TestObjectValue object) {}
-
     private FmpJsonDeserializer deserializer;
 
     @BeforeEach
@@ -22,7 +20,7 @@ class FmpJsonDeserializerTest {
     @Test
     void deserialize_object() {
         // given
-        String json = """
+        var json = """
             {
                 "key": "key",
                 "object": {
@@ -32,7 +30,7 @@ class FmpJsonDeserializerTest {
             """;
 
         // when
-        TestObject obj = deserializer.fromJson(json, new TypeReference<>() {});
+        var obj = deserializer.fromJson(json, new TypeReference<TestObject>() {});
 
         // then
         assertEquals("key", obj.key());
@@ -43,7 +41,7 @@ class FmpJsonDeserializerTest {
     @Test
     void deserialize_array() {
         // given
-        String json = """
+        var json = """
             [
                 {
                     "key": "key3",
@@ -61,7 +59,7 @@ class FmpJsonDeserializerTest {
             """;
 
         // when
-        List<TestObject> obj = deserializer.fromJsonArray(json, new TypeReference<>() {});
+        var obj = deserializer.fromJsonArray(json, new TypeReference<TestObject[]>() {});
 
         // then
         assertEquals(2, obj.size());
@@ -74,29 +72,27 @@ class FmpJsonDeserializerTest {
     @Test
     void deserialize_object_failsOnMalformedJson() {
         // given
-        String malformedJson = "{";
+        var malformedJson = "{";
 
         // when // then
-        FmpJsonException e = assertThrows(FmpJsonException.class,
-            () -> JSON_DESERIALIZER.fromJson(malformedJson, new TypeReference<TestObject>() {}));
-        assertEquals("Failed to deserialize JSON to 'dev.sorn.fmp4j.json.FmpJsonDeserializerTest$TestObject': {", e.getMessage());
+        var e = assertThrows(FmpJsonException.class, () -> JSON_DESERIALIZER.fromJson(malformedJson, new TypeReference<TestObject>() {}));
+        assertEquals("Failed to deserialize JSON to 'dev.sorn.fmp4j.TestObject': {", e.getMessage());
     }
 
     @Test
     void deserialize_array_failsOnMalformedJson() {
         // given
-        String malformedJson = "[";
+        var malformedJson = "[";
 
         // when // then
-        FmpJsonException e = assertThrows(FmpJsonException.class,
-            () -> JSON_DESERIALIZER.fromJsonArray(malformedJson, new TypeReference<TestObject[]>() {}));
-        assertEquals("Failed to deserialize JSON to 'dev.sorn.fmp4j.json.FmpJsonDeserializerTest$TestObject[]': [", e.getMessage());
+        var e = assertThrows(FmpJsonException.class, () -> JSON_DESERIALIZER.fromJsonArray(malformedJson, new TypeReference<TestObject[]>() {}));
+        assertEquals("Failed to deserialize JSON to 'dev.sorn.fmp4j.TestObject[]': [", e.getMessage());
     }
 
     @Test
     void deserialize_object_failsOnTypeMismatch() {
         // given
-        String mismatchedJson = """
+        var mismatchedJson = """
             {
                 "key": "key",
                 "object": "not_an_object"
@@ -104,10 +100,9 @@ class FmpJsonDeserializerTest {
             """;
 
         // when // then
-        FmpJsonException e = assertThrows(FmpJsonException.class,
-            () -> JSON_DESERIALIZER.fromJson(mismatchedJson, new TypeReference<TestObject>() {}));
+        var e = assertThrows(FmpJsonException.class, () -> JSON_DESERIALIZER.fromJson(mismatchedJson, new TypeReference<TestObject>() {}));
         assertEquals("""
-            Failed to deserialize JSON to 'dev.sorn.fmp4j.json.FmpJsonDeserializerTest$TestObject': {
+            Failed to deserialize JSON to 'dev.sorn.fmp4j.TestObject': {
                 "key": "key",
                 "object": "not_an_object"
             }
@@ -116,7 +111,7 @@ class FmpJsonDeserializerTest {
 
     @Test
     void deserialize_array_failsOnElementTypeMismatch() {
-        String invalidElementJson = """
+        var invalidElementJson = """
             [
                 {"key": "valid", "object": {"value": 1}},
                 {"key": "invalid", "object": "not_an_object"}
@@ -124,10 +119,9 @@ class FmpJsonDeserializerTest {
             """;
 
         // when // then
-        FmpJsonException e = assertThrows(FmpJsonException.class,
-            () -> JSON_DESERIALIZER.fromJson(invalidElementJson, new TypeReference<TestObject>() {}));
+        var e = assertThrows(FmpJsonException.class, () -> JSON_DESERIALIZER.fromJson(invalidElementJson, new TypeReference<TestObject>() {}));
         assertEquals("""
-            Failed to deserialize JSON to 'dev.sorn.fmp4j.json.FmpJsonDeserializerTest$TestObject': [
+            Failed to deserialize JSON to 'dev.sorn.fmp4j.TestObject': [
                 {"key": "valid", "object": {"value": 1}},
                 {"key": "invalid", "object": "not_an_object"}
             ]

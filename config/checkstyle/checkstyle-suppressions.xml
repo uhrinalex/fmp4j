@@ -9,4 +9,7 @@
     <suppress files=".*Defs\.java" checks=".*"/>
     <suppress files=".*[\\/]generated[\\/].*" checks=".*"/>
     <suppress files=".*[\\/]generated-sources[\\/].*" checks=".*"/>
+
+    <!-- Alphabetically sorted -->
+    <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- reason: getJsonList() -->
 </suppressions>
