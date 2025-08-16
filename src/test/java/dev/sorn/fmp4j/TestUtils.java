@@ -5,10 +5,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import static java.lang.String.format;
 
 public final class TestUtils {
     private TestUtils() {
         throw new AssertionError(TestUtils.class.getSimpleName() + " cannot be instantiated.");
+    }
+
+    public static String jsonTestResource(String filename, Object... args) {
+        try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(format(filename, args))) {
+            return new String(inputStream.readAllBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static byte[] serialize(Object o) throws IOException {
