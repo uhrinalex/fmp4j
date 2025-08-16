@@ -26,6 +26,9 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 | Balance Sheet Statement | `/stable/balance-sheet-statement` |    ✅️     |  alpha  |
 | Cash Flow Statement     | `/stable/cash-flow-statement`     |    ✅️     |  alpha  |
 | Ratios                  | `/stable/ratios`                  |    ✅️     |  alpha  |
+| Ratios (TTM)            | `/stable/ratios-ttm`              |    ✅️     |  alpha  |
+| Key Metrics             | `/stable/key-metrics`             |    ✅️     |  alpha  |
+| Key Metrics (TTM)       | `/stable/key-metrics-ttm`         |    ✅️     |  alpha  |
 
 ## Dependencies
 
