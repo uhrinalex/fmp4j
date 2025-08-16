@@ -1,10 +1,10 @@
 package dev.sorn.fmp4j.services;
 
-import dev.sorn.fmp4j.CashFlowStatementTestData;
 import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.RatioTestData;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpCashFlowStatement;
+import dev.sorn.fmp4j.models.FmpRatio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,10 +15,10 @@ import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FmpCashFlowStatementServiceTest implements CashFlowStatementTestData {
+public class FmpRatioServiceTest implements RatioTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpCashFlowStatement[]> service = new FmpCashFlowStatementService(FMP_CONFIG, http);
+    private final FmpService<FmpRatio[]> service = new FmpRatioService(FMP_CONFIG, http);
 
     @Test
     void successful_download() {
@@ -26,7 +26,7 @@ public class FmpCashFlowStatementServiceTest implements CashFlowStatementTestDat
         var symbol = "AAPL";
         service.param("symbol", symbol);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/cash-flow-statement/?symbol=%s.json", symbol))
+            .body(jsonTestResource("stable/ratios/?symbol=%s.json", symbol))
             .statusCode(200)
             .apply();
 
@@ -35,7 +35,7 @@ public class FmpCashFlowStatementServiceTest implements CashFlowStatementTestDat
 
         // then
         assertEquals(5, result.length);
-        assertEquals(anAnnualCashFlowStatement(), result[0]);
+        assertEquals(anAnnualRatio(), result[0]);
         assertAllFieldsNonNull(result[0]);
         assertAllFieldsNonNull(result[1]);
         assertAllFieldsNonNull(result[2]);
@@ -51,7 +51,7 @@ public class FmpCashFlowStatementServiceTest implements CashFlowStatementTestDat
         var limit = 3;
         service.param("symbol", symbol);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/cash-flow-statement/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
+            .body(jsonTestResource("stable/ratios/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
             .statusCode(200)
             .apply();
 

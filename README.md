@@ -25,6 +25,7 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 | Income Statement        | `/stable/income-statement`        |    ✅️     |  alpha  |
 | Balance Sheet Statement | `/stable/balance-sheet-statement` |    ✅️     |  alpha  |
 | Cash Flow Statement     | `/stable/cash-flow-statement`     |    ✅️     |  alpha  |
+| Ratios                  | `/stable/ratios`                  |    ✅️     |  alpha  |
 
 ## Dependencies
 

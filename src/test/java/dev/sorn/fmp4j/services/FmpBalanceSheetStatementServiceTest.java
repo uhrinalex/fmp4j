@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
+import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
@@ -35,6 +36,11 @@ public class FmpBalanceSheetStatementServiceTest implements BalanceSheetStatemen
         // then
         assertEquals(5, result.length);
         assertEquals(anAnnualBalanceSheetStatement(), result[0]);
+        assertAllFieldsNonNull(result[0]);
+        assertAllFieldsNonNull(result[1]);
+        assertAllFieldsNonNull(result[2]);
+        assertAllFieldsNonNull(result[3]);
+        assertAllFieldsNonNull(result[4]);
     }
 
     @ParameterizedTest
@@ -54,5 +60,8 @@ public class FmpBalanceSheetStatementServiceTest implements BalanceSheetStatemen
 
         // then
         assertEquals(limit, result.length);
+        assertAllFieldsNonNull(result[0]);
+        assertAllFieldsNonNull(result[1]);
+        assertAllFieldsNonNull(result[2]);
     }
 }
