@@ -7,7 +7,7 @@ import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FmpRatioTtmTest implements RatioTtmTestData {
+class FmpRatioTtmTest implements RatioTtmTestData {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given

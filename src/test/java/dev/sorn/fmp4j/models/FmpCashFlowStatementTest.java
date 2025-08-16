@@ -7,7 +7,7 @@ import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FmpCashFlowStatementTest implements CashFlowStatementTestData {
+class FmpCashFlowStatementTest implements CashFlowStatementTestData {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given

@@ -15,7 +15,7 @@ import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FmpCashFlowStatementServiceTest implements CashFlowStatementTestData {
+class FmpCashFlowStatementServiceTest implements CashFlowStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
     private final FmpService<FmpCashFlowStatement[]> service = new FmpCashFlowStatementService(FMP_CONFIG, http);
