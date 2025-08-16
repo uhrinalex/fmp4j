@@ -22,6 +22,7 @@ public abstract class FmpService<R> {
         this.cfg = cfg;
         this.http = http;
         this.typeRef = typeRef;
+        this.params.put("apikey", cfg.fmpApiKey());
     }
 
     protected abstract String relativeUrl();
@@ -42,10 +43,7 @@ public abstract class FmpService<R> {
     }
 
     protected final Map<String, String> headers() {
-        return Map.of(
-            "Content-Type", "application/json",
-            "apikey", cfg.fmpApiKey()
-        );
+        return Map.of("Content-Type", "application/json");
     }
 
     public final R download() {

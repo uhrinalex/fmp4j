@@ -50,7 +50,7 @@ class FmpShortQuoteServiceTest {
     }
 
     @Test
-    void missing_ticker_throws() {
+    void missing_symbol_throws() {
         // given // when
         Consumer<FmpService<FmpShortQuote[]>> f = FmpService::download;
 
