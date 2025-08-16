@@ -1,0 +1,74 @@
+package dev.sorn.fmp4j.services;
+
+import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.models.FmpShortQuote;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import org.junit.jupiter.api.Test;
+import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
+import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
+import static java.lang.String.format;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.TWO;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class FmpShortQuoteServiceTest {
+    private final HttpClientStub httpStub = httpClientStub();
+    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, JSON_DESERIALIZER);
+    private final FmpService<FmpShortQuote[]> service = new FmpShortQuoteService(FMP_CONFIG, http);
+
+    @Test
+    void successful_download() {
+        // given
+        service.param("symbol", "AAPL");
+        httpStub.configureResponse()
+            .body("""
+                [
+                    {
+                        "symbol": "AAPL",
+                        "price": 1,
+                        "change": 2,
+                        "volume": 10
+                    }
+                ]
+                """)
+            .statusCode(200)
+            .apply();
+
+        // when
+        var result = service.download();
+
+        // then
+        var expected = new FmpShortQuote[]{new FmpShortQuote("AAPL", ONE, TWO, TEN)};
+        assertArrayEquals(expected, result);
+    }
+
+    @Test
+    void missing_ticker_throws() {
+        // given // when
+        Consumer<FmpService<FmpShortQuote[]>> f = FmpService::download;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(service));
+        assertEquals(format("'symbol' is a required query param for endpoint [%s]", service.url()), e.getMessage());
+    }
+
+    @Test
+    void unrecognized_param_throws() {
+        var key = "unknown";
+        var value = "value";
+
+        // given // when
+        BiConsumer<String, String> f = service::param;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(key, value));
+        assertEquals(format("'unknown' is not a recognized query param for endpoint [%s]", service.url()), e.getMessage());
+    }
+}

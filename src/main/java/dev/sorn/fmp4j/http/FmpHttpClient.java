@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface FmpHttpClient {
     <T> T get(
-        TypeReference<T> clazz,
+        TypeReference<T> type,
         URI uri,
         Map<String, String> headers,
         Map<String, Object> queryParams
