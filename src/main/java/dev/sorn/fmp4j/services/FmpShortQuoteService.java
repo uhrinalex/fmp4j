@@ -20,12 +20,12 @@ public class FmpShortQuoteService extends FmpService<FmpShortQuote[]> {
     }
 
     @Override
-    protected Set<String> optionalParams() {
-        return Set.of();
+    protected Set<String> requiredParams() {
+        return Set.of("symbol");
     }
 
     @Override
-    protected Set<String> requiredParams() {
-        return Set.of("symbol");
+    protected Set<String> optionalParams() {
+        return Set.of();
     }
 }

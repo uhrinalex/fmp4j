@@ -16,7 +16,7 @@ public class FmpKeyMetricTtmService extends FmpService<FmpKeyMetricTtm[]> {
 
     @Override
     protected String relativeUrl() {
-        return "/key-metrics";
+        return "/key-metrics-ttm";
     }
 
     @Override
@@ -26,6 +26,6 @@ public class FmpKeyMetricTtmService extends FmpService<FmpKeyMetricTtm[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of("period", "limit");
+        return Set.of();
     }
 }

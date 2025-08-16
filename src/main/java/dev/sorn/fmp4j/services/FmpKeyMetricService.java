@@ -16,7 +16,7 @@ public class FmpKeyMetricService extends FmpService<FmpKeyMetric[]> {
 
     @Override
     protected String relativeUrl() {
-        return "/ratios";
+        return "/key-metrics";
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Set;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -39,10 +40,16 @@ public final class TestUtils {
     }
 
     public static void assertAllFieldsNonNull(Object obj) {
+        assertAllFieldsNonNull(obj, Set.of());
+    }
+
+    public static void assertAllFieldsNonNull(Object obj, Set<String> skipFields) {
         for (final var field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                assertNotNull(field.get(obj), field.getName() + " should not be null");
+                if (!skipFields.contains(field.getName())) {
+                    assertNotNull(field.get(obj), field.getName() + " should not be null");
+                }
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("failed to access field: " + field.getName(), e);
             }

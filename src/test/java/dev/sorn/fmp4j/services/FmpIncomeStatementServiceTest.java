@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.IncomeStatementTestData;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -13,12 +14,40 @@ import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
     private final FmpService<FmpIncomeStatement[]> service = new FmpIncomeStatementService(FMP_CONFIG, http);
+
+    @Test
+    void relative_url() {
+        // when
+        var relativeUrl = service.relativeUrl();
+
+        // then
+        assertEquals("/income-statement", relativeUrl);
+    }
+
+    @Test
+    void required_params() {
+        // when
+        var params = service.requiredParams();
+
+        // then
+        assertEquals(Set.of("symbol"), params);
+    }
+
+    @Test
+    void optional_params() {
+        // when
+        var params = service.optionalParams();
+
+        // then
+        assertEquals(Set.of("period", "limit"), params);
+    }
 
     @Test
     void successful_download() {
@@ -36,11 +65,7 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
         // then
         assertEquals(5, result.length);
         assertEquals(anAnnualIncomeStatement(), result[0]);
-        assertAllFieldsNonNull(result[0]);
-        assertAllFieldsNonNull(result[1]);
-        assertAllFieldsNonNull(result[2]);
-        assertAllFieldsNonNull(result[3]);
-        assertAllFieldsNonNull(result[4]);
+        range(0, 5).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
 
     @ParameterizedTest
@@ -60,8 +85,6 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
 
         // then
         assertEquals(limit, result.length);
-        assertAllFieldsNonNull(result[0]);
-        assertAllFieldsNonNull(result[1]);
-        assertAllFieldsNonNull(result[2]);
+        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
 }

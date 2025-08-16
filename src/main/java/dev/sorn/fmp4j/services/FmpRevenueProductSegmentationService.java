@@ -2,21 +2,21 @@ package dev.sorn.fmp4j.services;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpRatioTtm;
+import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
-public class FmpRatioTtmService extends FmpService<FmpRatioTtm[]> {
-    public FmpRatioTtmService(
+public class FmpRevenueProductSegmentationService extends FmpService<FmpRevenueProductSegmentation[]> {
+    public FmpRevenueProductSegmentationService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {
-        super(cfg, http, typeRef(FmpRatioTtm[].class));
+        super(cfg, http, typeRef(FmpRevenueProductSegmentation[].class));
     }
 
     @Override
     protected String relativeUrl() {
-        return "/ratios-ttm";
+        return "/revenue-product-segmentation";
     }
 
     @Override
@@ -26,6 +26,6 @@ public class FmpRatioTtmService extends FmpService<FmpRatioTtm[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return Set.of("period", "structure");
     }
 }

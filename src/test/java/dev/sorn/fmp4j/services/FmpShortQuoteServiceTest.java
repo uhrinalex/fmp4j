@@ -4,6 +4,7 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.models.FmpShortQuote;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import static java.lang.String.format;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.TWO;
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,6 +24,33 @@ class FmpShortQuoteServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
     private final FmpService<FmpShortQuote[]> service = new FmpShortQuoteService(FMP_CONFIG, http);
+
+    @Test
+    void relative_url() {
+        // when
+        var relativeUrl = service.relativeUrl();
+
+        // then
+        assertEquals("/quote-short", relativeUrl);
+    }
+
+    @Test
+    void required_params() {
+        // when
+        var params = service.requiredParams();
+
+        // then
+        assertEquals(Set.of("symbol"), params);
+    }
+
+    @Test
+    void optional_params() {
+        // when
+        var params = service.optionalParams();
+
+        // then
+        assertEquals(emptySet(), params);
+    }
 
     @Test
     void successful_download() {
