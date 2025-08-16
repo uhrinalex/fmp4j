@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class FmpHttpClientTest {
     private final HttpClient httpClient = mock(HttpClient.class);
-    private final FmpJsonDeserializer deserializer = JSON_DESERIALIZER;
+    private final FmpJsonDeserializer deserializer = FMP_JSON_DESERIALIZER;
     private final ClassicHttpResponse httpResponse = mock(ClassicHttpResponse.class);
     private final URI testUri = URI.create("https://financialmodelingprep.com/stable");
     private FmpHttpClientImpl client;

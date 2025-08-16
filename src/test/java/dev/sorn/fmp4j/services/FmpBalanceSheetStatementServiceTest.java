@@ -11,12 +11,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FmpBalanceSheetStatementServiceTest implements BalanceSheetStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
-    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, JSON_DESERIALIZER);
+    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
     private final FmpService<FmpBalanceSheetStatement[]> service = new FmpBalanceSheetStatementService(FMP_CONFIG, http);
 
     @Test

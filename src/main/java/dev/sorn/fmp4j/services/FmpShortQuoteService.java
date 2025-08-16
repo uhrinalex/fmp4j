@@ -7,7 +7,7 @@ import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
 public class FmpShortQuoteService extends FmpService<FmpShortQuote[]> {
-    protected FmpShortQuoteService(
+    public FmpShortQuoteService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {

@@ -7,7 +7,7 @@ import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
 public class FmpCashFlowStatementService extends FmpService<FmpCashFlowStatement[]> {
-    protected FmpCashFlowStatementService(
+    public FmpCashFlowStatementService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 
 public final class FmpJsonDeserializerImpl implements FmpJsonDeserializer {
-    public static final FmpJsonDeserializerImpl JSON_DESERIALIZER = new FmpJsonDeserializerImpl();
+    public static final FmpJsonDeserializerImpl FMP_JSON_DESERIALIZER = new FmpJsonDeserializerImpl();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)

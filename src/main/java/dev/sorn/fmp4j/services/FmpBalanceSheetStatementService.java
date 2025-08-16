@@ -7,7 +7,7 @@ import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
 public class FmpBalanceSheetStatementService extends FmpService<FmpBalanceSheetStatement[]> {
-    protected FmpBalanceSheetStatementService(
+    public FmpBalanceSheetStatementService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {

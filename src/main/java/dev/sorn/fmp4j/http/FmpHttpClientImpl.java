@@ -12,15 +12,16 @@ import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import static dev.sorn.fmp4j.http.FmpUriUtils.uriWithParams;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.Objects.requireNonNull;
 
 public class FmpHttpClientImpl implements FmpHttpClient {
+    public static final FmpHttpClient FMP_HTTP_CLIENT = new FmpHttpClientImpl();
     private final HttpClient http;
     private final FmpJsonDeserializer deserializer;
 
-    public FmpHttpClientImpl() {
-        this(HttpClients.createDefault(), JSON_DESERIALIZER);
+    private FmpHttpClientImpl() {
+        this(HttpClients.createDefault(), FMP_JSON_DESERIALIZER);
     }
 
     public FmpHttpClientImpl(
