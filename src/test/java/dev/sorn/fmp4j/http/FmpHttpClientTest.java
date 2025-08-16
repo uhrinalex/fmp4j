@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,7 +38,7 @@ class FmpHttpClientTest {
     }
 
     @Test
-    void getJson_successful_request() throws Exception {
+    void get_successful_request_object() throws Exception {
         // given
         var headers = Map.<String, String>of("Authorization", "Bearer token");
         var params = Map.<String, Object>of("param1", "value1");
@@ -54,7 +55,7 @@ class FmpHttpClientTest {
         when(httpResponse.getEntity()).thenReturn(new StringEntity(jsonResponse));
 
         // when
-        var result = client.getJson(TestObject.class, testUri, headers, params);
+        var result = client.get(typeRef(TestObject.class), testUri, headers, params);
 
         // then
         assertNotNull(result);
@@ -63,7 +64,7 @@ class FmpHttpClientTest {
     }
 
     @Test
-    void getJsonList_successful_request() throws IOException {
+    void get_successful_request_array() throws IOException {
         // given
         var headers = Map.<String, String>of("Authorization", "Bearer token");
         var params = Map.<String, Object>of("param1", "value1");
@@ -91,33 +92,33 @@ class FmpHttpClientTest {
         when(httpResponse.getEntity()).thenReturn(new StringEntity(jsonResponse));
 
         // when
-        var result = client.getJsonList(TestObject[].class, testUri, headers, params);
+        var result = client.get(typeRef(TestObject[].class), testUri, headers, params);
 
         // then
-        assertEquals(2, result.size());
-        assertEquals(expected[0], result.getFirst());
-        assertEquals(expected[1], result.getLast());
+        assertEquals(2, result.length);
+        assertEquals(expected[0], result[0]);
+        assertEquals(expected[1], result[1]);
     }
 
     @Test
-    void getJson_handles_execution_exception() throws Exception {
+    void get_handles_execution_exception() throws Exception {
         // given
         var params = Map.<String, Object>of("param", "value");
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenThrow(new IOException("Connection failed"));
 
         // when // then
-        var e = assertThrows(FmpHttpException.class, () -> client.getJson(TestObject.class, testUri, null, params));
+        var e = assertThrows(FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, null, params));
         assertEquals("HTTP request failed: https://financialmodelingprep.com/stable", e.getMessage());
     }
 
     @Test
-    void getJson_handles_entity_exception() throws Exception {
+    void get_handles_entity_exception() throws Exception {
         // given
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenThrow(new RuntimeException("Invalid entity"));
 
         // when // then
-        var e = assertThrows(FmpHttpException.class, () -> client.getJson(TestObject.class, testUri, null, null));
+        var e = assertThrows(FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, null, null));
         assertEquals("HTTP request failed: https://financialmodelingprep.com/stable", e.getMessage());
     }
 }

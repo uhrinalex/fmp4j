@@ -1,9 +1,9 @@
 package dev.sorn.fmp4j.http;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -32,8 +32,8 @@ public class FmpHttpClientImpl implements FmpHttpClient {
     }
 
     @Override
-    public <T> T getJson(
-        Class<T> clazz,
+    public <T> T get(
+        TypeReference<T> type,
         URI uri,
         Map<String, String> headers,
         Map<String, Object> queryParams
@@ -41,23 +41,7 @@ public class FmpHttpClientImpl implements FmpHttpClient {
         try {
             HttpGet request = buildRequest(uri, headers, queryParams);
             String responseBody = executeRequest(request);
-            return deserializer.fromJson(responseBody, clazz);
-        } catch (IOException | ParseException | RuntimeException e) {
-            throw new FmpHttpException(e, "HTTP request failed: %s", uri);
-        }
-    }
-
-    @Override
-    public <T> List<T> getJsonList(
-        Class<T[]> clazz,
-        URI uri,
-        Map<String, String> headers,
-        Map<String, Object> queryParams
-    ) {
-        try {
-            HttpGet request = buildRequest(uri, headers, queryParams);
-            String responseBody = executeRequest(request);
-            return deserializer.fromJsonArray(responseBody, clazz);
+            return deserializer.fromJson(responseBody, type);
         } catch (IOException | ParseException | RuntimeException e) {
             throw new FmpHttpException(e, "HTTP request failed: %s", uri);
         }
