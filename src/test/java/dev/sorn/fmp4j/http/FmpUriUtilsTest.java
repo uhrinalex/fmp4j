@@ -2,12 +2,11 @@ package dev.sorn.fmp4j.http;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import static dev.sorn.fmp4j.http.UriUtils.uri;
-import static dev.sorn.fmp4j.http.UriUtils.uriWithParams;
+import static dev.sorn.fmp4j.http.FmpUriUtils.uri;
+import static dev.sorn.fmp4j.http.FmpUriUtils.uriWithParams;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class UriUtilsTest {
+class FmpUriUtilsTest {
     @Test
     void uriWithParams_single_param() {
         // given

@@ -1,6 +1,5 @@
 package dev.sorn.fmp4j.http;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.TestObject;
 import dev.sorn.fmp4j.TestObjectValue;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
@@ -15,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class FmpHttpClientTest {
     private final HttpClient httpClient = mock(HttpClient.class);
-    private final FmpJsonDeserializer deserializer = mock(FmpJsonDeserializer.class);
+    private final FmpJsonDeserializer deserializer = JSON_DESERIALIZER;
     private final ClassicHttpResponse httpResponse = mock(ClassicHttpResponse.class);
     private final URI testUri = URI.create("https://financialmodelingprep.com/stable");
     private FmpHttpClientImpl client;
@@ -53,10 +52,9 @@ class FmpHttpClientTest {
         var expected = new TestObject("fmp4j", new TestObjectValue(42));
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenReturn(new StringEntity(jsonResponse));
-        when(deserializer.fromJson(eq(jsonResponse), any(TypeReference.class))).thenReturn(expected);
 
         // when
-        var result = client.getJson(new TypeReference<TestObject>() {}, testUri, headers, params);
+        var result = client.getJson(TestObject.class, testUri, headers, params);
 
         // then
         assertNotNull(result);
@@ -91,10 +89,9 @@ class FmpHttpClientTest {
         };
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenReturn(new StringEntity(jsonResponse));
-        when(deserializer.fromJson(eq(jsonResponse), any(TypeReference.class))).thenReturn(expected);
 
         // when
-        var result = client.getJsonList(new TypeReference<TestObject[]>() {}, testUri, headers, params);
+        var result = client.getJsonList(TestObject[].class, testUri, headers, params);
 
         // then
         assertEquals(2, result.size());
@@ -109,7 +106,7 @@ class FmpHttpClientTest {
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenThrow(new IOException("Connection failed"));
 
         // when // then
-        var e = assertThrows(FmpHttpException.class, () -> client.getJson(new TypeReference<>() {}, testUri, null, params));
+        var e = assertThrows(FmpHttpException.class, () -> client.getJson(TestObject.class, testUri, null, params));
         assertEquals("HTTP request failed: https://financialmodelingprep.com/stable", e.getMessage());
     }
 
@@ -120,7 +117,7 @@ class FmpHttpClientTest {
         when(httpResponse.getEntity()).thenThrow(new RuntimeException("Invalid entity"));
 
         // when // then
-        var e = assertThrows(FmpHttpException.class, () -> client.getJson(new TypeReference<>() {}, testUri, null, null));
+        var e = assertThrows(FmpHttpException.class, () -> client.getJson(TestObject.class, testUri, null, null));
         assertEquals("HTTP request failed: https://financialmodelingprep.com/stable", e.getMessage());
     }
 }

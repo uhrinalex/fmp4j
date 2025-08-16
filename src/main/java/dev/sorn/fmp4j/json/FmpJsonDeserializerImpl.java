@@ -1,6 +1,5 @@
 package dev.sorn.fmp4j.json;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -18,20 +17,20 @@ public final class FmpJsonDeserializerImpl implements FmpJsonDeserializer {
         // prevent direct instantiation
     }
 
-    public <T> T fromJson(String json, TypeReference<T> typeReference) {
+    public <T> T fromJson(String json, Class<T> clazz) {
         try {
-            return OBJECT_MAPPER.readValue(json, typeReference);
+            return OBJECT_MAPPER.readValue(json, clazz);
         } catch (IOException e) {
-            throw new FmpJsonException(e, "Failed to deserialize JSON to '%s': %s", typeReference.getType().getTypeName(), json);
+            throw new FmpJsonException(e, "Failed to deserialize JSON to '%s': %s", clazz.getSimpleName(), json);
         }
     }
 
-    public <T> List<T> fromJsonArray(String json, TypeReference<T[]> typeReference) {
+    public <T> List<T> fromJsonArray(String json, Class<T[]> clazz) {
         try {
-            T[] array = OBJECT_MAPPER.readValue(json, typeReference);
+            T[] array = OBJECT_MAPPER.readValue(json, clazz);
             return Arrays.asList(array);
         } catch (IOException e) {
-            throw new FmpJsonException(e, "Failed to deserialize JSON to '%s': %s", typeReference.getType().getTypeName(), json);
+            throw new FmpJsonException(e, "Failed to deserialize JSON to '%s': %s", clazz.getSimpleName(), json);
         }
     }
 }

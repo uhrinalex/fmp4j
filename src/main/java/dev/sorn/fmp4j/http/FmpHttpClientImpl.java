@@ -1,6 +1,5 @@
 package dev.sorn.fmp4j.http;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
 import java.io.IOException;
 import java.net.URI;
@@ -12,9 +11,8 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
-import static dev.sorn.fmp4j.http.UriUtils.uriWithParams;
+import static dev.sorn.fmp4j.http.FmpUriUtils.uriWithParams;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.JSON_DESERIALIZER;
-import static java.util.Collections.emptyList;
 import static java.util.Objects.requireNonNull;
 
 public class FmpHttpClientImpl implements FmpHttpClient {
@@ -35,7 +33,7 @@ public class FmpHttpClientImpl implements FmpHttpClient {
 
     @Override
     public <T> T getJson(
-        TypeReference<T> responseType,
+        Class<T> clazz,
         URI uri,
         Map<String, String> headers,
         Map<String, Object> queryParams
@@ -43,7 +41,7 @@ public class FmpHttpClientImpl implements FmpHttpClient {
         try {
             HttpGet request = buildRequest(uri, headers, queryParams);
             String responseBody = executeRequest(request);
-            return deserializer.fromJson(responseBody, responseType);
+            return deserializer.fromJson(responseBody, clazz);
         } catch (IOException | ParseException | RuntimeException e) {
             throw new FmpHttpException(e, "HTTP request failed: %s", uri);
         }
@@ -51,13 +49,18 @@ public class FmpHttpClientImpl implements FmpHttpClient {
 
     @Override
     public <T> List<T> getJsonList(
-        TypeReference<T[]> typeRef,
+        Class<T[]> clazz,
         URI uri,
         Map<String, String> headers,
         Map<String, Object> queryParams
     ) {
-        final T[] resultArray = getJson(typeRef, uri, headers, queryParams);
-        return resultArray != null ? List.of(resultArray) : emptyList();
+        try {
+            HttpGet request = buildRequest(uri, headers, queryParams);
+            String responseBody = executeRequest(request);
+            return deserializer.fromJsonArray(responseBody, clazz);
+        } catch (IOException | ParseException | RuntimeException e) {
+            throw new FmpHttpException(e, "HTTP request failed: %s", uri);
+        }
     }
 
     protected HttpGet buildRequest(

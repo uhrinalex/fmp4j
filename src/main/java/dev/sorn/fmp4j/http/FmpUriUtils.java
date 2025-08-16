@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import org.apache.hc.core5.net.URIBuilder;
 
-public final class UriUtils {
-    private UriUtils() {
-        throw new AssertionError(UriUtils.class.getSimpleName() + " cannot be instantiated.");
+public final class FmpUriUtils {
+    private FmpUriUtils() {
+        throw new AssertionError(FmpUriUtils.class.getSimpleName() + " cannot be instantiated.");
     }
 
     public static URI uri(String uri) {
