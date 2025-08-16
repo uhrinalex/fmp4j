@@ -13,4 +13,5 @@
 
     <!-- Alphabetically sorted -->
     <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- reason: getJsonList() -->
+    <suppress files="FmpRatioTtm.java" checks="AbbreviationAsWordInName"/> <!-- netIncomePerEBTTTM -->
 </suppressions>
