@@ -5,10 +5,22 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
+import dev.sorn.fmp4j.models.FmpKeyMetric;
+import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpRatio;
+import dev.sorn.fmp4j.models.FmpRatioTtm;
+import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
+import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
 import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
+import dev.sorn.fmp4j.services.FmpKeyMetricService;
+import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
+import dev.sorn.fmp4j.services.FmpRatioService;
+import dev.sorn.fmp4j.services.FmpRatioTtmService;
+import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
+import dev.sorn.fmp4j.services.FmpRevenueProductSegmentationService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.services.FmpShortQuoteService;
 import java.util.Optional;
@@ -23,6 +35,12 @@ public class FmpClient {
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
     protected final FmpService<FmpBalanceSheetStatement[]> balanceSheetStatementService;
     protected final FmpService<FmpCashFlowStatement[]> cashFlowStatementService;
+    protected final FmpService<FmpRatio[]> ratioService;
+    protected final FmpService<FmpRatioTtm[]> ratioTtmService;
+    protected final FmpService<FmpKeyMetric[]> keyMetricService;
+    protected final FmpService<FmpKeyMetricTtm[]> keyMetricTtmService;
+    protected final FmpService<FmpRevenueGeographicSegmentation[]> revenueGeographicSegmentationService;
+    protected final FmpService<FmpRevenueProductSegmentation[]> revenueProductSegmentationService;
 
     public FmpClient() {
         this(
@@ -31,7 +49,13 @@ public class FmpClient {
             new FmpShortQuoteService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpIncomeStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpBalanceSheetStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpCashFlowStatementService(FMP_CONFIG, FMP_HTTP_CLIENT)
+            new FmpCashFlowStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpRatioService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpRatioTtmService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpKeyMetricService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpKeyMetricTtmService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpRevenueGeographicSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpRevenueProductSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT)
         );
     }
 
@@ -41,7 +65,13 @@ public class FmpClient {
         FmpShortQuoteService shortQuoteService,
         FmpIncomeStatementService incomeStatementService,
         FmpBalanceSheetStatementService balanceSheetStatementService,
-        FmpCashFlowStatementService cashFlowStatementService
+        FmpCashFlowStatementService cashFlowStatementService,
+        FmpRatioService ratioService,
+        FmpRatioTtmService ratioTtmService,
+        FmpKeyMetricService keyMetricService,
+        FmpKeyMetricTtmService keyMetricTtmService,
+        FmpRevenueGeographicSegmentationService revenueGeographicSegmentationService,
+        FmpRevenueProductSegmentationService revenueProductSegmentationService
     ) {
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
@@ -49,6 +79,12 @@ public class FmpClient {
         this.incomeStatementService = incomeStatementService;
         this.balanceSheetStatementService = balanceSheetStatementService;
         this.cashFlowStatementService = cashFlowStatementService;
+        this.ratioService = ratioService;
+        this.ratioTtmService = ratioTtmService;
+        this.keyMetricService = keyMetricService;
+        this.keyMetricTtmService = keyMetricTtmService;
+        this.revenueGeographicSegmentationService = revenueGeographicSegmentationService;
+        this.revenueProductSegmentationService = revenueProductSegmentationService;
     }
 
     public synchronized FmpShortQuote[] shortQuotes(String symbol) {
@@ -83,5 +119,43 @@ public class FmpClient {
         cashFlowStatementService.param("period", period.orElse("annual"));
         cashFlowStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return cashFlowStatementService.download();
+    }
+
+    public synchronized FmpRatio[] ratios(String symbol, Optional<String> period, Optional<Integer> limit) {
+        ratioService.param("symbol", symbol);
+        ratioService.param("period", period.orElse("annual"));
+        ratioService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return ratioService.download();
+    }
+
+    public synchronized FmpRatioTtm[] ratiosTtm(String symbol) {
+        ratioTtmService.param("symbol", symbol);
+        return ratioTtmService.download();
+    }
+
+    public synchronized FmpKeyMetric[] keyMetrics(String symbol, Optional<String> period, Optional<Integer> limit) {
+        keyMetricService.param("symbol", symbol);
+        keyMetricService.param("period", period.orElse("annual"));
+        keyMetricService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return keyMetricService.download();
+    }
+
+    public synchronized FmpKeyMetricTtm[] keyMetricTtm(String symbol) {
+        keyMetricTtmService.param("symbol", symbol);
+        return keyMetricTtmService.download();
+    }
+
+    public synchronized FmpRevenueGeographicSegmentation[] revenueGeographicSegmentations(String symbol, Optional<String> period, Optional<String> structure) {
+        revenueGeographicSegmentationService.param("symbol", symbol);
+        revenueGeographicSegmentationService.param("period", period.orElse("annual"));
+        revenueGeographicSegmentationService.param("structure", structure.orElse("flat"));
+        return revenueGeographicSegmentationService.download();
+    }
+
+    public synchronized FmpRevenueProductSegmentation[] revenueProductSegmentations(String symbol, Optional<String> period, Optional<String> structure) {
+        revenueProductSegmentationService.param("symbol", symbol);
+        revenueProductSegmentationService.param("period", period.orElse("annual"));
+        revenueProductSegmentationService.param("structure", structure.orElse("flat"));
+        return revenueProductSegmentationService.download();
     }
 }

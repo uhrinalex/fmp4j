@@ -1,0 +1,31 @@
+package dev.sorn.fmp4j.services;
+
+import dev.sorn.fmp4j.cfg.FmpConfig;
+import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
+import java.util.Set;
+import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+
+public class FmpRevenueGeographicSegmentationService extends FmpService<FmpRevenueGeographicSegmentation[]> {
+    public FmpRevenueGeographicSegmentationService(
+        FmpConfig cfg,
+        FmpHttpClient http
+    ) {
+        super(cfg, http, typeRef(FmpRevenueGeographicSegmentation[].class));
+    }
+
+    @Override
+    protected String relativeUrl() {
+        return "/revenue-geographic-segmentation";
+    }
+
+    @Override
+    protected Set<String> requiredParams() {
+        return Set.of("symbol");
+    }
+
+    @Override
+    protected Set<String> optionalParams() {
+        return Set.of("period", "structure");
+    }
+}
