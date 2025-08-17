@@ -15,6 +15,7 @@ import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
@@ -29,6 +30,7 @@ import dev.sorn.fmp4j.services.FmpSearchByNameService;
 import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.services.FmpShortQuoteService;
+import dev.sorn.fmp4j.services.FmpStockListService;
 import java.util.Optional;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
@@ -42,6 +44,9 @@ public class FmpClient {
     protected final FmpService<FmpSearchByName[]> fmpSearchByNameService;
     protected final FmpService<FmpSearchBySymbol[]> fmpSearchBySymbolService;
     protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
+
+    // Directory
+    protected final FmpService<FmpStock[]> fmpStockListService;
 
     // Statements
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
@@ -71,6 +76,9 @@ public class FmpClient {
             new FmpSearchByNameService(fmpConfig, fmpHttpClient),
             new FmpSearchBySymbolService(fmpConfig, fmpHttpClient),
 
+            // Directory
+            new FmpStockListService(fmpConfig, fmpHttpClient),
+
             // Statements
             new FmpIncomeStatementService(fmpConfig, fmpHttpClient),
             new FmpBalanceSheetStatementService(fmpConfig, fmpHttpClient),
@@ -96,6 +104,9 @@ public class FmpClient {
         FmpSearchByNameService fmpSearchByNameService,
         FmpSearchBySymbolService fmpSearchBySymbolService,
 
+        // Directory
+        FmpStockListService fmpStockListService,
+
         // Statements
         FmpIncomeStatementService incomeStatementService,
         FmpBalanceSheetStatementService balanceSheetStatementService,
@@ -117,6 +128,9 @@ public class FmpClient {
         this.fmpSearchByIsinService = fmpSearchByIsinService;
         this.fmpSearchByNameService = fmpSearchByNameService;
         this.fmpSearchBySymbolService = fmpSearchBySymbolService;
+
+        // Directory
+        this.fmpStockListService = fmpStockListService;
 
         // Statements
         this.incomeStatementService = incomeStatementService;
@@ -146,6 +160,10 @@ public class FmpClient {
     public synchronized FmpSearchBySymbol[] searchBySymbol(String query) {
         fmpSearchBySymbolService.param("query", query);
         return fmpSearchBySymbolService.download();
+    }
+
+    public synchronized FmpStock[] stockList() {
+        return fmpStockListService.download();
     }
 
     public synchronized FmpIncomeStatement[] incomeStatements(

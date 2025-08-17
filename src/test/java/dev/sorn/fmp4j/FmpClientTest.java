@@ -16,6 +16,7 @@ import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpStock;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +106,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpSearchBySymbol.class);
+    }
+
+
+    @Test
+    void stockList() {
+        // given
+        var typeRef = typeRef(FmpStock[].class);
+        var endpoint = "stock-list";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.stockList();
+
+        // then
+        assertValidResult(result, 2, FmpStock.class);
     }
 
     @Test
