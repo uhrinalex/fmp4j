@@ -46,11 +46,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#directory
 
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
-| ❌️ |   -   | `/stock-list`                      |
+| ✅️ | alpha | `/stock-list`                      |
 | ❌️ |   -   | `/financial-statement-symbol-list` |
 | ❌️ |   -   | `/cik-list`                        |
 | ❌️ |   -   | `/symbol-change`                   |
-| ❌️ |   -   | `/etf-list`                        |
+| ✅️ | alpha | `/etf-list`                        |
 | ❌️ |   -   | `/actively-trading-list`           |
 | ❌️ |   -   | `/earnings-transcript-list`        |
 | ❌️ |   -   | `/available-exchanges`             |

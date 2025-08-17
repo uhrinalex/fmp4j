@@ -4,6 +4,7 @@ import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
+import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -18,6 +19,7 @@ import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
+import dev.sorn.fmp4j.services.FmpEtfListService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
 import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
@@ -47,6 +49,7 @@ public class FmpClient {
 
     // Directory
     protected final FmpService<FmpStock[]> fmpStockListService;
+    protected final FmpService<FmpEtf[]> fmpEtfListService;
 
     // Statements
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
@@ -78,6 +81,7 @@ public class FmpClient {
 
             // Directory
             new FmpStockListService(fmpConfig, fmpHttpClient),
+            new FmpEtfListService(fmpConfig, fmpHttpClient),
 
             // Statements
             new FmpIncomeStatementService(fmpConfig, fmpHttpClient),
@@ -106,6 +110,7 @@ public class FmpClient {
 
         // Directory
         FmpStockListService fmpStockListService,
+        FmpEtfListService fmpEtfListService,
 
         // Statements
         FmpIncomeStatementService incomeStatementService,
@@ -131,6 +136,7 @@ public class FmpClient {
 
         // Directory
         this.fmpStockListService = fmpStockListService;
+        this.fmpEtfListService = fmpEtfListService;
 
         // Statements
         this.incomeStatementService = incomeStatementService;
@@ -164,6 +170,10 @@ public class FmpClient {
 
     public synchronized FmpStock[] stockList() {
         return fmpStockListService.download();
+    }
+
+    public synchronized FmpEtf[] etfList() {
+        return fmpEtfListService.download();
     }
 
     public synchronized FmpIncomeStatement[] incomeStatements(

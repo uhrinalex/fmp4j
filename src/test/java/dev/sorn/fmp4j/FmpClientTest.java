@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
+import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -108,7 +109,6 @@ class FmpClientTest {
         assertValidResult(result, 1, FmpSearchBySymbol.class);
     }
 
-
     @Test
     void stockList() {
         // given
@@ -125,6 +125,24 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 2, FmpStock.class);
+    }
+
+    @Test
+    void etfList() {
+        // given
+        var typeRef = typeRef(FmpEtf[].class);
+        var endpoint = "etf-list";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfList();
+
+        // then
+        assertValidResult(result, 4, FmpEtf.class);
     }
 
     @Test
