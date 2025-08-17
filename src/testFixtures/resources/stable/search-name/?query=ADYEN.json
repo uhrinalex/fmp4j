@@ -1,0 +1,37 @@
+[
+  {
+    "symbol": "ADYYF",
+    "name": "Adyen N.V.",
+    "currency": "USD",
+    "exchangeFullName": "Other OTC",
+    "exchange": "OTC"
+  },
+  {
+    "symbol": "ADYEY",
+    "name": "Adyen N.V.",
+    "currency": "USD",
+    "exchangeFullName": "Other OTC",
+    "exchange": "OTC"
+  },
+  {
+    "symbol": "ADYEN.AS",
+    "name": "Adyen N.V.",
+    "currency": "EUR",
+    "exchangeFullName": "Euronext Amsterdam",
+    "exchange": "AMS"
+  },
+  {
+    "symbol": "1N8.DE",
+    "name": "Adyen N.V.",
+    "currency": "EUR",
+    "exchangeFullName": "Deutsche Börse",
+    "exchange": "XETRA"
+  },
+  {
+    "symbol": "0YP5.L",
+    "name": "Adyen N.V.",
+    "currency": "EUR",
+    "exchangeFullName": "London Stock Exchange",
+    "exchange": "LSE"
+  }
+]

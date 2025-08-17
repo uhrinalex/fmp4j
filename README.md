@@ -32,11 +32,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#search
 
 |    | Since | Endpoint                    |
 |:--:|:-----:|-----------------------------|
-| ❌️ |   -   | `/search-symbol`            |
-| ❌️ |   -   | `/search-name`              |
+| ✅️ | alpha | `/search-symbol`            |
+| ✅️ | alpha | `/search-name`              |
 | ❌️ |   -   | `/search-cik`               |
 | ❌️ |   -   | `/search-cusip`             |
-| ❌️ |   -   | `/search-isin`              |
+| ✅️ | alpha | `/search-isin`              |
 | ❌️ |   -   | `/search-exchange-variants` |
 | ❌️ |   -   | `/company-screener`         |
 

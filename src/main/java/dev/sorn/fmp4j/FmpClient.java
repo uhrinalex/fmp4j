@@ -11,6 +11,9 @@ import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
 import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
+import dev.sorn.fmp4j.models.FmpSearchByIsin;
+import dev.sorn.fmp4j.models.FmpSearchByName;
+import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
@@ -21,6 +24,9 @@ import dev.sorn.fmp4j.services.FmpRatioService;
 import dev.sorn.fmp4j.services.FmpRatioTtmService;
 import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
 import dev.sorn.fmp4j.services.FmpRevenueProductSegmentationService;
+import dev.sorn.fmp4j.services.FmpSearchByIsinService;
+import dev.sorn.fmp4j.services.FmpSearchByNameService;
+import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.services.FmpShortQuoteService;
 import java.util.Optional;
@@ -31,7 +37,13 @@ public class FmpClient {
     protected static final int DEFAULT_LIMIT = 5;
     protected final FmpConfig fmpConfig;
     protected final FmpHttpClient fmpHttpClient;
-    protected final FmpService<FmpShortQuote[]> shortQuoteService;
+
+    // Search
+    protected final FmpService<FmpSearchByName[]> fmpSearchByNameService;
+    protected final FmpService<FmpSearchBySymbol[]> fmpSearchBySymbolService;
+    protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
+
+    // Statements
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
     protected final FmpService<FmpBalanceSheetStatement[]> balanceSheetStatementService;
     protected final FmpService<FmpCashFlowStatement[]> cashFlowStatementService;
@@ -42,11 +54,20 @@ public class FmpClient {
     protected final FmpService<FmpRevenueGeographicSegmentation[]> revenueGeographicSegmentationService;
     protected final FmpService<FmpRevenueProductSegmentation[]> revenueProductSegmentationService;
 
+    // Quotes
+    protected final FmpService<FmpShortQuote[]> shortQuoteService;
+
     public FmpClient() {
         this(
             FMP_CONFIG,
             FMP_HTTP_CLIENT,
-            new FmpShortQuoteService(FMP_CONFIG, FMP_HTTP_CLIENT),
+
+            // Search
+            new FmpSearchByIsinService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpSearchByNameService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpSearchBySymbolService(FMP_CONFIG, FMP_HTTP_CLIENT),
+
+            // Statements
             new FmpIncomeStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpBalanceSheetStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpCashFlowStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
@@ -55,14 +76,23 @@ public class FmpClient {
             new FmpKeyMetricService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpKeyMetricTtmService(FMP_CONFIG, FMP_HTTP_CLIENT),
             new FmpRevenueGeographicSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpRevenueProductSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT)
+            new FmpRevenueProductSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT),
+
+            // Quotes
+            new FmpShortQuoteService(FMP_CONFIG, FMP_HTTP_CLIENT)
         );
     }
 
     public FmpClient(
         FmpConfig fmpConfig,
         FmpHttpClient fmpHttpClient,
-        FmpShortQuoteService shortQuoteService,
+
+        // Search
+        FmpSearchByIsinService fmpSearchByIsinService,
+        FmpSearchByNameService fmpSearchByNameService,
+        FmpSearchBySymbolService fmpSearchBySymbolService,
+
+        // Statements
         FmpIncomeStatementService incomeStatementService,
         FmpBalanceSheetStatementService balanceSheetStatementService,
         FmpCashFlowStatementService cashFlowStatementService,
@@ -71,11 +101,20 @@ public class FmpClient {
         FmpKeyMetricService keyMetricService,
         FmpKeyMetricTtmService keyMetricTtmService,
         FmpRevenueGeographicSegmentationService revenueGeographicSegmentationService,
-        FmpRevenueProductSegmentationService revenueProductSegmentationService
+        FmpRevenueProductSegmentationService revenueProductSegmentationService,
+
+        // Quotes
+        FmpShortQuoteService shortQuoteService
     ) {
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
-        this.shortQuoteService = shortQuoteService;
+
+        // Search
+        this.fmpSearchByIsinService = fmpSearchByIsinService;
+        this.fmpSearchByNameService = fmpSearchByNameService;
+        this.fmpSearchBySymbolService = fmpSearchBySymbolService;
+
+        // Statements
         this.incomeStatementService = incomeStatementService;
         this.balanceSheetStatementService = balanceSheetStatementService;
         this.cashFlowStatementService = cashFlowStatementService;
@@ -85,11 +124,24 @@ public class FmpClient {
         this.keyMetricTtmService = keyMetricTtmService;
         this.revenueGeographicSegmentationService = revenueGeographicSegmentationService;
         this.revenueProductSegmentationService = revenueProductSegmentationService;
+
+        // Quotes
+        this.shortQuoteService = shortQuoteService;
     }
 
-    public synchronized FmpShortQuote[] shortQuotes(String symbol) {
-        shortQuoteService.param("symbol", symbol);
-        return shortQuoteService.download();
+    public synchronized FmpSearchByIsin[] searchByIsin(String isin) {
+        fmpSearchByIsinService.param("isin", isin);
+        return fmpSearchByIsinService.download();
+    }
+
+    public synchronized FmpSearchByName[] searchByName(String query) {
+        fmpSearchByNameService.param("query", query);
+        return fmpSearchByNameService.download();
+    }
+
+    public synchronized FmpSearchBySymbol[] searchBySymbol(String query) {
+        fmpSearchBySymbolService.param("query", query);
+        return fmpSearchBySymbolService.download();
     }
 
     public synchronized FmpIncomeStatement[] incomeStatements(
@@ -157,5 +209,10 @@ public class FmpClient {
         revenueProductSegmentationService.param("period", period.orElse("annual"));
         revenueProductSegmentationService.param("structure", structure.orElse("flat"));
         return revenueProductSegmentationService.download();
+    }
+
+    public synchronized FmpShortQuote[] shortQuotes(String symbol) {
+        shortQuoteService.param("symbol", symbol);
+        return shortQuoteService.download();
     }
 }
