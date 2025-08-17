@@ -4,6 +4,7 @@ import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
+import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -19,6 +20,7 @@ import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
+import dev.sorn.fmp4j.services.FmpCompanyService;
 import dev.sorn.fmp4j.services.FmpEtfListService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
@@ -50,6 +52,9 @@ public class FmpClient {
     // Directory
     protected final FmpService<FmpStock[]> fmpStockListService;
     protected final FmpService<FmpEtf[]> fmpEtfListService;
+
+    // Company
+    protected final FmpService<FmpCompany[]> fmpCompanyService;
 
     // Statements
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
@@ -83,6 +88,9 @@ public class FmpClient {
             new FmpStockListService(fmpConfig, fmpHttpClient),
             new FmpEtfListService(fmpConfig, fmpHttpClient),
 
+            // Company
+            new FmpCompanyService(fmpConfig, fmpHttpClient),
+
             // Statements
             new FmpIncomeStatementService(fmpConfig, fmpHttpClient),
             new FmpBalanceSheetStatementService(fmpConfig, fmpHttpClient),
@@ -112,6 +120,9 @@ public class FmpClient {
         FmpStockListService fmpStockListService,
         FmpEtfListService fmpEtfListService,
 
+        // Company
+        FmpCompanyService fmpCompanyService,
+
         // Statements
         FmpIncomeStatementService incomeStatementService,
         FmpBalanceSheetStatementService balanceSheetStatementService,
@@ -137,6 +148,9 @@ public class FmpClient {
         // Directory
         this.fmpStockListService = fmpStockListService;
         this.fmpEtfListService = fmpEtfListService;
+
+        // Company
+        this.fmpCompanyService = fmpCompanyService;
 
         // Statements
         this.incomeStatementService = incomeStatementService;
@@ -174,6 +188,11 @@ public class FmpClient {
 
     public synchronized FmpEtf[] etfList() {
         return fmpEtfListService.download();
+    }
+
+    public synchronized FmpCompany[] company(String symbol) {
+        fmpCompanyService.param("symbol", symbol);
+        return fmpCompanyService.download();
     }
 
     public synchronized FmpIncomeStatement[] incomeStatements(

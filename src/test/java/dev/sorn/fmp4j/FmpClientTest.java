@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
+import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -143,6 +144,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 4, FmpEtf.class);
+    }
+
+    @Test
+    void company() {
+        // given
+        var symbol = "AAPL";
+        var typeRef = typeRef(FmpCompany[].class);
+        var endpoint = "profile";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.company(symbol);
+
+        // then
+        assertValidResult(result, 1, FmpCompany.class);
     }
 
     @Test

@@ -116,7 +116,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#chart
 
 |    | Since | Endpoint                             |
 |:--:|:-----:|--------------------------------------|
-| ❌️ |   -   | `/profile`                           |
+| ✅️ | alpha | `/profile`                           |
 | ❌️ |   -   | `/profile-cik`                       |
 | ❌️ |   -   | `/company-notes`                     |
 | ❌️ |   -   | `/stock-peers`                       |
