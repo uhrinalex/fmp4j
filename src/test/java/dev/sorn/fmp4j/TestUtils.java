@@ -1,17 +1,24 @@
 package dev.sorn.fmp4j;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Set;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class TestUtils {
     private TestUtils() {
         throw new AssertionError(TestUtils.class.getSimpleName() + " cannot be instantiated.");
+    }
+
+    public static <T> T jsonTestResource(TypeReference<T> typeRef, String filename, Object... args) {
+        final var json = jsonTestResource(filename, args);
+        return FMP_JSON_DESERIALIZER.fromJson(json, typeRef);
     }
 
     public static String jsonTestResource(String filename, Object... args) {
@@ -43,11 +50,11 @@ public final class TestUtils {
         assertAllFieldsNonNull(obj, Set.of());
     }
 
-    public static void assertAllFieldsNonNull(Object obj, Set<String> skipFields) {
+    public static void assertAllFieldsNonNull(Object obj, Set<String> ignoreFields) {
         for (final var field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                if (!skipFields.contains(field.getName())) {
+                if (!ignoreFields.contains(field.getName())) {
                     assertNotNull(field.get(obj), field.getName() + " should not be null");
                 }
             } catch (IllegalAccessException e) {

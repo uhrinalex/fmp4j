@@ -58,28 +58,32 @@ public class FmpClient {
     protected final FmpService<FmpShortQuote[]> shortQuoteService;
 
     public FmpClient() {
+        this(FMP_CONFIG, FMP_HTTP_CLIENT);
+    }
+
+    public FmpClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this(
-            FMP_CONFIG,
-            FMP_HTTP_CLIENT,
+            fmpConfig,
+            fmpHttpClient,
 
             // Search
-            new FmpSearchByIsinService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpSearchByNameService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpSearchBySymbolService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpSearchByIsinService(fmpConfig, fmpHttpClient),
+            new FmpSearchByNameService(fmpConfig, fmpHttpClient),
+            new FmpSearchBySymbolService(fmpConfig, fmpHttpClient),
 
             // Statements
-            new FmpIncomeStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpBalanceSheetStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpCashFlowStatementService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpRatioService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpRatioTtmService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpKeyMetricService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpKeyMetricTtmService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpRevenueGeographicSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT),
-            new FmpRevenueProductSegmentationService(FMP_CONFIG, FMP_HTTP_CLIENT),
+            new FmpIncomeStatementService(fmpConfig, fmpHttpClient),
+            new FmpBalanceSheetStatementService(fmpConfig, fmpHttpClient),
+            new FmpCashFlowStatementService(fmpConfig, fmpHttpClient),
+            new FmpRatioService(fmpConfig, fmpHttpClient),
+            new FmpRatioTtmService(fmpConfig, fmpHttpClient),
+            new FmpKeyMetricService(fmpConfig, fmpHttpClient),
+            new FmpKeyMetricTtmService(fmpConfig, fmpHttpClient),
+            new FmpRevenueGeographicSegmentationService(fmpConfig, fmpHttpClient),
+            new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient),
 
             // Quotes
-            new FmpShortQuoteService(FMP_CONFIG, FMP_HTTP_CLIENT)
+            new FmpShortQuoteService(fmpConfig, fmpHttpClient)
         );
     }
 
