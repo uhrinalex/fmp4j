@@ -6,6 +6,10 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpCompany;
+import dev.sorn.fmp4j.models.FmpDividend;
+import dev.sorn.fmp4j.models.FmpDividendsCalendar;
+import dev.sorn.fmp4j.models.FmpEarning;
+import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -144,6 +148,80 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 4, FmpEtf.class);
+    }
+
+    @Test
+    void dividends_calendar() {
+        // given
+        var typeRef = typeRef(FmpDividendsCalendar[].class);
+        var endpoint = "dividends-calendar";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.dividendsCalendar();
+
+        // then
+        assertValidResult(result, 4, FmpDividendsCalendar.class, Set.of("declarationDate"));
+    }
+
+    @Test
+    void dividends() {
+        // given
+        var typeRef = typeRef(FmpDividend[].class);
+        var endpoint = "dividends";
+        var symbol = "AAPL";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.dividends(symbol);
+
+        // then
+        assertValidResult(result, 4, FmpDividend.class, Set.of("declarationDate"));
+    }
+
+    @Test
+    void earnings_calendar() {
+        // given
+        var typeRef = typeRef(FmpEarningsCalendar[].class);
+        var endpoint = "earnings-calendar";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earningsCalendar();
+
+        // then
+        assertValidResult(result, 4, FmpEarningsCalendar.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
+    }
+
+    @Test
+    void earnings() {
+        // given
+        var typeRef = typeRef(FmpEarning[].class);
+        var endpoint = "earnings";
+        var symbol = "AAPL";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings(symbol);
+
+        // then
+        assertValidResult(result, 4, FmpEarning.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
     }
 
     @Test

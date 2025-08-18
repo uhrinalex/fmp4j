@@ -5,6 +5,10 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpCompany;
+import dev.sorn.fmp4j.models.FmpDividend;
+import dev.sorn.fmp4j.models.FmpDividendsCalendar;
+import dev.sorn.fmp4j.models.FmpEarning;
+import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -21,6 +25,10 @@ import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpCompanyService;
+import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
+import dev.sorn.fmp4j.services.FmpDividendService;
+import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
+import dev.sorn.fmp4j.services.FmpEarningService;
 import dev.sorn.fmp4j.services.FmpEtfListService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
@@ -52,6 +60,12 @@ public class FmpClient {
     // Directory
     protected final FmpService<FmpStock[]> fmpStockListService;
     protected final FmpService<FmpEtf[]> fmpEtfListService;
+
+    // Calendar
+    protected final FmpService<FmpDividend[]> fmpDividendService;
+    protected final FmpService<FmpDividendsCalendar[]> fmpDividendsCalendarService;
+    protected final FmpService<FmpEarning[]> fmpEarningsService;
+    protected final FmpService<FmpEarningsCalendar[]> fmpEarningsCalendarService;
 
     // Company
     protected final FmpService<FmpCompany[]> fmpCompanyService;
@@ -88,6 +102,12 @@ public class FmpClient {
             new FmpStockListService(fmpConfig, fmpHttpClient),
             new FmpEtfListService(fmpConfig, fmpHttpClient),
 
+            // Calendar
+            new FmpDividendService(fmpConfig, fmpHttpClient),
+            new FmpDividendsCalendarService(fmpConfig, fmpHttpClient),
+            new FmpEarningService(fmpConfig, fmpHttpClient),
+            new FmpEarningsCalendarService(fmpConfig, fmpHttpClient),
+
             // Company
             new FmpCompanyService(fmpConfig, fmpHttpClient),
 
@@ -120,6 +140,12 @@ public class FmpClient {
         FmpStockListService fmpStockListService,
         FmpEtfListService fmpEtfListService,
 
+        // Calendar
+        FmpDividendService fmpDividendService,
+        FmpDividendsCalendarService fmpDividendsCalendarService,
+        FmpEarningService fmpEarningService,
+        FmpEarningsCalendarService fmpEarningsCalendarService,
+
         // Company
         FmpCompanyService fmpCompanyService,
 
@@ -151,6 +177,12 @@ public class FmpClient {
 
         // Company
         this.fmpCompanyService = fmpCompanyService;
+
+        // Calendar
+        this.fmpDividendService = fmpDividendService;
+        this.fmpDividendsCalendarService = fmpDividendsCalendarService;
+        this.fmpEarningsService = fmpEarningService;
+        this.fmpEarningsCalendarService = fmpEarningsCalendarService;
 
         // Statements
         this.incomeStatementService = incomeStatementService;
@@ -188,6 +220,24 @@ public class FmpClient {
 
     public synchronized FmpEtf[] etfList() {
         return fmpEtfListService.download();
+    }
+
+    public synchronized FmpDividendsCalendar[] dividendsCalendar() {
+        return fmpDividendsCalendarService.download();
+    }
+
+    public synchronized FmpDividend[] dividends(String symbol) {
+        fmpDividendService.param("symbol", symbol);
+        return fmpDividendService.download();
+    }
+
+    public synchronized FmpEarningsCalendar[] earningsCalendar() {
+        return fmpEarningsCalendarService.download();
+    }
+
+    public synchronized FmpEarning[] earnings(String symbol) {
+        fmpEarningsService.param("symbol", symbol);
+        return fmpEarningsService.download();
     }
 
     public synchronized FmpCompany[] company(String symbol) {

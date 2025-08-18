@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "2386.HK",
+    "date": "2025-08-17",
+    "epsActual": null,
+    "epsEstimated": null,
+    "revenueActual": null,
+    "revenueEstimated": null,
+    "lastUpdated": "2025-08-17"
+  },
+  {
+    "symbol": "BOOZT-DKK.CO",
+    "date": "2025-08-15",
+    "epsActual": 0.4207,
+    "epsEstimated": 0.592,
+    "revenueActual": 1217400909,
+    "revenueEstimated": 1734000000,
+    "lastUpdated": "2025-08-16"
+  },
+  {
+    "symbol": "BIOPOR.CO",
+    "date": "2025-08-15",
+    "epsActual": null,
+    "epsEstimated": -0.04,
+    "revenueActual": null,
+    "revenueEstimated": 14500000,
+    "lastUpdated": "2025-08-17"
+  },
+  {
+    "symbol": "CALC",
+    "date": "2025-08-12",
+    "epsActual": -0.4,
+    "epsEstimated": -0.4,
+    "revenueActual": null,
+    "revenueEstimated": null,
+    "lastUpdated": "2025-08-17"
+  }
+]

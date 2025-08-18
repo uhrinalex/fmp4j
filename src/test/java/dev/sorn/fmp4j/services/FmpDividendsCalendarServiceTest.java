@@ -3,7 +3,7 @@ package dev.sorn.fmp4j.services;
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpCompany;
+import dev.sorn.fmp4j.models.FmpDividendsCalendar;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
@@ -12,13 +12,14 @@ import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.Collections.emptySet;
+import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-class FmpCompanyServiceTest {
+class FmpDividendsCalendarServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpCompany[]> service = new FmpCompanyService(FMP_CONFIG, http);
+    private final FmpService<FmpDividendsCalendar[]> service = new FmpDividendsCalendarService(FMP_CONFIG, http);
 
     @Test
     void relative_url() {
@@ -26,7 +27,7 @@ class FmpCompanyServiceTest {
         var relativeUrl = service.relativeUrl();
 
         // then
-        assertEquals("/profile", relativeUrl);
+        assertEquals("/dividends-calendar", relativeUrl);
     }
 
     @Test
@@ -35,7 +36,7 @@ class FmpCompanyServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("symbol"), params);
+        assertEquals(Set.of(), params);
     }
 
     @Test
@@ -50,10 +51,8 @@ class FmpCompanyServiceTest {
     @Test
     void successful_download() {
         // given
-        var symbol = "AAPL";
-        service.param("symbol", symbol);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/profile/?symbol=%s.json", symbol))
+            .body(jsonTestResource("stable/dividends-calendar/excerpt.json"))
             .statusCode(200)
             .apply();
 
@@ -61,8 +60,8 @@ class FmpCompanyServiceTest {
         var result = service.download();
 
         // then
-        assertEquals(1, result.length);
-        assertInstanceOf(FmpCompany.class, result[0]);
-        assertAllFieldsNonNull(result[0]);
+        assertEquals(4, result.length);
+        range(0, 4).forEach(i -> assertInstanceOf(FmpDividendsCalendar.class, result[i]));
+        range(0, 4).forEach(i -> assertAllFieldsNonNull(result[i], Set.of("declarationDate")));
     }
 }

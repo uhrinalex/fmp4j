@@ -1,0 +1,46 @@
+[
+  {
+    "symbol": "0008.HK",
+    "date": "2025-08-15",
+    "recordDate": "2025-08-18",
+    "paymentDate": "2025-09-05",
+    "declarationDate": "",
+    "adjDividend": 0.0977,
+    "dividend": 0.0977,
+    "yield": 1.8159851301115242,
+    "frequency": "Quarterly"
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2025-08-11",
+    "recordDate": "2025-08-11",
+    "paymentDate": "2025-08-14",
+    "declarationDate": "2025-07-31",
+    "adjDividend": 0.26,
+    "dividend": 0.26,
+    "yield": 0.44898318513953694,
+    "frequency": "Quarterly"
+  },
+  {
+    "symbol": "O",
+    "date": "2025-08-01",
+    "recordDate": "2025-08-01",
+    "paymentDate": "2025-08-15",
+    "declarationDate": "2025-07-08",
+    "adjDividend": 0.269,
+    "dividend": 0.269,
+    "yield": 5.644334452890225,
+    "frequency": "Monthly"
+  },
+  {
+    "symbol": "SCHW",
+    "date": "2025-08-08",
+    "recordDate": "2025-08-08",
+    "paymentDate": "2025-08-22",
+    "declarationDate": "2025-07-24",
+    "adjDividend": 0.27,
+    "dividend": 0.27,
+    "yield": 1.0918829831067163,
+    "frequency": "Quarterly"
+  }
+]

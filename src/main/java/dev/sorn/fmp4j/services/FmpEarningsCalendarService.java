@@ -2,21 +2,21 @@ package dev.sorn.fmp4j.services;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpEtf;
+import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
-public class FmpEtfListService extends FmpService<FmpEtf[]> {
-    public FmpEtfListService(
+public class FmpEarningsCalendarService extends FmpService<FmpEarningsCalendar[]> {
+    public FmpEarningsCalendarService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {
-        super(cfg, http, typeRef(FmpEtf[].class));
+        super(cfg, http, typeRef(FmpEarningsCalendar[].class));
     }
 
     @Override
     protected String relativeUrl() {
-        return "/etf-list";
+        return "/earnings-calendar";
     }
 
     @Override

@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2026-04-26",
+    "epsActual": null,
+    "epsEstimated": null,
+    "revenueActual": null,
+    "revenueEstimated": null,
+    "lastUpdated": "2025-07-09"
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2026-01-28",
+    "epsActual": null,
+    "epsEstimated": null,
+    "revenueActual": null,
+    "revenueEstimated": null,
+    "lastUpdated": "2025-08-17"
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2025-10-30",
+    "epsActual": null,
+    "epsEstimated": 1.73,
+    "revenueActual": null,
+    "revenueEstimated": 101455671020,
+    "lastUpdated": "2025-08-17"
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2025-07-31",
+    "epsActual": 1.57,
+    "epsEstimated": 1.44,
+    "revenueActual": 94036000000,
+    "revenueEstimated": 89562736363,
+    "lastUpdated": "2025-08-17"
+  }
+]

@@ -83,10 +83,10 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#calendar
 
 |    | Since | Endpoint              |
 |:--:|:-----:|-----------------------|
-| ❌️ |   -   | `/dividends`          |
-| ❌️ |   -   | `/dividends-calendar` |
-| ❌️ |   -   | `/earnings`           |
-| ❌️ |   -   | `/earnings-calendar`  |
+| ✅️ | alpha | `/dividends`          |
+| ✅️ | alpha | `/dividends-calendar` |
+| ✅️ | alpha | `/earnings`           |
+| ✅️ | alpha | `/earnings-calendar`  |
 | ❌️ |   -   | `/ipos-calendar`      |
 | ❌️ |   -   | `/ipos-disclosure`    |
 | ❌️ |   -   | `/ipos-prospectus`    |
