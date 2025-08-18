@@ -204,10 +204,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#statements
 | ✅️ | alpha | `/key-metrics-ttm`                        |
 | ❌️ |   -   | `/financial-scores`                       |
 | ❌️ |   -   | `/owner-earnings`                         |
-| ❌️ |   -   | `/enterprise-values`                      |
-| ❌️ |   -   | `/income-statement-growth`                |
-| ❌️ |   -   | `/owner-earnings`                         |
-| ❌️ |   -   | `/enterprise-values`                      |
+| ✅️ | alpha | `/enterprise-values`                      |
 | ✅️ | alpha | `/revenue-product-segmentation`           |
 | ✅️ | alpha | `/revenue-geographic-segmentation`        |
 

@@ -10,6 +10,7 @@ import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
 import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
+import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -30,6 +31,8 @@ import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
@@ -384,6 +387,30 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpKeyMetricTtm.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "annual",
+        "quarter",
+    })
+    void enterpriseValues(String period) {
+        // given
+        var symbol = "AAPL";
+        var limit = 3;
+        var typeRef = typeRef(FmpEnterpriseValue[].class);
+        var endpoint = "enterprise-values";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.enterpriseValues(symbol, Optional.of(period), Optional.of(limit));
+
+        // then
+        assertValidResult(result, 3, FmpEnterpriseValue.class);
     }
 
     @Test

@@ -9,6 +9,7 @@ import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
 import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
+import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
@@ -29,6 +30,7 @@ import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
 import dev.sorn.fmp4j.services.FmpDividendService;
 import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
 import dev.sorn.fmp4j.services.FmpEarningService;
+import dev.sorn.fmp4j.services.FmpEnterpriseValuesService;
 import dev.sorn.fmp4j.services.FmpEtfListService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
@@ -78,6 +80,7 @@ public class FmpClient {
     protected final FmpService<FmpRatioTtm[]> ratioTtmService;
     protected final FmpService<FmpKeyMetric[]> keyMetricService;
     protected final FmpService<FmpKeyMetricTtm[]> keyMetricTtmService;
+    protected final FmpService<FmpEnterpriseValue[]> enterpriseValuesService;
     protected final FmpService<FmpRevenueGeographicSegmentation[]> revenueGeographicSegmentationService;
     protected final FmpService<FmpRevenueProductSegmentation[]> revenueProductSegmentationService;
 
@@ -119,6 +122,7 @@ public class FmpClient {
             new FmpRatioTtmService(fmpConfig, fmpHttpClient),
             new FmpKeyMetricService(fmpConfig, fmpHttpClient),
             new FmpKeyMetricTtmService(fmpConfig, fmpHttpClient),
+            new FmpEnterpriseValuesService(fmpConfig, fmpHttpClient),
             new FmpRevenueGeographicSegmentationService(fmpConfig, fmpHttpClient),
             new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient),
 
@@ -157,6 +161,7 @@ public class FmpClient {
         FmpRatioTtmService ratioTtmService,
         FmpKeyMetricService keyMetricService,
         FmpKeyMetricTtmService keyMetricTtmService,
+        FmpEnterpriseValuesService enterpriseValuesService,
         FmpRevenueGeographicSegmentationService revenueGeographicSegmentationService,
         FmpRevenueProductSegmentationService revenueProductSegmentationService,
 
@@ -192,6 +197,7 @@ public class FmpClient {
         this.ratioTtmService = ratioTtmService;
         this.keyMetricService = keyMetricService;
         this.keyMetricTtmService = keyMetricTtmService;
+        this.enterpriseValuesService = enterpriseValuesService;
         this.revenueGeographicSegmentationService = revenueGeographicSegmentationService;
         this.revenueProductSegmentationService = revenueProductSegmentationService;
 
@@ -296,6 +302,13 @@ public class FmpClient {
     public synchronized FmpKeyMetricTtm[] keyMetricTtm(String symbol) {
         keyMetricTtmService.param("symbol", symbol);
         return keyMetricTtmService.download();
+    }
+
+    public synchronized FmpEnterpriseValue[] enterpriseValues(String symbol, Optional<String> period, Optional<Integer> limit) {
+        enterpriseValuesService.param("symbol", symbol);
+        enterpriseValuesService.param("period", period.orElse("annual"));
+        enterpriseValuesService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return enterpriseValuesService.download();
     }
 
     public synchronized FmpRevenueGeographicSegmentation[] revenueGeographicSegmentations(String symbol, Optional<String> period, Optional<String> structure) {
