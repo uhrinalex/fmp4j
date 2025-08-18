@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.lang.String.format;
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class TestUtils {
@@ -47,7 +48,7 @@ public final class TestUtils {
     }
 
     public static void assertAllFieldsNonNull(Object obj) {
-        assertAllFieldsNonNull(obj, Set.of());
+        assertAllFieldsNonNull(obj, emptySet());
     }
 
     public static void assertAllFieldsNonNull(Object obj, Set<String> ignoreFields) {

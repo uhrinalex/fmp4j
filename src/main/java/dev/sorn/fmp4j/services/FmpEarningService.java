@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpEarning;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 public class FmpEarningService extends FmpService<FmpEarning[]> {
     public FmpEarningService(
@@ -26,6 +27,6 @@ public class FmpEarningService extends FmpService<FmpEarning[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return emptySet();
     }
 }

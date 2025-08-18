@@ -3,7 +3,9 @@ package dev.sorn.fmp4j.services;
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpDividendsCalendar;
+import dev.sorn.fmp4j.models.FmpEtf;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
@@ -13,13 +15,12 @@ import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 
-class FmpDividendsCalendarServiceTest {
+class FmpHistoricalPriceEodLightServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpDividendsCalendar[]> service = new FmpDividendsCalendarService(FMP_CONFIG, http);
+    private final FmpService<FmpHistoricalPriceEodLight[]> service = new FmpHistoricalPriceEodLightService(FMP_CONFIG, http);
 
     @Test
     void relative_url() {
@@ -27,7 +28,7 @@ class FmpDividendsCalendarServiceTest {
         var relativeUrl = service.relativeUrl();
 
         // then
-        assertEquals("/dividends-calendar", relativeUrl);
+        assertEquals("/historical-price-eod/light", relativeUrl);
     }
 
     @Test
@@ -36,7 +37,7 @@ class FmpDividendsCalendarServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(emptySet(), params);
+        assertEquals(Set.of("symbol"), params);
     }
 
     @Test
@@ -45,14 +46,20 @@ class FmpDividendsCalendarServiceTest {
         var params = service.optionalParams();
 
         // then
-        assertEquals(emptySet(), params);
+        assertEquals(Set.of("from", "to"), params);
     }
 
     @Test
     void successful_download() {
         // given
+        var symbol = "AAPL";
+        var from = "2024-02-22";
+        var to = "2024-02-28";
+        service.param("symbol", symbol);
+        service.param("from", from);
+        service.param("to", to);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/dividends-calendar/excerpt.json"))
+            .body(jsonTestResource("stable/historical-price-eod/light/?symbol=%s&from=%s&to=%s.json", symbol, from, to))
             .statusCode(200)
             .apply();
 
@@ -60,8 +67,8 @@ class FmpDividendsCalendarServiceTest {
         var result = service.download();
 
         // then
-        assertEquals(4, result.length);
-        range(0, 4).forEach(i -> assertInstanceOf(FmpDividendsCalendar.class, result[i]));
-        range(0, 4).forEach(i -> assertAllFieldsNonNull(result[i], Set.of("declarationDate")));
+        assertEquals(5, result.length);
+        range(0, 5).forEach(i -> assertInstanceOf(FmpHistoricalPriceEodLight.class, result[i]));
+        range(0, 5).forEach(i -> assertAllFieldsNonNull(result[i], emptySet()));
     }
 }

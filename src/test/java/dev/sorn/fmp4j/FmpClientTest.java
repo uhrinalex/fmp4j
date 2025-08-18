@@ -12,6 +12,8 @@ import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -25,6 +27,7 @@ import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.models.FmpStock;
 import java.net.URI;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +40,8 @@ import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static java.lang.String.format;
+import static java.util.Collections.emptySet;
+import static java.util.stream.IntStream.empty;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -225,6 +230,48 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 4, FmpEarning.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
+    }
+
+    @Test
+    void historicalPriceEodLight() {
+        // given
+        var typeRef = typeRef(FmpHistoricalPriceEodLight[].class);
+        var endpoint = "historical-price-eod/light";
+        var symbol = "AAPL";
+        var from = "2024-02-22";
+        var to = "2024-02-28";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "from", from, "to", to));
+        var file = format("stable/%s/?symbol=%s&from=%s&to=%s.json", endpoint, symbol, from, to);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.historicalPriceEodLight(symbol, Optional.of(from), Optional.of(to));
+
+        // then
+        assertValidResult(result, 5, FmpHistoricalPriceEodLight.class, emptySet());
+    }
+
+    @Test
+    void historicalPriceEodFull() {
+        // given
+        var typeRef = typeRef(FmpHistoricalPriceEodFull[].class);
+        var endpoint = "historical-price-eod/full";
+        var symbol = "AAPL";
+        var from = "2024-02-22";
+        var to = "2024-02-28";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "from", from, "to", to));
+        var file = format("stable/%s/?symbol=%s&from=%s&to=%s.json", endpoint, symbol, from, to);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.historicalPriceEodFull(symbol, Optional.of(from), Optional.of(to));
+
+        // then
+        assertValidResult(result, 5, FmpHistoricalPriceEodFull.class, emptySet());
     }
 
     @Test
@@ -494,7 +541,7 @@ class FmpClientTest {
     }
 
     private <T> void assertValidResult(T[] result, int expectedLength, Class<?> expectedType) {
-        assertValidResult(result, expectedLength, expectedType, Set.of());
+        assertValidResult(result, expectedLength, expectedType, emptySet());
     }
 
     private <T> void assertValidResult(T[] result, int expectedLength, Class<?> expectedType, Set<String> ignoreFields) {

@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-28",
+    "price": 181.42,
+    "volume": 48953939
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-27",
+    "price": 182.63,
+    "volume": 54318900
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-26",
+    "price": 181.16,
+    "volume": 40867421
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-23",
+    "price": 182.52,
+    "volume": 45119700
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-22",
+    "price": 184.37,
+    "volume": 52292208
+  }
+]

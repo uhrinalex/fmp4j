@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpShortQuote;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 public class FmpShortQuoteService extends FmpService<FmpShortQuote[]> {
     public FmpShortQuoteService(
@@ -26,6 +27,6 @@ public class FmpShortQuoteService extends FmpService<FmpShortQuote[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return emptySet();
     }
 }

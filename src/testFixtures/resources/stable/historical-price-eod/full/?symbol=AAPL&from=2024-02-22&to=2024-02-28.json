@@ -1,0 +1,62 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-28",
+    "open": 182.51,
+    "high": 183.12,
+    "low": 180.13,
+    "close": 181.42,
+    "volume": 48953939,
+    "change": -1.09,
+    "changePercent": -0.59723,
+    "vwap": 181.795
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-27",
+    "open": 181.1,
+    "high": 183.92,
+    "low": 179.56,
+    "close": 182.63,
+    "volume": 54318900,
+    "change": 1.53,
+    "changePercent": 0.84484,
+    "vwap": 181.8025
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-26",
+    "open": 182.24,
+    "high": 182.76,
+    "low": 180.65,
+    "close": 181.16,
+    "volume": 40867421,
+    "change": -1.08,
+    "changePercent": -0.59263,
+    "vwap": 181.7025
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-23",
+    "open": 185.01,
+    "high": 185.04,
+    "low": 182.23,
+    "close": 182.52,
+    "volume": 45119700,
+    "change": -2.49,
+    "changePercent": -1.35,
+    "vwap": 183.7
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-02-22",
+    "open": 183.48,
+    "high": 184.96,
+    "low": 182.46,
+    "close": 184.37,
+    "volume": 52292208,
+    "change": 0.89,
+    "changePercent": 0.48507,
+    "vwap": 183.8175
+  }
+]

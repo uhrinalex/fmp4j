@@ -77,7 +77,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#analyst
 | ❌️ |   -   | `/grades-news`              |
 | ❌️ |   -   | `/grades-latest-news`       |
 
-### Chart
+### Calendar
 
 Copy of https://site.financialmodelingprep.com/developer/docs/stable#calendar
 
@@ -99,8 +99,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#chart
 
 |    | Since | Endpoint                                   |
 |:--:|:-----:|--------------------------------------------|
-| ❌️ |   -   | `/historical-price-eod/light`              |
-| ❌️ |   -   | `/historical-price-eod/full`               |
+| ✅️ | alpha | `/historical-price-eod/light`              |
+| ✅️ | alpha | `/historical-price-eod/full`               |
 | ❌️ |   -   | `/historical-price-eod/non-split-adjusted` |
 | ❌️ |   -   | `/historical-price-eod/dividend-adjusted`  |
 | ❌️ |   -   | `/historical-chart/1min`                   |

@@ -11,6 +11,8 @@ import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -26,12 +28,14 @@ import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpCompanyService;
-import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
 import dev.sorn.fmp4j.services.FmpDividendService;
-import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
+import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
 import dev.sorn.fmp4j.services.FmpEarningService;
+import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
 import dev.sorn.fmp4j.services.FmpEnterpriseValuesService;
 import dev.sorn.fmp4j.services.FmpEtfListService;
+import dev.sorn.fmp4j.services.FmpHistoricalPriceEodFullService;
+import dev.sorn.fmp4j.services.FmpHistoricalPriceEodLightService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
 import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
@@ -68,6 +72,10 @@ public class FmpClient {
     protected final FmpService<FmpDividendsCalendar[]> fmpDividendsCalendarService;
     protected final FmpService<FmpEarning[]> fmpEarningsService;
     protected final FmpService<FmpEarningsCalendar[]> fmpEarningsCalendarService;
+
+    // Chart
+    protected final FmpService<FmpHistoricalPriceEodLight[]> fmpHistoricalPriceEodLightService;
+    protected final FmpService<FmpHistoricalPriceEodFull[]> fmpHistoricalPriceEodFullService;
 
     // Company
     protected final FmpService<FmpCompany[]> fmpCompanyService;
@@ -111,6 +119,10 @@ public class FmpClient {
             new FmpEarningService(fmpConfig, fmpHttpClient),
             new FmpEarningsCalendarService(fmpConfig, fmpHttpClient),
 
+            // Chart
+            new FmpHistoricalPriceEodLightService(fmpConfig, fmpHttpClient),
+            new FmpHistoricalPriceEodFullService(fmpConfig, fmpHttpClient),
+
             // Company
             new FmpCompanyService(fmpConfig, fmpHttpClient),
 
@@ -150,6 +162,10 @@ public class FmpClient {
         FmpEarningService fmpEarningService,
         FmpEarningsCalendarService fmpEarningsCalendarService,
 
+        // Chart
+        FmpHistoricalPriceEodLightService fmpHistoricalPriceEodLightService,
+        FmpHistoricalPriceEodFullService fmpHistoricalPriceEodFullService,
+
         // Company
         FmpCompanyService fmpCompanyService,
 
@@ -188,6 +204,10 @@ public class FmpClient {
         this.fmpDividendsCalendarService = fmpDividendsCalendarService;
         this.fmpEarningsService = fmpEarningService;
         this.fmpEarningsCalendarService = fmpEarningsCalendarService;
+
+        // Chart
+        this.fmpHistoricalPriceEodLightService = fmpHistoricalPriceEodLightService;
+        this.fmpHistoricalPriceEodFullService = fmpHistoricalPriceEodFullService;
 
         // Statements
         this.incomeStatementService = incomeStatementService;
@@ -244,6 +264,20 @@ public class FmpClient {
     public synchronized FmpEarning[] earnings(String symbol) {
         fmpEarningsService.param("symbol", symbol);
         return fmpEarningsService.download();
+    }
+
+    public synchronized FmpHistoricalPriceEodLight[] historicalPriceEodLight(String symbol, Optional<String> from, Optional<String> to) {
+        fmpHistoricalPriceEodLightService.param("symbol", symbol);
+        from.ifPresent(date -> fmpHistoricalPriceEodLightService.param("from", date));
+        to.ifPresent(date -> fmpHistoricalPriceEodLightService.param("to", date));
+        return fmpHistoricalPriceEodLightService.download();
+    }
+
+    public synchronized FmpHistoricalPriceEodFull[] historicalPriceEodFull(String symbol, Optional<String> from, Optional<String> to) {
+        fmpHistoricalPriceEodFullService.param("symbol", symbol);
+        from.ifPresent(date -> fmpHistoricalPriceEodFullService.param("from", date));
+        to.ifPresent(date -> fmpHistoricalPriceEodFullService.param("to", date));
+        return fmpHistoricalPriceEodFullService.download();
     }
 
     public synchronized FmpCompany[] company(String symbol) {

@@ -2,31 +2,30 @@ package dev.sorn.fmp4j.services;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpDividendsCalendar;
+import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
-import static java.util.Collections.emptySet;
 
-public class FmpDividendsCalendarService extends FmpService<FmpDividendsCalendar[]> {
-    public FmpDividendsCalendarService(
+public class FmpHistoricalPriceEodFullService extends FmpService<FmpHistoricalPriceEodFull[]> {
+    public FmpHistoricalPriceEodFullService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {
-        super(cfg, http, typeRef(FmpDividendsCalendar[].class));
+        super(cfg, http, typeRef(FmpHistoricalPriceEodFull[].class));
     }
 
     @Override
     protected String relativeUrl() {
-        return "/dividends-calendar";
+        return "/historical-price-eod/full";
     }
 
     @Override
     protected Set<String> requiredParams() {
-        return emptySet();
+        return Set.of("symbol");
     }
 
     @Override
     protected Set<String> optionalParams() {
-        return emptySet();
+        return Set.of("from", "to");
     }
 }

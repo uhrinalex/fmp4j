@@ -36,7 +36,7 @@ class FmpEarningsCalendarServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of(), params);
+        assertEquals(emptySet(), params);
     }
 
     @Test

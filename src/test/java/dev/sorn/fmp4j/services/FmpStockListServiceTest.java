@@ -11,6 +11,7 @@ import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -35,7 +36,7 @@ class FmpStockListServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of(), params);
+        assertEquals(emptySet(), params);
     }
 
     @Test
@@ -44,7 +45,7 @@ class FmpStockListServiceTest {
         var params = service.optionalParams();
 
         // then
-        assertEquals(Set.of(), params);
+        assertEquals(emptySet(), params);
     }
 
     @Test

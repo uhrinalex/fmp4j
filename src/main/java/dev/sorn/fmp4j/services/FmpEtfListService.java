@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpEtf;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 public class FmpEtfListService extends FmpService<FmpEtf[]> {
     public FmpEtfListService(
@@ -21,11 +22,11 @@ public class FmpEtfListService extends FmpService<FmpEtf[]> {
 
     @Override
     protected Set<String> requiredParams() {
-        return Set.of();
+        return emptySet();
     }
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return emptySet();
     }
 }

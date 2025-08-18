@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 public class FmpEarningsCalendarService extends FmpService<FmpEarningsCalendar[]> {
     public FmpEarningsCalendarService(
@@ -21,11 +22,11 @@ public class FmpEarningsCalendarService extends FmpService<FmpEarningsCalendar[]
 
     @Override
     protected Set<String> requiredParams() {
-        return Set.of();
+        return emptySet();
     }
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return emptySet();
     }
 }

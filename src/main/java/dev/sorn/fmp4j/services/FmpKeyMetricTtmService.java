@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 public class FmpKeyMetricTtmService extends FmpService<FmpKeyMetricTtm[]> {
     public FmpKeyMetricTtmService(
@@ -26,6 +27,6 @@ public class FmpKeyMetricTtmService extends FmpService<FmpKeyMetricTtm[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of();
+        return emptySet();
     }
 }
