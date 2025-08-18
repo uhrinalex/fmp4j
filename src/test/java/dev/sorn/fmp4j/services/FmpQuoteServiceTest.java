@@ -4,7 +4,7 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.QuoteTestData;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpQuote;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class FmpShortQuoteServiceTest implements QuoteTestData {
+class FmpQuoteServiceTest implements QuoteTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpShortQuote[]> service = new FmpShortQuoteService(FMP_CONFIG, http);
+    private final FmpService<FmpQuote[]> service = new FmpQuoteService(FMP_CONFIG, http);
 
     @Test
     void relative_url() {
@@ -30,7 +30,7 @@ class FmpShortQuoteServiceTest implements QuoteTestData {
         var relativeUrl = service.relativeUrl();
 
         // then
-        assertEquals("/quote-short", relativeUrl);
+        assertEquals("/quote", relativeUrl);
     }
 
     @Test
@@ -56,7 +56,7 @@ class FmpShortQuoteServiceTest implements QuoteTestData {
         // given
         service.param("symbol", "AAPL");
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/quote-short/?symbol=AAPL.json"))
+            .body(jsonTestResource("stable/quote/?symbol=AAPL.json"))
             .statusCode(200)
             .apply();
 
@@ -64,14 +64,14 @@ class FmpShortQuoteServiceTest implements QuoteTestData {
         var result = service.download();
 
         // then
-        var expected = new FmpShortQuote[]{aShortQuote()};
+        var expected = new FmpQuote[]{aQuote()};
         assertArrayEquals(expected, result);
     }
 
     @Test
     void missing_symbol_throws() {
         // given // when
-        Consumer<FmpService<FmpShortQuote[]>> f = FmpService::download;
+        Consumer<FmpService<FmpQuote[]>> f = FmpService::download;
 
         // then
         var e = assertThrows(FmpServiceException.class, () -> f.accept(service));

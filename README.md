@@ -229,7 +229,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#indexes
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
 | ❌️ |   -   | `/index-list`                      |
-| ❌️ |   -   | `/quote`                           |
+| ✅️ | alpha | `/quote`                           |
 | ✅️ | alpha | `/quote-short`                     |
 | ❌️ |   -   | `/batch-index-quotes`              |
 | ✅️ | alpha | `/historical-price-eod/light`      |
@@ -308,7 +308,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#commodities
 |    | Since | Endpoint                      |
 |:--:|:-----:|-------------------------------|
 | ❌️ |   -   | `/commodities-list`           |
-| ❌️ |   -   | `/quote`                      |
+| ✅️ | alpha | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
 | ❌️ |   -   | `/batch-commodities-quotes`   |
 | ✅️ | alpha | `/historical-price-eod/light` |
@@ -338,7 +338,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 |:--:|:-----:|-------------------------------|
 | ❌️ |   -   | `/cryptocurrency-list`        |
 | ❌️ |   -   | `/batch-crypto-quotes`        |
-| ❌️ |   -   | `/quote`                      |
+| ✅️ | alpha | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
 | ✅️ | alpha | `/historical-price-eod/light` |
 | ✅️ | alpha | `/historical-price-eod/full`  |
@@ -354,7 +354,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 |:--:|:-----:|-------------------------------|
 | ❌️ |   -   | `/forex-list`                 |
 | ❌️ |   -   | `/batch-forex-quotes`         |
-| ❌️ |   -   | `/quote`                      |
+| ✅️ | alpha | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
 | ✅️ | alpha | `/historical-price-eod/light` |
 | ✅️ | alpha | `/historical-price-eod/full`  |
@@ -401,7 +401,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#quote
 
 |    | Since | Endpoint                   |
 |:--:|:-----:|----------------------------|
-| ❌️ |   -   | `/quote`                   |
+| ✅️ | alpha | `/quote`                   |
 | ✅️ | alpha | `/quote-short`             |
 | ❌️ |   -   | `/aftermarket-trade`       |
 | ❌️ |   -   | `/aftermarket-quote`       |

@@ -17,6 +17,7 @@ import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
@@ -500,6 +501,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 15, FmpRevenueGeographicSegmentation.class, Set.of("reportedCurrency"));
+    }
+
+    @Test
+    void quotes() {
+        // given
+        var symbol = "AAPL";
+        var typeRef = typeRef(FmpQuote[].class);
+        var endpoint = "quote";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.quotes(symbol);
+
+        // then
+        assertValidResult(result, 1, FmpQuote.class);
     }
 
     @Test

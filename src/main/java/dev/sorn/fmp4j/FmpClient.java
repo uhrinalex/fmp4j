@@ -16,6 +16,7 @@ import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
@@ -39,6 +40,7 @@ import dev.sorn.fmp4j.services.FmpHistoricalPriceEodLightService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
 import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
+import dev.sorn.fmp4j.services.FmpQuoteService;
 import dev.sorn.fmp4j.services.FmpRatioService;
 import dev.sorn.fmp4j.services.FmpRatioTtmService;
 import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
@@ -93,6 +95,7 @@ public class FmpClient {
     protected final FmpService<FmpRevenueProductSegmentation[]> revenueProductSegmentationService;
 
     // Quotes
+    protected final FmpService<FmpQuote[]> quoteService;
     protected final FmpService<FmpShortQuote[]> shortQuoteService;
 
     public FmpClient() {
@@ -139,6 +142,7 @@ public class FmpClient {
             new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient),
 
             // Quotes
+            new FmpQuoteService(fmpConfig, fmpHttpClient),
             new FmpShortQuoteService(fmpConfig, fmpHttpClient)
         );
     }
@@ -182,6 +186,7 @@ public class FmpClient {
         FmpRevenueProductSegmentationService revenueProductSegmentationService,
 
         // Quotes
+        FmpQuoteService quoteService,
         FmpShortQuoteService shortQuoteService
     ) {
         this.fmpConfig = fmpConfig;
@@ -222,6 +227,7 @@ public class FmpClient {
         this.revenueProductSegmentationService = revenueProductSegmentationService;
 
         // Quotes
+        this.quoteService = quoteService;
         this.shortQuoteService = shortQuoteService;
     }
 
@@ -357,6 +363,11 @@ public class FmpClient {
         revenueProductSegmentationService.param("period", period.orElse("annual"));
         revenueProductSegmentationService.param("structure", structure.orElse("flat"));
         return revenueProductSegmentationService.download();
+    }
+
+    public synchronized FmpQuote[] quotes(String symbol) {
+        quoteService.param("symbol", symbol);
+        return quoteService.download();
     }
 
     public synchronized FmpShortQuote[] shortQuotes(String symbol) {

@@ -7,14 +7,14 @@ import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FmpShortQuoteTest implements QuoteTestData {
+class FmpQuoteTest implements QuoteTestData {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = aShortQuote();
+        var before = aQuote();
 
         // when
-        var after = (FmpShortQuote) deserialize(serialize(before));
+        var after = (FmpQuote) deserialize(serialize(before));
 
         // then
         assertEquals(before, after);
