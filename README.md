@@ -181,32 +181,32 @@ https://site.financialmodelingprep.com/developer/docs/stable#discounted-cash-flo
 
 Copy of https://site.financialmodelingprep.com/developer/docs/stable#statements
 
-|    | Since | Endpoint                                  |
-|:--:|:-----:|-------------------------------------------|
-| ❌️ |   -   | `/latest-financial-statements`            |
-| ❌️ |   -   | `/financial-statement-full-as-reported`   |
-| ✅️ | alpha | `/income-statement`                       |
-| ❌️ |   -   | `/income-statement-ttm`                   |
-| ❌️ |   -   | `/income-statement-growth`                |
-| ❌️ |   -   | `/income-statement-growth-as-reported`    |
-| ✅️ | alpha | `/balance-sheet-statement`                |
-| ❌️ |   -   | `/balance-sheet-statement-ttm`            |
-| ❌️ |   -   | `/balance-sheet-statement-growth`         |
-| ❌️ |   -   | `/balance-sheet-statement-as-reported`    |
-| ✅️ | alpha | `/cash-flow-statement`                    |
-| ❌️ |   -   | `/cash-flow-statement-ttm`                |
-| ❌️ |   -   | `/cash-flow-statement-growth`             |
-| ❌️ |   -   | `/cash-flow-statement-growth-as-reported` |
-| ❌️ |   -   | `/financial-growth`                       |
-| ✅️ | alpha | `/ratios`                                 |
-| ✅️ | alpha | `/ratios-ttm`                             |
-| ✅️ | alpha | `/key-metrics`                            |
-| ✅️ | alpha | `/key-metrics-ttm`                        |
-| ❌️ |   -   | `/financial-scores`                       |
-| ❌️ |   -   | `/owner-earnings`                         |
-| ✅️ | alpha | `/enterprise-values`                      |
-| ✅️ | alpha | `/revenue-product-segmentation`           |
-| ✅️ | alpha | `/revenue-geographic-segmentation`        |
+|    | Since | Endpoint                                |
+|:--:|:-----:|-----------------------------------------|
+| ❌️ |   -   | `/latest-financial-statements`          |
+| ❌️ |   -   | `/financial-statement-full-as-reported` |
+| ✅️ | alpha | `/income-statement`                     |
+| ❌️ |   -   | `/income-statement-ttm`                 |
+| ❌️ |   -   | `/income-statement-growth`              |
+| ❌️ |   -   | `/income-statement-growth-as-reported`  |
+| ✅️ | alpha | `/balance-sheet-statement`              |
+| ❌️ |   -   | `/balance-sheet-statement-ttm`          |
+| ❌️ |   -   | `/balance-sheet-statement-growth`       |
+| ❌️ |   -   | `/balance-sheet-statement-as-reported`  |
+| ✅️ | alpha | `/cash-flow-statement`                  |
+| ❌️ |   -   | `/cash-flow-statement-ttm`              |
+| ❌️ |   -   | `/cash-flow-statement-growth`           |
+| ❌️ |   -   | `/cash-flow-statement-as-reported`      |
+| ❌️ |   -   | `/financial-growth`                     |
+| ✅️ | alpha | `/ratios`                               |
+| ✅️ | alpha | `/ratios-ttm`                           |
+| ✅️ | alpha | `/key-metrics`                          |
+| ✅️ | alpha | `/key-metrics-ttm`                      |
+| ❌️ |   -   | `/financial-scores`                     |
+| ❌️ |   -   | `/owner-earnings`                       |
+| ✅️ | alpha | `/enterprise-values`                    |
+| ✅️ | alpha | `/revenue-product-segmentation`         |
+| ✅️ | alpha | `/revenue-geographic-segmentation`      |
 
 ### Form 13F
 
@@ -232,8 +232,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#indexes
 | ❌️ |   -   | `/quote`                           |
 | ✅️ | alpha | `/quote-short`                     |
 | ❌️ |   -   | `/batch-index-quotes`              |
-| ❌️ |   -   | `/historical-price-eod/light`      |
-| ❌️ |   -   | `/historical-price-eod/full`       |
+| ✅️ | alpha | `/historical-price-eod/light`      |
+| ✅️ | alpha | `/historical-price-eod/full`       |
 | ❌️ |   -   | `/historical-chart/1min`           |
 | ❌️ |   -   | `/historical-chart/5min`           |
 | ❌️ |   -   | `/historical-chart/1hour`          |
@@ -311,8 +311,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#commodities
 | ❌️ |   -   | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
 | ❌️ |   -   | `/batch-commodities-quotes`   |
-| ❌️ |   -   | `/historical-price-eod/light` |
-| ❌️ |   -   | `/historical-price-eod/full`  |
+| ✅️ | alpha | `/historical-price-eod/light` |
+| ✅️ | alpha | `/historical-price-eod/full`  |
 | ❌️ |   -   | `/historical-chart/1min`      |
 | ❌️ |   -   | `/historical-chart/5min`      |
 | ❌️ |   -   | `/historical-chart/1hour`     |
@@ -340,8 +340,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 | ❌️ |   -   | `/batch-crypto-quotes`        |
 | ❌️ |   -   | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
-| ❌️ |   -   | `/historical-price-eod/light` |
-| ❌️ |   -   | `/historical-price-eod/full`  |
+| ✅️ | alpha | `/historical-price-eod/light` |
+| ✅️ | alpha | `/historical-price-eod/full`  |
 | ❌️ |   -   | `/historical-chart/1min`      |
 | ❌️ |   -   | `/historical-chart/5min`      |
 | ❌️ |   -   | `/historical-chart/1hour`     |
@@ -356,8 +356,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 | ❌️ |   -   | `/batch-forex-quotes`         |
 | ❌️ |   -   | `/quote`                      |
 | ✅️ | alpha | `/quote-short`                |
-| ❌️ |   -   | `/historical-price-eod/light` |
-| ❌️ |   -   | `/historical-price-eod/full`  |
+| ✅️ | alpha | `/historical-price-eod/light` |
+| ✅️ | alpha | `/historical-price-eod/full`  |
 | ❌️ |   -   | `/historical-chart/1min`      |
 | ❌️ |   -   | `/historical-chart/5min`      |
 | ❌️ |   -   | `/historical-chart/1hour`     |
