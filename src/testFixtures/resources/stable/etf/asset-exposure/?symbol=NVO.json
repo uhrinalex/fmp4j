@@ -1,0 +1,198 @@
+[
+  {
+    "symbol": "VWUSX",
+    "asset": "NVO",
+    "sharesNumber": 2143702,
+    "weightPercentage": 0.38,
+    "marketValue": 184401246.04
+  },
+  {
+    "symbol": "VWUAX",
+    "asset": "NVO",
+    "sharesNumber": 2311526,
+    "weightPercentage": 0.32171,
+    "marketValue": 159541524.52
+  },
+  {
+    "symbol": "THNR",
+    "asset": "NVO",
+    "sharesNumber": 6667,
+    "weightPercentage": 8.42,
+    "marketValue": 332483.29
+  },
+  {
+    "symbol": "SPWO",
+    "asset": "NVO",
+    "sharesNumber": 14822,
+    "weightPercentage": 1.02,
+    "marketValue": 739173.14
+  },
+  {
+    "symbol": "PPH",
+    "asset": "NVO",
+    "sharesNumber": 582088,
+    "weightPercentage": 5.7,
+    "marketValue": 29657383.6
+  },
+  {
+    "symbol": "PID",
+    "asset": "NVO",
+    "sharesNumber": 179247,
+    "weightPercentage": 1.075,
+    "marketValue": 9320500.56
+  },
+  {
+    "symbol": "OZEM",
+    "asset": "NVO",
+    "sharesNumber": 87953,
+    "weightPercentage": 14.04,
+    "marketValue": 4386216.11
+  },
+  {
+    "symbol": "NUGO",
+    "asset": "NVO",
+    "sharesNumber": 277056,
+    "weightPercentage": 0.926758,
+    "marketValue": 25098503.04
+  },
+  {
+    "symbol": "NDVG",
+    "asset": "NVO",
+    "sharesNumber": 1308,
+    "weightPercentage": 0.918547,
+    "marketValue": 110460.6
+  },
+  {
+    "symbol": "LVHB",
+    "asset": "NVO",
+    "sharesNumber": 2327,
+    "weightPercentage": 0.51,
+    "marketValue": 390400.79
+  },
+  {
+    "symbol": "LRNZ",
+    "asset": "NVO",
+    "sharesNumber": 12156,
+    "weightPercentage": 3.01,
+    "marketValue": 1070000
+  },
+  {
+    "symbol": "IDVO",
+    "asset": "NVO",
+    "sharesNumber": 49874,
+    "weightPercentage": 0.72,
+    "marketValue": 2487216.38
+  },
+  {
+    "symbol": "GINN",
+    "asset": "NVO",
+    "sharesNumber": 16824,
+    "weightPercentage": 0.53,
+    "marketValue": 1172464.56
+  },
+  {
+    "symbol": "FFLC",
+    "asset": "NVO",
+    "sharesNumber": 42606,
+    "weightPercentage": 0.26,
+    "marketValue": 2079598.86
+  },
+  {
+    "symbol": "ESGA",
+    "asset": "NVO",
+    "sharesNumber": 7330,
+    "weightPercentage": 0.37,
+    "marketValue": 473191.52
+  },
+  {
+    "symbol": "ENDW",
+    "asset": "NVO",
+    "sharesNumber": 1035,
+    "weightPercentage": 0.05,
+    "marketValue": 51615.45
+  },
+  {
+    "symbol": "DIHP",
+    "asset": "NVO",
+    "sharesNumber": 48209,
+    "weightPercentage": 0.05971238,
+    "marketValue": 2591233.75
+  },
+  {
+    "symbol": "DFIC",
+    "asset": "NVO",
+    "sharesNumber": 127856,
+    "weightPercentage": 0.06781525,
+    "marketValue": 6872260
+  },
+  {
+    "symbol": "DFAX",
+    "asset": "NVO",
+    "sharesNumber": 55018,
+    "weightPercentage": 0.0322413,
+    "marketValue": 2957217.5
+  },
+  {
+    "symbol": "DFAI",
+    "asset": "NVO",
+    "sharesNumber": 65882,
+    "weightPercentage": 0.03170662,
+    "marketValue": 3541157.5
+  },
+  {
+    "symbol": "BAD",
+    "asset": "NVO",
+    "sharesNumber": 994,
+    "weightPercentage": 1.47,
+    "marketValue": 0
+  },
+  {
+    "symbol": "AVSD",
+    "asset": "NVO",
+    "sharesNumber": 17767,
+    "weightPercentage": 0.44,
+    "marketValue": 920778.04
+  },
+  {
+    "symbol": "AVIV",
+    "asset": "NVO",
+    "sharesNumber": 20451,
+    "weightPercentage": 0.13,
+    "marketValue": 1059876.84
+  },
+  {
+    "symbol": "AVDEX",
+    "asset": "NVO",
+    "sharesNumber": 0,
+    "weightPercentage": 0.36,
+    "marketValue": 1423585.08
+  },
+  {
+    "symbol": "AVDE",
+    "asset": "NVO",
+    "sharesNumber": 629089,
+    "weightPercentage": 0.38,
+    "marketValue": 32602653.18
+  },
+  {
+    "symbol": "AGOX",
+    "asset": "NVO",
+    "sharesNumber": 1129,
+    "weightPercentage": 0.02,
+    "marketValue": 56303.23
+  },
+  {
+    "symbol": "AFTY",
+    "asset": "NVO",
+    "sharesNumber": 27694,
+    "weightPercentage": 2.06,
+    "marketValue": 2960765.54
+  },
+  {
+    "symbol": "ACSG",
+    "asset": "NVO",
+    "sharesNumber": 1219,
+    "weightPercentage": 0.9,
+    "marketValue": 614006.62
+  }
+]

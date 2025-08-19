@@ -6,6 +6,7 @@ import dev.sorn.fmp4j.models.*;
 import dev.sorn.fmp4j.services.*;
 
 import java.util.Optional;
+
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
 
@@ -54,6 +55,13 @@ public class FmpClient {
     protected final FmpService<FmpEnterpriseValue[]> enterpriseValuesService;
     protected final FmpService<FmpRevenueGeographicSegmentation[]> revenueGeographicSegmentationService;
     protected final FmpService<FmpRevenueProductSegmentation[]> revenueProductSegmentationService;
+
+    // ETF & Mutual Funds
+    protected final FmpService<FmpEtfAssetExposure[]> etfAssetExposureService;
+    protected final FmpService<FmpEtfCountryWeighting[]> etfCountryWeightingService;
+    protected final FmpService<FmpEtfHolding[]> etfHoldingService;
+    protected final FmpService<FmpEtfInfo[]> etfInfoService;
+    protected final FmpService<FmpEtfSectorWeighting[]> etfSectorWeightingService;
 
     // Quotes
     protected final FmpService<FmpQuote[]> quoteService;
@@ -109,6 +117,13 @@ public class FmpClient {
             new FmpRevenueGeographicSegmentationService(fmpConfig, fmpHttpClient),
             new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient),
 
+            // ETF & Mutual Funds
+            new FmpEtfAssetExposureService(fmpConfig, fmpHttpClient),
+            new FmpEtfCountryWeightingService(fmpConfig, fmpHttpClient),
+            new FmpEtfHoldingService(fmpConfig, fmpHttpClient),
+            new FmpEtfInfoService(fmpConfig, fmpHttpClient),
+            new FmpEtfSectorWeightingService(fmpConfig, fmpHttpClient),
+
             // Quotes
             new FmpQuoteService(fmpConfig, fmpHttpClient),
             new FmpShortQuoteService(fmpConfig, fmpHttpClient)
@@ -160,6 +175,13 @@ public class FmpClient {
         FmpRevenueGeographicSegmentationService revenueGeographicSegmentationService,
         FmpRevenueProductSegmentationService revenueProductSegmentationService,
 
+        // ETF & Mutual Funds
+        FmpEtfAssetExposureService etfAssetExposureService,
+        FmpEtfCountryWeightingService etfCountryWeightingService,
+        FmpEtfHoldingService etfHoldingService,
+        FmpEtfInfoService etfInfoService,
+        FmpEtfSectorWeightingService etfSectorWeightingService,
+
         // Quotes
         FmpQuoteService quoteService,
         FmpShortQuoteService shortQuoteService
@@ -207,6 +229,13 @@ public class FmpClient {
         this.enterpriseValuesService = enterpriseValuesService;
         this.revenueGeographicSegmentationService = revenueGeographicSegmentationService;
         this.revenueProductSegmentationService = revenueProductSegmentationService;
+
+        // ETF & Mutual Funds
+        this.etfAssetExposureService = etfAssetExposureService;
+        this.etfCountryWeightingService = etfCountryWeightingService;
+        this.etfHoldingService = etfHoldingService;
+        this.etfInfoService = etfInfoService;
+        this.etfSectorWeightingService = etfSectorWeightingService;
 
         // Quotes
         this.quoteService = quoteService;
@@ -392,6 +421,31 @@ public class FmpClient {
         revenueProductSegmentationService.param("period", period.orElse("annual"));
         revenueProductSegmentationService.param("structure", structure.orElse("flat"));
         return revenueProductSegmentationService.download();
+    }
+
+    public synchronized FmpEtfAssetExposure[] etfAssetExposure(String symbol) {
+        etfAssetExposureService.param("symbol", symbol);
+        return etfAssetExposureService.download();
+    }
+
+    public synchronized FmpEtfCountryWeighting[] etfCountryWeightings(String symbol) {
+        etfCountryWeightingService.param("symbol", symbol);
+        return etfCountryWeightingService.download();
+    }
+
+    public synchronized FmpEtfHolding[] etfHoldings(String symbol) {
+        etfHoldingService.param("symbol", symbol);
+        return etfHoldingService.download();
+    }
+
+    public synchronized FmpEtfInfo[] etfInfo(String symbol) {
+        etfInfoService.param("symbol", symbol);
+        return etfInfoService.download();
+    }
+
+    public synchronized FmpEtfSectorWeighting[] etfSectorWeightings(String symbol) {
+        etfSectorWeightingService.param("symbol", symbol);
+        return etfSectorWeightingService.download();
     }
 
     public synchronized FmpQuote[] quotes(String symbol) {

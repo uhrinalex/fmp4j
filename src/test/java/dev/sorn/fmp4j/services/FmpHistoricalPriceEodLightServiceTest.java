@@ -3,8 +3,6 @@ package dev.sorn.fmp4j.services;
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpEtf;
-import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,8 @@ import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class FmpHistoricalPriceEodLightServiceTest {
     private final HttpClientStub httpStub = httpClientStub();

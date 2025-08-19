@@ -1,20 +1,20 @@
 package dev.sorn.fmp4j.models;
 
-import dev.sorn.fmp4j.DividendsTestData;
+import dev.sorn.fmp4j.EtfCountryWeightingsTestData;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FmpDividendTest implements DividendsTestData {
+class FmpEtfCountryWeightingTest implements EtfCountryWeightingsTestData {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = aDividend();
+        var before = anEtfCountryWeighting();
 
         // when
-        var after = (FmpDividend) deserialize(serialize(before));
+        var after = (FmpEtfCountryWeighting) deserialize(serialize(before));
 
         // then
         assertEquals(before, after);

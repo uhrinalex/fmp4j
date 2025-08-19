@@ -1,0 +1,26 @@
+[
+  {
+    "country": "United States",
+    "weightPercentage": "99.51%"
+  },
+  {
+    "country": "Switzerland",
+    "weightPercentage": "0.25%"
+  },
+  {
+    "country": "Netherlands",
+    "weightPercentage": "0.1%"
+  },
+  {
+    "country": "Singapore",
+    "weightPercentage": "0.06%"
+  },
+  {
+    "country": "United Kingdom",
+    "weightPercentage": "0.04%"
+  },
+  {
+    "country": "Ireland",
+    "weightPercentage": "0.04%"
+  }
+]

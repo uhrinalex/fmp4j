@@ -1,0 +1,67 @@
+[
+  {
+    "symbol": "SPY",
+    "name": "SPDR S&P 500 ETF Trust",
+    "description": "The SPDR S&P 500 ETF Trust seeks to provide investment results that, before expenses, correspond generally to the price and yield performance of the S&P 500 Index (the “Index”)The S&P 500 Index is a diversified large cap U.S. index that holds companies across all eleven GICS sectorsLaunched in January 1993, SPY was the very first exchange traded fund listed in the United States",
+    "isin": "US78462F1030",
+    "assetClass": "Equity",
+    "securityCusip": "78462F103",
+    "domicile": "US",
+    "website": "https://www.ssga.com/us/en/institutional/etfs/spdr-sp-500-etf-trust-spy",
+    "etfCompany": "SPDR",
+    "expenseRatio": 0.0945,
+    "assetsUnderManagement": 661539920000,
+    "avgVolume": 73651172,
+    "inceptionDate": "1993-01-22",
+    "nav": 645.07,
+    "navCurrency": "USD",
+    "holdingsCount": 503,
+    "updatedAt": "2025-08-17T21:15:43.242Z",
+    "sectorsList": [
+      {
+        "industry": "Basic Materials",
+        "exposure": 1.63
+      },
+      {
+        "industry": "Communication Services",
+        "exposure": 9.92
+      },
+      {
+        "industry": "Consumer Cyclical",
+        "exposure": 10.52
+      },
+      {
+        "industry": "Consumer Defensive",
+        "exposure": 5.35
+      },
+      {
+        "industry": "Energy",
+        "exposure": 2.91
+      },
+      {
+        "industry": "Financial Services",
+        "exposure": 13.26
+      },
+      {
+        "industry": "Healthcare",
+        "exposure": 8.8
+      },
+      {
+        "industry": "Industrials",
+        "exposure": 7.77
+      },
+      {
+        "industry": "Real Estate",
+        "exposure": 1.99
+      },
+      {
+        "industry": "Technology",
+        "exposure": 35.4
+      },
+      {
+        "industry": "Utilities",
+        "exposure": 2.45
+      }
+    ]
+  }
+]

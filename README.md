@@ -19,8 +19,9 @@
 **fmp4j** is a lightweight Java SDK for accessing
 the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API.
 
-> **DO NOT CONTACT ME FOR API SUPPORT OF ANY KIND — I AM NOT AFFILIATED WITH FMP.**<br>
-> This is simply an open-source Java SDK that wraps their API
+> **DO NOT CONTACT ME FOR API SUPPORT — I AM NOT AFFILIATED WITH FMP.**<br>
+> This is an open-source Java SDK that wraps their API. Please note: their API contains many inconsistencies, poor
+> naming conventions, and is not RESTful. This SDK does *not* attempt to fix or abstract any of these issues.
 
 ## Supported Endpoints (Stable API)
 
@@ -291,11 +292,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#holdings
 
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
-| ❌️ |   -   | `/etf/holdings`                    |
-| ❌️ |   -   | `/etf/info`                        |
-| ❌️ |   -   | `/etf/country-weightings`          |
-| ❌️ |   -   | `/etf/asset-exposure`              |
-| ❌️ |   -   | `/etf/sector-weightings`           |
+| ✅️ | alpha | `/etf/holdings`                    |
+| ✅️ | alpha | `/etf/info`                        |
+| ✅️ | alpha | `/etf/country-weightings`          |
+| ✅️ | alpha | `/etf/asset-exposure`              |
+| ✅️ | alpha | `/etf/sector-weightings`           |
 | ❌️ |   -   | `/funds/disclosure`                |
 | ❌️ |   -   | `/funds/disclosure-holders-latest` |
 | ❌️ |   -   | `/funds/disclosure-holders-search` |

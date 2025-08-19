@@ -3,7 +3,8 @@ package dev.sorn.fmp4j.services;
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpStock;
+import dev.sorn.fmp4j.models.FmpEtfCountryWeighting;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
@@ -15,10 +16,10 @@ import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-class FmpStockListServiceTest {
+class FmpEtfCountryWeightingServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpStock[]> service = new FmpStockListService(FMP_CONFIG, http);
+    private final FmpService<FmpEtfCountryWeighting[]> service = new FmpEtfCountryWeightingService(FMP_CONFIG, http);
 
     @Test
     void relative_url() {
@@ -26,7 +27,7 @@ class FmpStockListServiceTest {
         var relativeUrl = service.relativeUrl();
 
         // then
-        assertEquals("/stock-list", relativeUrl);
+        assertEquals("/etf/country-weightings", relativeUrl);
     }
 
     @Test
@@ -35,7 +36,7 @@ class FmpStockListServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(emptySet(), params);
+        assertEquals(Set.of("symbol"), params);
     }
 
     @Test
@@ -50,8 +51,10 @@ class FmpStockListServiceTest {
     @Test
     void successful_download() {
         // given
+        var symbol = "SPY";
+        service.param("symbol", symbol);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/stock-list/excerpt.json"))
+            .body(jsonTestResource("stable/etf/country-weightings/?symbol=%s.json", symbol))
             .statusCode(200)
             .apply();
 
@@ -59,8 +62,8 @@ class FmpStockListServiceTest {
         var result = service.download();
 
         // then
-        assertEquals(2, result.length);
-        range(0, 2).forEach(i -> assertInstanceOf(FmpStock.class, result[i]));
-        range(0, 2).forEach(i -> assertAllFieldsNonNull(result[i]));
+        assertEquals(6, result.length);
+        range(0, 6).forEach(i -> assertInstanceOf(FmpEtfCountryWeighting.class, result[i]));
+        range(0, 6).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
 }
