@@ -492,3 +492,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#bulk
 - `com.fasterxml.jackson.core:jackson-databind`
 - `org.apache.httpcomponents.client5:httpclient5`
 - `org.apache.commons:commons-lang3`
+
+## Contributors
+
+- [sorndotdev](https://github.com/sorndotdev)
+- [andyyngo](https://github.com/andyyngo)
