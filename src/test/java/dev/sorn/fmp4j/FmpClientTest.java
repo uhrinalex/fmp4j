@@ -12,6 +12,7 @@ import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
+import dev.sorn.fmp4j.models.FmpHistoricalChart;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
@@ -28,7 +29,6 @@ import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpShortQuote;
 import dev.sorn.fmp4j.models.FmpStock;
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -42,7 +42,6 @@ import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static java.lang.String.format;
 import static java.util.Collections.emptySet;
-import static java.util.stream.IntStream.empty;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -273,6 +272,35 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 5, FmpHistoricalPriceEodFull.class, emptySet());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "1min",
+        "5min",
+        "15min",
+        "30min",
+        "1hour",
+        "4hour",
+    })
+    void historicalChart(String interval) {
+        // given
+        var typeRef = typeRef(FmpHistoricalChart[].class);
+        var endpoint = "historical-chart/" + interval;
+        var symbol = "AAPL";
+        var from = "2024-01-01";
+        var to = "2024-01-02";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "from", from, "to", to));
+        var file = format("stable/%s/?symbol=%s&from=%s&to=%s.json", endpoint, symbol, from, to);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.historicalCharts(interval, symbol, Optional.of(from), Optional.of(to));
+
+        // then
+        assertValidResult(result, 2, FmpHistoricalChart.class, emptySet());
     }
 
     @Test

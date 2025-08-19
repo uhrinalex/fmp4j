@@ -103,12 +103,12 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#chart
 | ✅️ | alpha | `/historical-price-eod/full`               |
 | ❌️ |   -   | `/historical-price-eod/non-split-adjusted` |
 | ❌️ |   -   | `/historical-price-eod/dividend-adjusted`  |
-| ❌️ |   -   | `/historical-chart/1min`                   |
-| ❌️ |   -   | `/historical-chart/5min`                   |
-| ❌️ |   -   | `/historical-chart/15min`                  |
-| ❌️ |   -   | `/historical-chart/30min`                  |
-| ❌️ |   -   | `/historical-chart/1hour`                  |
-| ❌️ |   -   | `/historical-chart/4hour`                  |
+| ✅️ | alpha | `/historical-chart/1min`                   |
+| ✅️ | alpha | `/historical-chart/5min`                   |
+| ✅️ | alpha | `/historical-chart/15min`                  |
+| ✅️ | alpha | `/historical-chart/30min`                  |
+| ✅️ | alpha | `/historical-chart/1hour`                  |
+| ✅️ | alpha | `/historical-chart/4hour`                  |
 
 ### Company
 
@@ -234,9 +234,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#indexes
 | ❌️ |   -   | `/batch-index-quotes`              |
 | ✅️ | alpha | `/historical-price-eod/light`      |
 | ✅️ | alpha | `/historical-price-eod/full`       |
-| ❌️ |   -   | `/historical-chart/1min`           |
-| ❌️ |   -   | `/historical-chart/5min`           |
-| ❌️ |   -   | `/historical-chart/1hour`          |
+| ✅️ | alpha | `/historical-chart/1min`           |
+| ✅️ | alpha | `/historical-chart/5min`           |
+| ✅️ | alpha | `/historical-chart/1hour`          |
 | ❌️ |   -   | `/sp500-constituent`               |
 | ❌️ |   -   | `/nasdaq-constituent`              |
 | ❌️ |   -   | `/dowjones-constituent`            |
@@ -313,9 +313,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#commodities
 | ❌️ |   -   | `/batch-commodities-quotes`   |
 | ✅️ | alpha | `/historical-price-eod/light` |
 | ✅️ | alpha | `/historical-price-eod/full`  |
-| ❌️ |   -   | `/historical-chart/1min`      |
-| ❌️ |   -   | `/historical-chart/5min`      |
-| ❌️ |   -   | `/historical-chart/1hour`     |
+| ✅️ | alpha | `/historical-chart/1min`      |
+| ✅️ | alpha | `/historical-chart/5min`      |
+| ✅️ | alpha | `/historical-chart/1hour`     |
 
 ### Fundraisers
 
@@ -342,9 +342,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 | ✅️ | alpha | `/quote-short`                |
 | ✅️ | alpha | `/historical-price-eod/light` |
 | ✅️ | alpha | `/historical-price-eod/full`  |
-| ❌️ |   -   | `/historical-chart/1min`      |
-| ❌️ |   -   | `/historical-chart/5min`      |
-| ❌️ |   -   | `/historical-chart/1hour`     |
+| ✅️ | alpha | `/historical-chart/1min`      |
+| ✅️ | alpha | `/historical-chart/5min`      |
+| ✅️ | alpha | `/historical-chart/1hour`     |
 
 ### Crypto
 
@@ -358,9 +358,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 | ✅️ | alpha | `/quote-short`                |
 | ✅️ | alpha | `/historical-price-eod/light` |
 | ✅️ | alpha | `/historical-price-eod/full`  |
-| ❌️ |   -   | `/historical-chart/1min`      |
-| ❌️ |   -   | `/historical-chart/5min`      |
-| ❌️ |   -   | `/historical-chart/1hour`     |
+| ✅️ | alpha | `/historical-chart/1min`      |
+| ✅️ | alpha | `/historical-chart/5min`      |
+| ✅️ | alpha | `/historical-chart/1hour`     |
 
 ### News
 

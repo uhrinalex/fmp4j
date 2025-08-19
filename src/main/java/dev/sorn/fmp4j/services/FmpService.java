@@ -35,7 +35,7 @@ public abstract class FmpService<R> {
 
     protected abstract Set<String> optionalParams();
 
-    public void param(String key, Object value) {
+    public final void param(String key, Object value) {
         if (!requiredParams().contains(key) && !optionalParams().contains(key)) {
             throw new FmpServiceException("'%s' is not a recognized query param for endpoint [%s]", key, url());
         }
