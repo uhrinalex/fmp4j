@@ -13,6 +13,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
@@ -525,6 +526,104 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 15, FmpRevenueGeographicSegmentation.class, Set.of("reportedCurrency"));
+    }
+
+    @Test
+    void etfAssetExposure() {
+        // given
+        var symbol = "NVO";
+        var typeRef = typeRef(FmpEtfAssetExposure[].class);
+        var endpoint = "etf/asset-exposure";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfAssetExposure(symbol);
+
+        // then
+        assertValidResult(result, 28, FmpEtfAssetExposure.class, emptySet());
+    }
+
+    @Test
+    void etfCountryWeightings() {
+        // given
+        var symbol = "SPY";
+        var typeRef = typeRef(FmpEtfCountryWeighting[].class);
+        var endpoint = "etf/country-weightings";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfCountryWeightings(symbol);
+
+        // then
+        assertValidResult(result, 6, FmpEtfCountryWeighting.class, emptySet());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "FUSD.L,111",
+        "SCHD,103",
+    })
+    void etfHoldings(String symbol, int holdings) {
+        // given
+        var typeRef = typeRef(FmpEtfHolding[].class);
+        var endpoint = "etf/holdings";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfHoldings(symbol);
+
+        // then
+        assertValidResult(result, holdings, FmpEtfHolding.class, emptySet());
+    }
+
+    @Test
+    void etfInfo() {
+        // given
+        var symbol = "SPY";
+        var typeRef = typeRef(FmpEtfInfo[].class);
+        var endpoint = "etf/info";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfInfo(symbol);
+
+        // then
+        assertValidResult(result, 1, FmpEtfInfo.class, emptySet());
+    }
+
+    @Test
+    void etfSectorWeightings() {
+        // given
+        var symbol = "SPY";
+        var typeRef = typeRef(FmpEtfSectorWeighting[].class);
+        var endpoint = "etf/sector-weightings";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.etfSectorWeightings(symbol);
+
+        // then
+        assertValidResult(result, 11, FmpEtfSectorWeighting.class, emptySet());
     }
 
     @Test
