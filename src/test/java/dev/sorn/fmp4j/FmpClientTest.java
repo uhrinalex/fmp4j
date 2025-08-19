@@ -3,31 +3,8 @@ package dev.sorn.fmp4j;
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
-import dev.sorn.fmp4j.models.FmpCashFlowStatement;
-import dev.sorn.fmp4j.models.FmpCompany;
-import dev.sorn.fmp4j.models.FmpDividend;
-import dev.sorn.fmp4j.models.FmpDividendsCalendar;
-import dev.sorn.fmp4j.models.FmpEarning;
-import dev.sorn.fmp4j.models.FmpEarningsCalendar;
-import dev.sorn.fmp4j.models.FmpEnterpriseValue;
-import dev.sorn.fmp4j.models.FmpEtf;
-import dev.sorn.fmp4j.models.FmpHistoricalChart;
-import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
-import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
-import dev.sorn.fmp4j.models.FmpIncomeStatement;
-import dev.sorn.fmp4j.models.FmpKeyMetric;
-import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpQuote;
-import dev.sorn.fmp4j.models.FmpRatio;
-import dev.sorn.fmp4j.models.FmpRatioTtm;
-import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
-import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
-import dev.sorn.fmp4j.models.FmpSearchByIsin;
-import dev.sorn.fmp4j.models.FmpSearchByName;
-import dev.sorn.fmp4j.models.FmpSearchBySymbol;
-import dev.sorn.fmp4j.models.FmpShortQuote;
-import dev.sorn.fmp4j.models.FmpStock;
+import dev.sorn.fmp4j.models.*;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,6 +78,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 5, FmpSearchByName.class);
+    }
+
+    @Test
+    void searchByCusip() {
+        // given
+        var cusip = "037833100";
+        var typeRef = typeRef(FmpSearchByCusip[].class);
+        var endpoint = "search-cusip";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("cusip", cusip));
+        var file = format("stable/%s/?cusip=%s.json", endpoint, cusip);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.searchByCusip(cusip);
+
+        // then
+        assertValidResult(result, 3, FmpSearchByCusip.class);
     }
 
     @Test

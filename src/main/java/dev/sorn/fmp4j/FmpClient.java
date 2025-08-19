@@ -2,57 +2,9 @@ package dev.sorn.fmp4j;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
-import dev.sorn.fmp4j.models.FmpCashFlowStatement;
-import dev.sorn.fmp4j.models.FmpCompany;
-import dev.sorn.fmp4j.models.FmpDividend;
-import dev.sorn.fmp4j.models.FmpDividendsCalendar;
-import dev.sorn.fmp4j.models.FmpEarning;
-import dev.sorn.fmp4j.models.FmpEarningsCalendar;
-import dev.sorn.fmp4j.models.FmpEnterpriseValue;
-import dev.sorn.fmp4j.models.FmpEtf;
-import dev.sorn.fmp4j.models.FmpHistoricalChart;
-import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
-import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
-import dev.sorn.fmp4j.models.FmpIncomeStatement;
-import dev.sorn.fmp4j.models.FmpKeyMetric;
-import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpQuote;
-import dev.sorn.fmp4j.models.FmpRatio;
-import dev.sorn.fmp4j.models.FmpRatioTtm;
-import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
-import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
-import dev.sorn.fmp4j.models.FmpSearchByIsin;
-import dev.sorn.fmp4j.models.FmpSearchByName;
-import dev.sorn.fmp4j.models.FmpSearchBySymbol;
-import dev.sorn.fmp4j.models.FmpShortQuote;
-import dev.sorn.fmp4j.models.FmpStock;
-import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
-import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
-import dev.sorn.fmp4j.services.FmpCompanyService;
-import dev.sorn.fmp4j.services.FmpDividendService;
-import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
-import dev.sorn.fmp4j.services.FmpEarningService;
-import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
-import dev.sorn.fmp4j.services.FmpEnterpriseValuesService;
-import dev.sorn.fmp4j.services.FmpEtfListService;
-import dev.sorn.fmp4j.services.FmpHistoricalChartService;
-import dev.sorn.fmp4j.services.FmpHistoricalPriceEodFullService;
-import dev.sorn.fmp4j.services.FmpHistoricalPriceEodLightService;
-import dev.sorn.fmp4j.services.FmpIncomeStatementService;
-import dev.sorn.fmp4j.services.FmpKeyMetricService;
-import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
-import dev.sorn.fmp4j.services.FmpQuoteService;
-import dev.sorn.fmp4j.services.FmpRatioService;
-import dev.sorn.fmp4j.services.FmpRatioTtmService;
-import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
-import dev.sorn.fmp4j.services.FmpRevenueProductSegmentationService;
-import dev.sorn.fmp4j.services.FmpSearchByIsinService;
-import dev.sorn.fmp4j.services.FmpSearchByNameService;
-import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
-import dev.sorn.fmp4j.services.FmpService;
-import dev.sorn.fmp4j.services.FmpShortQuoteService;
-import dev.sorn.fmp4j.services.FmpStockListService;
+import dev.sorn.fmp4j.models.*;
+import dev.sorn.fmp4j.services.*;
+
 import java.util.Optional;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
@@ -66,6 +18,7 @@ public class FmpClient {
     protected final FmpService<FmpSearchByName[]> fmpSearchByNameService;
     protected final FmpService<FmpSearchBySymbol[]> fmpSearchBySymbolService;
     protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
+    protected final FmpService<FmpSearchByCusip[]> fmpSearchByCusipService;
 
     // Directory
     protected final FmpService<FmpStock[]> fmpStockListService;
@@ -119,6 +72,7 @@ public class FmpClient {
             new FmpSearchByIsinService(fmpConfig, fmpHttpClient),
             new FmpSearchByNameService(fmpConfig, fmpHttpClient),
             new FmpSearchBySymbolService(fmpConfig, fmpHttpClient),
+            new FmpSearchByCusipService(fmpConfig, fmpHttpClient),
 
             // Directory
             new FmpStockListService(fmpConfig, fmpHttpClient),
@@ -169,6 +123,7 @@ public class FmpClient {
         FmpSearchByIsinService fmpSearchByIsinService,
         FmpSearchByNameService fmpSearchByNameService,
         FmpSearchBySymbolService fmpSearchBySymbolService,
+        FmpSearchByCusipService fmpSearchByCusipService,
 
         // Directory
         FmpStockListService fmpStockListService,
@@ -216,6 +171,7 @@ public class FmpClient {
         this.fmpSearchByIsinService = fmpSearchByIsinService;
         this.fmpSearchByNameService = fmpSearchByNameService;
         this.fmpSearchBySymbolService = fmpSearchBySymbolService;
+        this.fmpSearchByCusipService = fmpSearchByCusipService;
 
         // Directory
         this.fmpStockListService = fmpStockListService;
@@ -265,6 +221,11 @@ public class FmpClient {
     public synchronized FmpSearchByName[] searchByName(String query) {
         fmpSearchByNameService.param("query", query);
         return fmpSearchByNameService.download();
+    }
+
+    public synchronized FmpSearchByCusip[] searchByCusip(String cusip) {
+        fmpSearchByCusipService.param("cusip", cusip);
+        return fmpSearchByCusipService.download();
     }
 
     public synchronized FmpSearchBySymbol[] searchBySymbol(String query) {
