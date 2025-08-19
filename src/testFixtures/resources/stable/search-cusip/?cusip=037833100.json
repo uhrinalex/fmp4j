@@ -1,0 +1,20 @@
+[
+  {
+    "symbol": "AAPL1",
+    "companyName": "Red Delicious",
+    "cusip": "037833100",
+    "marketCap": 1000000
+  },
+  {
+    "symbol": "AAPL2",
+    "companyName": "Fuji",
+    "cusip": "037833100",
+    "marketCap": 2000000
+  },
+  {
+    "symbol": "AAPL3",
+    "companyName": "Honeycrisp",
+    "cusip": "037833100",
+    "marketCap": 3000000
+  }
+]
