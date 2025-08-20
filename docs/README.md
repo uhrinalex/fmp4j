@@ -1,4 +1,4 @@
-![](./.github/badges/jacoco.svg)
+![](../.github/badges/jacoco.svg)
 
 ```txt
 ╔───────────────────────────────────────────╗
