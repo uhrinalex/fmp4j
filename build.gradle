@@ -27,9 +27,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
     implementation("org.apache.httpcomponents.client5:httpclient5:${apacheHttpComponentsVersion}")
     implementation("org.apache.commons:commons-lang3:${apacheCommonsVersion}")
-    testImplementation("io.cucumber:cucumber-java:${cucumberVersion}")
-    testImplementation("io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}")
-    testImplementation("io.cucumber:cucumber-core:${cucumberVersion}")
     testImplementation("org.mockito:mockito-core:${mockitoCoreVersion}")
     testImplementation("org.mockito:mockito-junit-jupiter:${mockitoJunitVersion}")
     testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
@@ -49,21 +46,6 @@ sourceSets {
             ]
         }
     }
-    cucumber {
-        java {
-            srcDirs = ['src/cucumber/java']
-        }
-        resources {
-            srcDirs = ['src/cucumber/resources']
-        }
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-    }
-}
-
-configurations {
-    cucumberImplementation.extendsFrom testImplementation
-    cucumberRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 test {
@@ -74,16 +56,6 @@ test {
     }
 }
 
-tasks.register('cucumberTest', Test) {
-    description = 'Runs Cucumber tests.'
-    group = 'verification'
-    testClassesDirs = sourceSets.cucumber.output.classesDirs
-    classpath = sourceSets.cucumber.runtimeClasspath
-    useJUnitPlatform()
-    shouldRunAfter test
-}
-
-check.dependsOn cucumberTest
 tasks.named('check') {
     finalizedBy jacocoTestReport
 }
@@ -118,7 +90,7 @@ jacoco {
 }
 
 jacocoTestReport {
-    dependsOn test, cucumberTest
+    dependsOn test
     reports {
         xml.required = true
         html.required = true
