@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
+import static dev.sorn.fmp4j.TestUtils.verifySerialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FmpBalanceSheetStatementTest implements BalanceSheetStatementTestData {
@@ -18,5 +19,14 @@ class FmpBalanceSheetStatementTest implements BalanceSheetStatementTestData {
 
         // then
         assertEquals(before, after);
+    }
+
+    @Test
+    void serializes() throws IOException {
+        // given
+        var o = anAnnualBalanceSheetStatement();
+
+        // when // then
+        verifySerialization(o);
     }
 }

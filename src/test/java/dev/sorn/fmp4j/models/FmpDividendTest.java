@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
+import static dev.sorn.fmp4j.TestUtils.verifySerialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FmpDividendTest implements DividendsTestData {
@@ -18,5 +19,14 @@ class FmpDividendTest implements DividendsTestData {
 
         // then
         assertEquals(before, after);
+    }
+
+    @Test
+    void serializes() throws IOException {
+        // given
+        var o = aDividend();
+
+        // when // then
+        verifySerialization(o);
     }
 }

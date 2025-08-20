@@ -5,6 +5,7 @@
 <suppressions>
     <!-- generic -->
     <suppress files=".*TestData\.java" checks=".*"/>
+    <suppress files=".*TestUtils\.java" checks=".*"/>
     <suppress files=".*Test\.java" checks=".*"/>
     <suppress files=".*Defs\.java" checks=".*"/>
     <suppress files=".*Stub\.java" checks=".*"/>

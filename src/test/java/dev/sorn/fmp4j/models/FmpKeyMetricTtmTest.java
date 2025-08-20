@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
+import static dev.sorn.fmp4j.TestUtils.verifySerialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FmpKeyMetricTtmTest implements KeyMetricTtmTestData {
@@ -18,5 +19,14 @@ class FmpKeyMetricTtmTest implements KeyMetricTtmTestData {
 
         // then
         assertEquals(before, after);
+    }
+
+    @Test
+    void serializes() throws IOException {
+        // given
+        var o = aTtmKeyMetric();
+
+        // when // then
+        verifySerialization(o);
     }
 }
