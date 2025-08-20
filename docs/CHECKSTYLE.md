@@ -22,4 +22,4 @@
     - **Scope**: Set to **All**, but ensure only **Java sources** are selected, and **tests** are excluded
 - Click **Apply** → **OK**
 
-<img width="1062" height="722" alt="image" src="images/checkstyle-intellij-plugin.png" />
+![](images/intellij-checkstyle-plugin.png)

@@ -39,3 +39,6 @@ Please see existing tests for examples.
   * `// given`
   * `// when`
   * `// then`
+* Run tests with coverage in IntelliJ, make sure all paths are covered
+
+![](images/intellij-run-tests-with-coverage.png)
