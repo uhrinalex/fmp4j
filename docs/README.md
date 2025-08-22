@@ -537,3 +537,4 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#bulk
 
 - [sorndotdev](https://github.com/sorndotdev)
 - [andyyngo](https://github.com/andyyngo)
+- [HamzaIddaoui](https://github.com/HamzaIddaoui)
