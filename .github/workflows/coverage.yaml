@@ -1,4 +1,4 @@
-name: Java CI
+name: Test Coverage
 
 on:
   push:
@@ -36,9 +36,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Run Checkstyle
-        run: ./gradlew checkstyleMain checkstyleTest
-
       - name: Clean
         run: ./gradlew clean
 
@@ -63,7 +60,7 @@ jobs:
         with:
           author_name: github_actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: 'Update test coverage badge'
+          message: '#0 Update test coverage badge'
           add: '*.svg'
 
       - name: Upload JaCoCo coverage report

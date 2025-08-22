@@ -1,0 +1,36 @@
+name: Check Commit Messages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        run: git fetch origin master
+
+      - name: Get commit messages
+        run: |
+          COMMITS=$(git log origin/master..HEAD --pretty=format:"%s")
+          echo "Commit messages:"
+          echo "$COMMITS"
+          echo "$COMMITS" > commits.txt
+
+      - name: Validate commit messages
+        run: |
+          VALID_MESSAGES=$(grep -v '^Merge ' commits.txt)
+          INVALID=$(echo "$VALID_MESSAGES" | grep -vE '^#[[:digit:]]+[[:space:]]{1}' || true)
+          if [[ -n "$INVALID" ]]; then
+            echo "🔴 The following commit messages are invalid:"
+            echo "$INVALID"
+            exit 1
+          else
+            echo "🟢 All commit messages are valid."
+          fi
