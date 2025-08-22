@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.models;
 
 import java.io.Serial;
 
-public record FmpQuote(
+public record FmpFullQuote(
     String symbol,
     String name,
     Double price,

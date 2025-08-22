@@ -2,17 +2,17 @@ package dev.sorn.fmp4j.services;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpPartialQuote;
 import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static java.util.Collections.emptySet;
 
-public class FmpShortQuoteService extends FmpService<FmpShortQuote[]> {
+public class FmpShortQuoteService extends FmpService<FmpPartialQuote[]> {
     public FmpShortQuoteService(
         FmpConfig cfg,
         FmpHttpClient http
     ) {
-        super(cfg, http, typeRef(FmpShortQuote[].class));
+        super(cfg, http, typeRef(FmpPartialQuote[].class));
     }
 
     @Override

@@ -23,7 +23,7 @@ import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpQuote;
+import dev.sorn.fmp4j.models.FmpFullQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
@@ -32,18 +32,20 @@ import dev.sorn.fmp4j.models.FmpSearchByCusip;
 import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
-import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpStock;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
@@ -85,7 +87,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.searchByIsin(isin);
+        var result = fmpClient.search().byIsin(isin);
 
         // then
         assertValidResult(result, 3, FmpSearchByIsin.class);
@@ -104,7 +106,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.searchByName(query);
+        var result = fmpClient.search().byName(query);
 
         // then
         assertValidResult(result, 5, FmpSearchByName.class);
@@ -123,7 +125,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.searchByCusip(cusip);
+        var result = fmpClient.search().byCusip(cusip);
 
         // then
         assertValidResult(result, 3, FmpSearchByCusip.class);
@@ -142,7 +144,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.searchBySymbol(query);
+        var result = fmpClient.search().bySymbol(query);
 
         // then
         assertValidResult(result, 1, FmpSearchBySymbol.class);
@@ -160,7 +162,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.stockList();
+        var result = fmpClient.list().stocks();
 
         // then
         assertValidResult(result, 2, FmpStock.class);
@@ -178,7 +180,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfList();
+        var result = fmpClient.list().etfs();
 
         // then
         assertValidResult(result, 4, FmpEtf.class);
@@ -196,7 +198,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.dividendsCalendar();
+        var result = fmpClient.calendar().dividends();
 
         // then
         assertValidResult(result, 4, FmpDividendsCalendar.class, Set.of("declarationDate"));
@@ -215,7 +217,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.dividends(symbol);
+        var result = fmpClient.calendar().dividends(symbol);
 
         // then
         assertValidResult(result, 4, FmpDividend.class, Set.of("declarationDate"));
@@ -233,7 +235,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.earningsCalendar();
+        var result = fmpClient.calendar().earnings();
 
         // then
         assertValidResult(result, 4, FmpEarningsCalendar.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
@@ -252,7 +254,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.earnings(symbol);
+        var result = fmpClient.calendar().earnings(symbol);
 
         // then
         assertValidResult(result, 4, FmpEarning.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
@@ -273,7 +275,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.historicalPriceEodLight(symbol, Optional.of(from), Optional.of(to));
+        var result = fmpClient.chart().historicalPriceEodLight(symbol, Optional.of(from), Optional.of(to));
 
         // then
         assertValidResult(result, 5, FmpHistoricalPriceEodLight.class, emptySet());
@@ -294,7 +296,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.historicalPriceEodFull(symbol, Optional.of(from), Optional.of(to));
+        var result = fmpClient.chart().historicalPriceEodFull(symbol, Optional.of(from), Optional.of(to));
 
         // then
         assertValidResult(result, 5, FmpHistoricalPriceEodFull.class, emptySet());
@@ -323,7 +325,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.historicalCharts(interval, symbol, Optional.of(from), Optional.of(to));
+        var result = fmpClient.chart().historical(interval, symbol, Optional.of(from), Optional.of(to));
 
         // then
         assertValidResult(result, 2, FmpHistoricalChart.class, emptySet());
@@ -342,7 +344,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.company(symbol);
+        var result = fmpClient.company().company(symbol);
 
         // then
         assertValidResult(result, 1, FmpCompany.class);
@@ -363,7 +365,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.incomeStatements(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().income(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, limit, FmpIncomeStatement.class);
@@ -384,7 +386,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.balanceSheetStatements(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().balanceSheet(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, limit, FmpBalanceSheetStatement.class);
@@ -405,7 +407,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.cashFlowStatements(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().cashFlow(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, limit, FmpCashFlowStatement.class);
@@ -426,7 +428,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.ratios(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().ratios(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, limit, FmpRatio.class);
@@ -445,7 +447,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.ratiosTtm(symbol);
+        var result = fmpClient.statement().ratiosTtm(symbol);
 
         // then
         assertValidResult(result, 1, FmpRatioTtm.class);
@@ -466,7 +468,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.keyMetrics(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().keyMetrics(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, limit, FmpKeyMetric.class);
@@ -485,7 +487,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.keyMetricTtm(symbol);
+        var result = fmpClient.statement().keyMetricsTtm(symbol);
 
         // then
         assertValidResult(result, 1, FmpKeyMetricTtm.class);
@@ -509,7 +511,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.enterpriseValues(symbol, Optional.of(period), Optional.of(limit));
+        var result = fmpClient.statement().enterpriseValues(symbol, Optional.of(period), Optional.of(limit));
 
         // then
         assertValidResult(result, 3, FmpEnterpriseValue.class);
@@ -530,7 +532,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.revenueProductSegmentations(symbol, Optional.of(period), Optional.of(structure));
+        var result = fmpClient.statement().revenueProductSegmentations(symbol, Optional.of(period), Optional.of(structure));
 
         // then
         assertValidResult(result, 15, FmpRevenueProductSegmentation.class, Set.of("reportedCurrency"));
@@ -551,7 +553,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.revenueGeographicSegmentations(symbol, Optional.of(period), Optional.of(structure));
+        var result = fmpClient.statement().revenueGeographicSegmentations(symbol, Optional.of(period), Optional.of(structure));
 
         // then
         assertValidResult(result, 15, FmpRevenueGeographicSegmentation.class, Set.of("reportedCurrency"));
@@ -570,7 +572,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfAssetExposure(symbol);
+        var result = fmpClient.etf().assetExposure(symbol);
 
         // then
         assertValidResult(result, 28, FmpEtfAssetExposure.class, emptySet());
@@ -589,7 +591,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfCountryWeightings(symbol);
+        var result = fmpClient.etf().countryWeightings(symbol);
 
         // then
         assertValidResult(result, 6, FmpEtfCountryWeighting.class, emptySet());
@@ -611,7 +613,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfHoldings(symbol);
+        var result = fmpClient.etf().holdings(symbol);
 
         // then
         assertValidResult(result, holdings, FmpEtfHolding.class, emptySet());
@@ -630,7 +632,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfInfo(symbol);
+        var result = fmpClient.etf().info(symbol);
 
         // then
         assertValidResult(result, 1, FmpEtfInfo.class, emptySet());
@@ -649,7 +651,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.etfSectorWeightings(symbol);
+        var result = fmpClient.etf().sectorWeightings(symbol);
 
         // then
         assertValidResult(result, 11, FmpEtfSectorWeighting.class, emptySet());
@@ -659,7 +661,7 @@ class FmpClientTest {
     void quotes() {
         // given
         var symbol = "AAPL";
-        var typeRef = typeRef(FmpQuote[].class);
+        var typeRef = typeRef(FmpFullQuote[].class);
         var endpoint = "quote";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
@@ -668,17 +670,17 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.quotes(symbol);
+        var result = fmpClient.quote().full(symbol);
 
         // then
-        assertValidResult(result, 1, FmpQuote.class);
+        assertValidResult(result, 1, FmpFullQuote.class);
     }
 
     @Test
     void shortQuotes() {
         // given
         var symbol = "AAPL";
-        var typeRef = typeRef(FmpShortQuote[].class);
+        var typeRef = typeRef(FmpPartialQuote[].class);
         var endpoint = "quote-short";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
@@ -687,10 +689,10 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.shortQuotes(symbol);
+        var result = fmpClient.quote().partial(symbol);
 
         // then
-        assertValidResult(result, 1, FmpShortQuote.class);
+        assertValidResult(result, 1, FmpPartialQuote.class);
     }
 
     private URI buildUri(String endpoint) {
