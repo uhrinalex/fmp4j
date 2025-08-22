@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
+import dev.sorn.fmp4j.models.FmpFinancialGrowth;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -15,6 +16,7 @@ import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpEnterpriseValuesService;
+import dev.sorn.fmp4j.services.FmpFinancialGrowthService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
 import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
@@ -23,7 +25,6 @@ import dev.sorn.fmp4j.services.FmpRatioTtmService;
 import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
 import dev.sorn.fmp4j.services.FmpRevenueProductSegmentationService;
 import dev.sorn.fmp4j.services.FmpService;
-
 import java.util.Optional;
 
 public class FmpStatementClient {
@@ -32,6 +33,7 @@ public class FmpStatementClient {
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
     protected final FmpService<FmpBalanceSheetStatement[]> balanceSheetStatementService;
     protected final FmpService<FmpCashFlowStatement[]> cashFlowStatementService;
+    protected final FmpService<FmpFinancialGrowth[]> financialGrowthService;
     protected final FmpService<FmpRatio[]> ratioService;
     protected final FmpService<FmpRatioTtm[]> ratioTtmService;
     protected final FmpService<FmpKeyMetric[]> keyMetricService;
@@ -46,6 +48,7 @@ public class FmpStatementClient {
         this.incomeStatementService = new FmpIncomeStatementService(fmpConfig, fmpHttpClient);
         this.balanceSheetStatementService = new FmpBalanceSheetStatementService(fmpConfig, fmpHttpClient);
         this.cashFlowStatementService = new FmpCashFlowStatementService(fmpConfig, fmpHttpClient);
+        this.financialGrowthService = new FmpFinancialGrowthService(fmpConfig, fmpHttpClient);
         this.ratioService = new FmpRatioService(fmpConfig, fmpHttpClient);
         this.ratioTtmService = new FmpRatioTtmService(fmpConfig, fmpHttpClient);
         this.keyMetricService = new FmpKeyMetricService(fmpConfig, fmpHttpClient);
@@ -56,9 +59,9 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpIncomeStatement[] income(
-            String symbol,
-            Optional<String> period,
-            Optional<Integer> limit
+        String symbol,
+        Optional<String> period,
+        Optional<Integer> limit
     ) {
         incomeStatementService.param("symbol", symbol);
         incomeStatementService.param("period", period.orElse("annual"));
@@ -67,9 +70,9 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpBalanceSheetStatement[] balanceSheet(
-            String symbol,
-            Optional<String> period,
-            Optional<Integer> limit
+        String symbol,
+        Optional<String> period,
+        Optional<Integer> limit
     ) {
         balanceSheetStatementService.param("symbol", symbol);
         balanceSheetStatementService.param("period", period.orElse("annual"));
@@ -82,6 +85,13 @@ public class FmpStatementClient {
         cashFlowStatementService.param("period", period.orElse("annual"));
         cashFlowStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return cashFlowStatementService.download();
+    }
+
+    public synchronized FmpFinancialGrowth[] financialGrowth(String symbol, Optional<String> period, Optional<Integer> limit) {
+        financialGrowthService.param("symbol", symbol);
+        financialGrowthService.param("period", period.orElse("annual"));
+        financialGrowthService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return financialGrowthService.download();
     }
 
     public synchronized FmpRatio[] ratios(String symbol, Optional<String> period, Optional<Integer> limit) {
