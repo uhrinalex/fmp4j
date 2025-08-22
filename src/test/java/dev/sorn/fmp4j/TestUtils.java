@@ -31,7 +31,14 @@ public final class TestUtils {
     }
 
     public static String jsonTestResource(String filename, Object... args) {
-        try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(format(filename, args))) {
+        var encoded = format(filename, args)
+            .replace("?", "%3F")
+            .replace(":", "%3A")
+            .replace("*", "%2A")
+            .replace("<", "%3C")
+            .replace(">", "%3E")
+            .replace("|", "%7C");
+        try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(encoded)) {
             return new String(inputStream.readAllBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
