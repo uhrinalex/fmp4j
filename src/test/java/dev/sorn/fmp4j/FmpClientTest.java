@@ -17,6 +17,7 @@ import dev.sorn.fmp4j.models.FmpEtfCountryWeighting;
 import dev.sorn.fmp4j.models.FmpEtfHolding;
 import dev.sorn.fmp4j.models.FmpEtfInfo;
 import dev.sorn.fmp4j.models.FmpEtfSectorWeighting;
+import dev.sorn.fmp4j.models.FmpFinancialGrowth;
 import dev.sorn.fmp4j.models.FmpHistoricalChart;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
@@ -350,18 +351,18 @@ class FmpClientTest {
         assertValidResult(result, 1, FmpCompany.class);
     }
 
-    @Test
-    void incomeStatements() {
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void incomeStatements(String period) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var limit = 3;
         var typeRef = typeRef(FmpIncomeStatement[].class);
         var endpoint = "income-statement";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=3.json", endpoint, symbol);
+        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -371,18 +372,18 @@ class FmpClientTest {
         assertValidResult(result, limit, FmpIncomeStatement.class);
     }
 
-    @Test
-    void balanceSheetStatements() {
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void balanceSheetStatements(String period) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var limit = 3;
         var typeRef = typeRef(FmpBalanceSheetStatement[].class);
         var endpoint = "balance-sheet-statement";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=3.json", endpoint, symbol);
+        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -392,18 +393,18 @@ class FmpClientTest {
         assertValidResult(result, limit, FmpBalanceSheetStatement.class);
     }
 
-    @Test
-    void cashFlowStatements() {
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void cashFlowStatements(String period) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var limit = 3;
         var typeRef = typeRef(FmpCashFlowStatement[].class);
         var endpoint = "cash-flow-statement";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=3.json", endpoint, symbol);
+        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -413,18 +414,45 @@ class FmpClientTest {
         assertValidResult(result, limit, FmpCashFlowStatement.class);
     }
 
-    @Test
-    void ratios() {
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void financialGrowth(String period) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
+        var limit = 2;
+        var typeRef = typeRef(FmpFinancialGrowth[].class);
+        var endpoint = "financial-growth";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.statement().financialGrowth(symbol, Optional.of(period), Optional.of(limit));
+
+        // then
+        assertValidResult(result, limit, FmpFinancialGrowth.class, Set.of(
+            "ebitdaGrowth",
+            "growthCapitalExpenditure",
+            "tenYBottomLineNetIncomeGrowthPerShare",
+            "fiveYBottomLineNetIncomeGrowthPerShare",
+            "threeYBottomLineNetIncomeGrowthPerShare"
+        ));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void ratios(String period) {
+        // given
+        var symbol = "AAPL";
         var limit = 3;
         var typeRef = typeRef(FmpRatio[].class);
         var endpoint = "ratios";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=3.json", endpoint, symbol);
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -453,18 +481,18 @@ class FmpClientTest {
         assertValidResult(result, 1, FmpRatioTtm.class);
     }
 
-    @Test
-    void keyMetrics() {
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void keyMetrics(String period) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var limit = 3;
         var typeRef = typeRef(FmpKeyMetric[].class);
         var endpoint = "key-metrics";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=3.json", endpoint, symbol);
+        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -517,11 +545,11 @@ class FmpClientTest {
         assertValidResult(result, 3, FmpEnterpriseValue.class);
     }
 
-    @Test
-    void revenueProductSegmentation() {
+    @ParameterizedTest
+    @CsvSource({"annual,15", "quarter,42"})
+    void revenueProductSegmentation(String period, int expectedCount) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var structure = "flat";
         var typeRef = typeRef(FmpRevenueProductSegmentation[].class);
         var endpoint = "revenue-product-segmentation";
@@ -535,14 +563,14 @@ class FmpClientTest {
         var result = fmpClient.statement().revenueProductSegmentations(symbol, Optional.of(period), Optional.of(structure));
 
         // then
-        assertValidResult(result, 15, FmpRevenueProductSegmentation.class, Set.of("reportedCurrency"));
+        assertValidResult(result, expectedCount, FmpRevenueProductSegmentation.class, Set.of("reportedCurrency"));
     }
 
-    @Test
-    void revenueGeographicSegmentation() {
+    @ParameterizedTest
+    @CsvSource({"annual,15", "quarter,59"})
+    void revenueGeographicSegmentation(String period, int expectedCount) {
         // given
         var symbol = "AAPL";
-        var period = "annual";
         var structure = "flat";
         var typeRef = typeRef(FmpRevenueGeographicSegmentation[].class);
         var endpoint = "revenue-geographic-segmentation";
@@ -556,7 +584,7 @@ class FmpClientTest {
         var result = fmpClient.statement().revenueGeographicSegmentations(symbol, Optional.of(period), Optional.of(structure));
 
         // then
-        assertValidResult(result, 15, FmpRevenueGeographicSegmentation.class, Set.of("reportedCurrency"));
+        assertValidResult(result, expectedCount, FmpRevenueGeographicSegmentation.class, Set.of("reportedCurrency"));
     }
 
     @Test
@@ -721,7 +749,7 @@ class FmpClientTest {
     }
 
     private <T> void assertValidResult(T[] result, int expectedLength, Class<?> expectedType, Set<String> ignoreFields) {
-        assertNotNull(result);
+        assertNotNull(result, "result was null, likely a missing stub");
         assertEquals(expectedLength, result.length);
         range(0, expectedLength).forEach(i -> assertInstanceOf(expectedType, result[i]));
         range(0, expectedLength).forEach(i -> assertAllFieldsNonNull(result[i], ignoreFields));
