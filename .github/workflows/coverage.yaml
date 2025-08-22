@@ -58,8 +58,8 @@ jobs:
       - name: Check coverage delta
         id: coverage_check
         run: |
-          # Get current coverage (remove % if present)
-          CURRENT_COV=$(echo "${{ steps.jacoco.outputs.coverage }}" | sed 's/%//')
+          # Get current coverage (already a decimal)
+          CURRENT_COV="${{ steps.jacoco.outputs.coverage }}"
           PREVIOUS_COV=$(git show HEAD~1:.coverage_history 2>/dev/null || echo "")
 
           if [ -z "$PREVIOUS_COV" ]; then
@@ -69,16 +69,16 @@ jobs:
           fi
 
           # Calculate delta using awk for floating point arithmetic
-          DELTA=$(awk -v current="$CURRENT_COV" -v previous="$PREVIOUS_COV" 'BEGIN { printf "%.2f", current - previous }')
+          DELTA=$(awk -v current="$CURRENT_COV" -v previous="$PREVIOUS_COV" 'BEGIN { printf "%.4f", (current - previous) * 100 }')
           ABS_DELTA=$(awk -v delta="$DELTA" 'BEGIN { print (delta < 0) ? -delta : delta }')
 
-          echo "Current coverage: $CURRENT_COV%"
-          echo "Previous coverage: $PREVIOUS_COV%"
+          echo "Current coverage: $(awk -v cov="$CURRENT_COV" 'BEGIN { printf "%.2f", cov * 100 }')%"
+          echo "Previous coverage: $(awk -v cov="$PREVIOUS_COV" 'BEGIN { printf "%.2f", cov * 100 }')%"
           echo "Delta: $DELTA%"
 
           # Fail if coverage drops by more than 1%
           if [ $(echo "$DELTA < -1.0" | bc -l) -eq 1 ]; then
-            echo "Coverage dropped by more than 1% (from $PREVIOUS_COV% to $CURRENT_COV%)"
+            echo "Coverage dropped by more than 1% (from $(awk -v cov="$PREVIOUS_COV" 'BEGIN { printf "%.2f", cov * 100 }')% to $(awk -v cov="$CURRENT_COV" 'BEGIN { printf "%.2f", cov * 100 }')%)"
             exit 1
           fi
 
