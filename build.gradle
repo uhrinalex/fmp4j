@@ -3,6 +3,7 @@ plugins {
     id 'java-test-fixtures'
     id 'checkstyle'
     id 'jacoco'
+    id 'com.vanniktech.maven.publish' version "0.34.0"
 }
 
 apply plugin: dev.sorn.fmp4j.CoveragePlugin
@@ -14,8 +15,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-    withSourcesJar()
-    withJavadocJar()
 }
 
 repositories {
@@ -128,16 +127,14 @@ clean {
     delete "${buildDir}/generated-sources"
 }
 
-tasks.named('sourcesJar') {
-    from sourceSets.main.allSource
-}
 
 tasks.withType(Javadoc).configureEach {
     exclude fileTree("${buildDir}/generated-sources/**")
     options.addStringOption('Xdoclint:none', '-quiet')
 }
 
-tasks.named('javadocJar') {
-    dependsOn tasks.javadoc
-    from tasks.javadoc
+afterEvaluate {
+    tasks.named('generateMetadataFileForMavenPublication') {
+        dependsOn(tasks.named('plainJavadocJar'))
+    }
 }

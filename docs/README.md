@@ -23,6 +23,24 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 > This is an open-source Java SDK that wraps their API. Please note: their API contains many inconsistencies, poor
 > naming conventions, and is not RESTful. This SDK does *not* attempt to fix or abstract any of these issues.
 
+## Usage
+
+**Gradle (build.gradle)**
+
+```groovy
+implementation 'dev.sorn:fmp4j:alpha'
+```
+
+**Maven (pom.xml)**
+
+```xml
+<dependency>
+    <groupId>dev.sorn</groupId>
+    <artifactId>fmp4j</artifactId>
+    <version>alpha</version>
+</dependency>
+```
+
 ## Supported Endpoints (Stable API)
 
 The section names, ordering, and endpoints are copy-pasted from FMP docs.
