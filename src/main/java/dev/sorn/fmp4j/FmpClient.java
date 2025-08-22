@@ -8,9 +8,9 @@ import dev.sorn.fmp4j.clients.FmpDirectoryClient;
 import dev.sorn.fmp4j.clients.FmpEtfClient;
 import dev.sorn.fmp4j.clients.FmpQuoteClient;
 import dev.sorn.fmp4j.clients.FmpSearchClient;
+import dev.sorn.fmp4j.clients.FmpSecFilingsSearchClient;
 import dev.sorn.fmp4j.clients.FmpStatementClient;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
 
@@ -42,38 +42,41 @@ public class FmpClient {
     // Quotes
     protected final FmpQuoteClient fmpQuoteClient;
 
+    // SEC Filings Search
+    protected final FmpSecFilingsSearchClient fmpSecFilingsSearchClient;
+
     public FmpClient() {
         this(FMP_CONFIG, FMP_HTTP_CLIENT);
     }
 
     public FmpClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this(
-                fmpConfig,
-                fmpHttpClient,
-
-                new FmpSearchClient(fmpConfig, fmpHttpClient),
-                new FmpDirectoryClient(fmpConfig, fmpHttpClient),
-                new FmpCalendarClient(fmpConfig, fmpHttpClient),
-                new FmpChartClient(fmpConfig, fmpHttpClient),
-                new FmpCompanyClient(fmpConfig, fmpHttpClient),
-                new FmpStatementClient(fmpConfig, fmpHttpClient),
-                new FmpEtfClient(fmpConfig, fmpHttpClient),
-                new FmpQuoteClient(fmpConfig, fmpHttpClient)
+            fmpConfig,
+            fmpHttpClient,
+            new FmpSearchClient(fmpConfig, fmpHttpClient),
+            new FmpDirectoryClient(fmpConfig, fmpHttpClient),
+            new FmpCalendarClient(fmpConfig, fmpHttpClient),
+            new FmpChartClient(fmpConfig, fmpHttpClient),
+            new FmpCompanyClient(fmpConfig, fmpHttpClient),
+            new FmpStatementClient(fmpConfig, fmpHttpClient),
+            new FmpEtfClient(fmpConfig, fmpHttpClient),
+            new FmpQuoteClient(fmpConfig, fmpHttpClient),
+            new FmpSecFilingsSearchClient(fmpConfig, fmpHttpClient)
         );
     }
 
     public FmpClient(
-            FmpConfig fmpConfig,
-            FmpHttpClient fmpHttpClient,
-
-            FmpSearchClient fmpSearchClient,
-            FmpDirectoryClient fmpDirectoryClient,
-            FmpCalendarClient fmpCalendarClient,
-            FmpChartClient fmpChartClient,
-            FmpCompanyClient fmpCompanyClient,
-            FmpStatementClient fmpStatementClient,
-            FmpEtfClient fmpEtfClient,
-            FmpQuoteClient fmpQuoteClient
+        FmpConfig fmpConfig,
+        FmpHttpClient fmpHttpClient,
+        FmpSearchClient fmpSearchClient,
+        FmpDirectoryClient fmpDirectoryClient,
+        FmpCalendarClient fmpCalendarClient,
+        FmpChartClient fmpChartClient,
+        FmpCompanyClient fmpCompanyClient,
+        FmpStatementClient fmpStatementClient,
+        FmpEtfClient fmpEtfClient,
+        FmpQuoteClient fmpQuoteClient,
+        FmpSecFilingsSearchClient fmpSecFilingsSearchClient
     ) {
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
@@ -85,8 +88,8 @@ public class FmpClient {
         this.fmpStatementClient = fmpStatementClient;
         this.fmpEtfClient = fmpEtfClient;
         this.fmpQuoteClient = fmpQuoteClient;
+        this.fmpSecFilingsSearchClient = fmpSecFilingsSearchClient;
     }
-
 
     public FmpSearchClient search() {
         return fmpSearchClient;
@@ -118,5 +121,9 @@ public class FmpClient {
 
     public FmpQuoteClient quote() {
         return fmpQuoteClient;
+    }
+
+    public FmpSecFilingsSearchClient filingsSearch() {
+        return fmpSecFilingsSearchClient;
     }
 }
