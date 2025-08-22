@@ -19,7 +19,9 @@ Thanks for your interest in contributing! Follow these steps to get started.
 - [x] Code follows existing style/conventions
 - [x] No unrelated changes in your PR
 - [x] Follow TDD, 100% test coverage
-- [x] Apply DDD principles
+- [x] You have tested locally
+  - [x] `./gradlew clean build` (MacOS/Linux)
+  - [x] `gradlew.bat clean build` (Windows)
 
 ## 💬 Need Help?
 
@@ -39,6 +41,7 @@ Please see existing tests for examples.
   * `// given`
   * `// when`
   * `// then`
+* Use `var` in tests
 * Run tests with coverage in IntelliJ, make sure all paths are covered
 
 ![](images/intellij-run-tests-with-coverage.png)
