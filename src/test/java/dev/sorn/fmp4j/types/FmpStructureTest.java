@@ -4,20 +4,17 @@ import static dev.sorn.fmp4j.types.FmpStructure.structure;
 import static org.junit.jupiter.api.Assertions.*;
 
 import dev.sorn.fmp4j.exceptions.FmpInvalidStructureException;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class FmpStructureTest {
 
   @Test
   void valid_structure() {
     // given
-    String structureValue = "flat";
+    var structureValue = "flat";
 
     // when
-    FmpStructure structure = structure(structureValue);
+    var structure = structure(structureValue);
 
     // then
     assertEquals(structureValue, structure.value());
@@ -27,7 +24,7 @@ class FmpStructureTest {
   @Test
   void invalid_structure() {
     // given
-    String invalidStructureValue = "unknown";
+    var invalidStructureValue = "unknown";
 
     // when
     var e = assertThrows(FmpInvalidStructureException.class, () -> structure(invalidStructureValue));
