@@ -25,6 +25,7 @@ import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
@@ -663,6 +664,63 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpEtfInfo.class, emptySet());
+    }
+
+    @Test
+    void cryptoNews() {
+        // given
+        var symbol = "BTCUSD";
+        var typeRef = typeRef(FmpNews[].class);
+        var endpoint = "news/crypto";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
+        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.news().crypto(Set.of(symbol));
+
+        // then
+        assertValidResult(result, 2, FmpNews.class, emptySet());
+    }
+
+    @Test
+    void forexNews() {
+        // given
+        var symbol = "EURUSD";
+        var typeRef = typeRef(FmpNews[].class);
+        var endpoint = "news/forex";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
+        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.news().forex(Set.of(symbol));
+
+        // then
+        assertValidResult(result, 2, FmpNews.class, emptySet());
+    }
+
+    @Test
+    void stockNews() {
+        // given
+        var symbol = "AAPL";
+        var typeRef = typeRef(FmpNews[].class);
+        var endpoint = "news/stock";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
+        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.news().stock(Set.of(symbol));
+
+        // then
+        assertValidResult(result, 2, FmpNews.class, emptySet());
     }
 
     @Test

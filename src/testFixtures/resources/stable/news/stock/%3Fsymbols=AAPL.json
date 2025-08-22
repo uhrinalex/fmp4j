@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "AAPL",
+    "publishedDate": "2025-08-22 16:23:55",
+    "publisher": "CNBC",
+    "title": "Google shares rise on report of Apple using Gemini for Siri",
+    "image": "https://images.financialmodelingprep.com/news/google-shares-rise-on-report-of-apple-using-gemini-20250822.jpg",
+    "site": "cnbc.com",
+    "text": "Alphabet shares rose 3% on a Friday report that Apple is in talks to incorporate Gemini technology for a revamped version of Siri, Apple's voice assistant. The talks come as the two tech giants face an uncertain future as its deals for search placement is at risk pending a regulation decision.",
+    "url": "https://www.cnbc.com/2025/08/22/google-shares-rise-on-report-of-apple-using-gemini-for-siri.html"
+  },
+  {
+    "symbol": "AAPL",
+    "publishedDate": "2025-08-22 15:48:02",
+    "publisher": "Bloomberg Markets and Finance",
+    "title": "Apple May Use Google Gemini AI to Power Revamped Siri",
+    "image": "https://images.financialmodelingprep.com/news/apple-may-use-google-gemini-ai-to-power-revamped-20250822.jpg",
+    "site": "youtube.com",
+    "text": "Apple is in early discussions about using Google Gemini to power a revamped version of its Siri voice assistant. The work is part of an effort to catch up in generative AI, a field where the company arrived late and then struggled to gain traction.",
+    "url": "https://www.youtube.com/watch?v=1q_EPKg5_rA"
+  }
+]

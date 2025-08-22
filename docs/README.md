@@ -386,22 +386,6 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 | ✅️ | alpha | `/historical-chart/5min`      |
 | ✅️ | alpha | `/historical-chart/1hour`     |
 
-### Crypto
-
-Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
-
-|    | Since | Endpoint                      |
-|:--:|:-----:|-------------------------------|
-| ❌️ |   -   | `/forex-list`                 |
-| ❌️ |   -   | `/batch-forex-quotes`         |
-| ✅️ | alpha | `/quote`                      |
-| ✅️ | alpha | `/quote-short`                |
-| ✅️ | alpha | `/historical-price-eod/light` |
-| ✅️ | alpha | `/historical-price-eod/full`  |
-| ✅️ | alpha | `/historical-chart/1min`      |
-| ✅️ | alpha | `/historical-chart/5min`      |
-| ✅️ | alpha | `/historical-chart/1hour`     |
-
 ### News
 
 Copy of https://site.financialmodelingprep.com/developer/docs/stable#news
@@ -412,11 +396,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#news
 | ❌️ |   -   | `/news/general-latest`        |
 | ❌️ |   -   | `/news/press-releases`        |
 | ❌️ |   -   | `/news/press-releases-latest` |
-| ❌️ |   -   | `/news/stock`                 |
+| ✅️ | alpha | `/news/stock`                 |
 | ❌️ |   -   | `/news/stock-latest`          |
-| ❌️ |   -   | `/news/crypto`                |
+| ✅️ | alpha | `/news/crypto`                |
 | ❌️ |   -   | `/news/crypto-latest`         |
-| ❌️ |   -   | `/news/forex`                 |
+| ✅️ | alpha | `/news/forex`                 |
 | ❌️ |   -   | `/news/forex-latest`          |
 
 ### Technical Indicators
