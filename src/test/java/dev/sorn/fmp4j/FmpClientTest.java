@@ -18,13 +18,14 @@ import dev.sorn.fmp4j.models.FmpEtfHolding;
 import dev.sorn.fmp4j.models.FmpEtfInfo;
 import dev.sorn.fmp4j.models.FmpEtfSectorWeighting;
 import dev.sorn.fmp4j.models.FmpFinancialGrowth;
+import dev.sorn.fmp4j.models.FmpFullQuote;
 import dev.sorn.fmp4j.models.FmpHistoricalChart;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpFullQuote;
+import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
@@ -33,20 +34,18 @@ import dev.sorn.fmp4j.models.FmpSearchByCusip;
 import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
-import dev.sorn.fmp4j.models.FmpPartialQuote;
+import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpStock;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
@@ -686,7 +685,7 @@ class FmpClientTest {
     }
 
     @Test
-    void quotes() {
+    void fullQuotes() {
         // given
         var symbol = "AAPL";
         var typeRef = typeRef(FmpFullQuote[].class);
@@ -705,7 +704,7 @@ class FmpClientTest {
     }
 
     @Test
-    void shortQuotes() {
+    void partialQuotes() {
         // given
         var symbol = "AAPL";
         var typeRef = typeRef(FmpPartialQuote[].class);
@@ -721,6 +720,29 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpPartialQuote.class);
+    }
+
+    @Test
+    void filingsSearchBySymbol() {
+        // given
+        var symbol = "AAPL";
+        var from = "2024-01-01";
+        var to = "2025-01-01";
+        var page = 0;
+        var limit = 2;
+        var typeRef = typeRef(FmpSecFilingsSearchBySymbol[].class);
+        var endpoint = "sec-filings-search/symbol";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "from", from, "to", to, "page", page, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&from=%s&to=%s&page=%d&limit=%d.json", endpoint, symbol, from, to, page, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.filingsSearch().bySymbol(symbol, from, to, Optional.of(page), Optional.of(limit));
+
+        // then
+        assertValidResult(result, limit, FmpSecFilingsSearchBySymbol.class);
     }
 
     private URI buildUri(String endpoint) {
