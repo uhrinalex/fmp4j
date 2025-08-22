@@ -28,6 +28,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -54,14 +55,46 @@ jobs:
           echo "Coverage = ${{ steps.jacoco.outputs.coverage }}"
           echo "Branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
-      - name: Commit and push the badge (if it changed)
+      - name: Check coverage delta
+        id: coverage_check
+        run: |
+          # Get current coverage (remove % if present)
+          CURRENT_COV=$(echo "${{ steps.jacoco.outputs.coverage }}" | sed 's/%//')
+          PREVIOUS_COV=$(git show HEAD~1:.coverage_history 2>/dev/null || echo "")
+
+          if [ -z "$PREVIOUS_COV" ]; then
+            echo "No previous coverage found. Skipping delta check."
+            echo "$CURRENT_COV" > .coverage_history
+            exit 0
+          fi
+
+          # Calculate delta using awk for floating point arithmetic
+          DELTA=$(awk -v current="$CURRENT_COV" -v previous="$PREVIOUS_COV" 'BEGIN { printf "%.2f", current - previous }')
+          ABS_DELTA=$(awk -v delta="$DELTA" 'BEGIN { print (delta < 0) ? -delta : delta }')
+
+          echo "Current coverage: $CURRENT_COV%"
+          echo "Previous coverage: $PREVIOUS_COV%"
+          echo "Delta: $DELTA%"
+
+          # Fail if coverage drops by more than 1%
+          if [ $(echo "$DELTA < -1.0" | bc -l) -eq 1 ]; then
+            echo "Coverage dropped by more than 1% (from $PREVIOUS_COV% to $CURRENT_COV%)"
+            exit 1
+          fi
+
+          # Update history file if not a PR
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "$CURRENT_COV" > .coverage_history
+          fi
+
+      - name: Commit and push the badge and history
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: EndBug/add-and-commit@v9.1.4
         with:
           author_name: github_actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: '#0 Update test coverage badge'
-          add: '*.svg'
+          message: '#0 Update test coverage badge and history'
+          add: '*.svg .coverage_history'
 
       - name: Upload JaCoCo coverage report
         uses: actions/upload-artifact@v4
