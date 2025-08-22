@@ -9,7 +9,7 @@ Thanks for your interest in contributing! Follow these steps to get started.
 ## 🛠️ How to Contribute
 
 1. Fork the repo
-2. Set up the project — see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+2. Set up the project — see [docs/DEVELOPMENT.md](DEVELOPMENT.md)
 3. Create a new branch — use clear short names
 4. Push and open a Pull Request (PR) to `master`
 
