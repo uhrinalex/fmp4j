@@ -1,0 +1,48 @@
+name: Model Serialization Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [master]
+
+jobs:
+  check-test-fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Find model classes and verify fixtures
+        run: |
+          MODEL_DIR="src/main/java/dev/sorn/fmp4j/models"
+          FIXTURE_DIR="src/testFixtures/resources/models/serialization"
+          
+          # Find all Java classes in models directory
+          while IFS= read -r -d '' file; do
+            class_name=$(basename "$file" .java)
+
+            # Skip FmpModel interface
+            if [[ "$class_name" == "FmpModel" ]]; then
+              echo "⏩ Skipping interface: $class_name"
+              continue
+            fi
+
+            class_name=$(basename "$file" .java)
+            snapshot_file="$FIXTURE_DIR/${class_name}.snapshot"
+            version_file="$FIXTURE_DIR/${class_name}.version"
+          
+            if [[ ! -f "$snapshot_file" ]]; then
+              echo "🔴 Missing snapshot file for $class_name: $snapshot_file"
+              exit 1
+            fi
+          
+            if [[ ! -f "$version_file" ]]; then
+              echo "🔴 Missing version file for $class_name: $version_file"
+              exit 1
+            fi
+          
+            echo "Found fixtures for $class_name"
+          done < <(find "$MODEL_DIR" -name "*.java" -print0)
+          
+          echo "🟢 All model classes have corresponding snapshots and version files"
