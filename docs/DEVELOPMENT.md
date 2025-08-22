@@ -60,4 +60,4 @@ gradlew.bat clean build
 
 If the build is successful, you're ready to start development!
 
-Please set up [IntelliJ Checkstyle Plugin](docs/CHECKSTYLE.md) next.
+Please set up [IntelliJ Checkstyle Plugin](CHECKSTYLE.md) next.
