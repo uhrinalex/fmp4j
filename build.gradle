@@ -51,8 +51,22 @@ sourceSets {
 test {
     useJUnitPlatform()
     testLogging {
-        events "passed", "skipped", "failed"
-        exceptionFormat = "full"
+        events "failed", "skipped"
+        exceptionFormat "full"
+        showStandardStreams = true
+        showStackTraces = true
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            def GREEN = "\u001B[32m"
+            def RED = "\u001B[31m"
+            def YELLOW = "\u001B[33m"
+            def RESET = "\u001B[0m"
+            println """
+${result.resultType == org.gradle.api.tasks.testing.TestResult.ResultType.SUCCESS ? GREEN : RED}Results: ${result.resultType}${RESET}
+(${GREEN}${result.successfulTestCount} passed${RESET}, ${RED}${result.failedTestCount} failed${RESET}, ${YELLOW}${result.skippedTestCount} skipped${RESET}, ${result.testCount} total)
+"""
+        }
     }
 }
 
