@@ -41,6 +41,27 @@ implementation 'dev.sorn:fmp4j:alpha'
 </dependency>
 ```
 
+### Configuration
+
+Create `src/main/resources/fmp4j.properties`:
+
+```properties
+fmp4j.apiKey=yourfmpapikey
+fmp4j.baseUrl=https://financialmodelingprep.com/stable
+```
+
+#### Spring Boot Bean
+
+```java
+@Configuration
+public class FmpConfig {
+    @Bean
+    public FmpClient fmpClient() {
+        return new FmpClient();
+    }
+}
+```
+
 ## Supported Endpoints (Stable API)
 
 The section names, ordering, and endpoints are copy-pasted from FMP docs.
