@@ -1,11 +1,11 @@
 package dev.sorn.fmp4j;
 
-import dev.sorn.fmp4j.models.FmpQuote;
-import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpFullQuote;
+import dev.sorn.fmp4j.models.FmpPartialQuote;
 
 public interface QuoteTestData {
-    default FmpQuote aQuote() {
-        return new FmpQuote(
+    default FmpFullQuote aFullQuote() {
+        return new FmpFullQuote(
             "AAPL",
             "Apple Inc.",
             232.8,
@@ -26,8 +26,8 @@ public interface QuoteTestData {
         );
     }
 
-    default FmpShortQuote aShortQuote() {
-        return new FmpShortQuote(
+    default FmpPartialQuote aPartialQuote() {
+        return new FmpPartialQuote(
             "AAPL",
             231.59,
             -1.19,

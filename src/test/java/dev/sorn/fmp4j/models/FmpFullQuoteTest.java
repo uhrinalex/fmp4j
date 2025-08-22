@@ -8,14 +8,14 @@ import static dev.sorn.fmp4j.TestUtils.serialize;
 import static dev.sorn.fmp4j.TestUtils.verifySerialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FmpQuoteTest implements QuoteTestData {
+class FmpFullQuoteTest implements QuoteTestData {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = aQuote();
+        var before = aFullQuote();
 
         // when
-        var after = (FmpQuote) deserialize(serialize(before));
+        var after = (FmpFullQuote) deserialize(serialize(before));
 
         // then
         assertEquals(before, after);
@@ -24,7 +24,7 @@ class FmpQuoteTest implements QuoteTestData {
     @Test
     void serializes() throws IOException {
         // given
-        var o = aQuote();
+        var o = aFullQuote();
 
         // when // then
         verifySerialization(o);

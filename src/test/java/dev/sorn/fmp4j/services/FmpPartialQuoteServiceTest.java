@@ -4,7 +4,7 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.QuoteTestData;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpShortQuote;
+import dev.sorn.fmp4j.models.FmpPartialQuote;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class FmpShortQuoteServiceTest implements QuoteTestData {
+class FmpPartialQuoteServiceTest implements QuoteTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
-    private final FmpService<FmpShortQuote[]> service = new FmpShortQuoteService(FMP_CONFIG, http);
+    private final FmpService<FmpPartialQuote[]> service = new FmpShortQuoteService(FMP_CONFIG, http);
 
     @Test
     void relative_url() {
@@ -64,14 +64,14 @@ class FmpShortQuoteServiceTest implements QuoteTestData {
         var result = service.download();
 
         // then
-        var expected = new FmpShortQuote[]{aShortQuote()};
+        var expected = new FmpPartialQuote[]{aPartialQuote()};
         assertArrayEquals(expected, result);
     }
 
     @Test
     void missing_symbol_throws() {
         // given // when
-        Consumer<FmpService<FmpShortQuote[]>> f = FmpService::download;
+        Consumer<FmpService<FmpPartialQuote[]>> f = FmpService::download;
 
         // then
         var e = assertThrows(FmpServiceException.class, () -> f.accept(service));

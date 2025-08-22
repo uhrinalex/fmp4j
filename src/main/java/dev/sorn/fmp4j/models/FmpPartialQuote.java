@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.models;
 
 import java.io.Serial;
 
-public record FmpShortQuote(
+public record FmpPartialQuote(
     String symbol,
     Double price,
     Double change,
