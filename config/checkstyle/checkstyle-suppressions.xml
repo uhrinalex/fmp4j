@@ -6,14 +6,13 @@
     <!-- generic -->
     <suppress files=".*TestData\.java" checks=".*"/>
     <suppress files=".*TestUtils\.java" checks=".*"/>
-    <suppress files=".*Test\.java" checks=".*"/>
+    <suppress files=".*Test\.java" checks="AnnotationUseStyle"/>
+    <suppress files=".*Test\.java" checks="MagicNumber"/>
+    <suppress files=".*Test\.java" checks="MethodName"/>
     <suppress files=".*Defs\.java" checks=".*"/>
     <suppress files=".*Stub\.java" checks=".*"/>
     <suppress files=".*[\\/]generated[\\/].*" checks=".*"/>
     <suppress files=".*[\\/]generated-sources[\\/].*" checks=".*"/>
-
-    <suppress files=".*NotCovered1\.java" checks=".*"/>
-    <suppress files=".*NotCovered2\.java" checks=".*"/>
 
     <!-- Alphabetically sorted -->
     <suppress files="FmpClient.java" checks="ParameterNumber"/> <!-- constructor() -->

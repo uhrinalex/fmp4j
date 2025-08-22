@@ -702,10 +702,12 @@ class FmpClientTest {
     }
 
     private Map<String, Object> buildParams(Map<String, Object> customParams) {
-        return new HashMap<>() {{
-            putAll(customParams);
-            put("apikey", API_KEY);
-        }};
+        return new HashMap<>() {
+            {
+                putAll(customParams);
+                put("apikey", API_KEY);
+            }
+        };
     }
 
     private <T> void mockHttpGet(URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
