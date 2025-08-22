@@ -12,6 +12,9 @@
     <suppress files=".*[\\/]generated[\\/].*" checks=".*"/>
     <suppress files=".*[\\/]generated-sources[\\/].*" checks=".*"/>
 
+    <suppress files=".*NotCovered1\.java" checks=".*"/>
+    <suppress files=".*NotCovered2\.java" checks=".*"/>
+
     <!-- Alphabetically sorted -->
     <suppress files="FmpClient.java" checks="ParameterNumber"/> <!-- constructor() -->
     <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- getJsonList() -->
