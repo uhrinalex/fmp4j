@@ -106,5 +106,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fmp4j
-          path: build/libs/fmp4j-alpha.jar
+          path: build/libs/fmp4j-0.0.1.jar
           retention-days: 1

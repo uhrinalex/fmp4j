@@ -28,7 +28,7 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 **Gradle (build.gradle)**
 
 ```groovy
-implementation 'dev.sorn:fmp4j:alpha'
+implementation 'dev.sorn:fmp4j:0.0.1'
 ```
 
 **Maven (pom.xml)**
@@ -38,7 +38,7 @@ implementation 'dev.sorn:fmp4j:alpha'
 <dependency>
     <groupId>dev.sorn</groupId>
     <artifactId>fmp4j</artifactId>
-    <version>alpha</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 
