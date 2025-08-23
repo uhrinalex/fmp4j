@@ -18,6 +18,13 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 
 > https://site.financialmodelingprep.com/developer/docs/stable#search-by-symbol
 
+**Parameters:**
+*Replace with the required and optional endpoint parameters (or `N/A`)*
+
+> - Required: symbol, from, to
+> - Optional: page, limit
+
+
 **Proposed model class name:**
 *Replace with the name of the model class you plan to add*
 

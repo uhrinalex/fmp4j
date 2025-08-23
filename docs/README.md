@@ -34,6 +34,7 @@ implementation 'dev.sorn:fmp4j:alpha'
 **Maven (pom.xml)**
 
 ```xml
+
 <dependency>
     <groupId>dev.sorn</groupId>
     <artifactId>fmp4j</artifactId>
@@ -53,6 +54,7 @@ fmp4j.baseUrl=https://financialmodelingprep.com/stable
 #### Spring Boot Bean
 
 ```java
+
 @Configuration
 public class FmpConfig {
     @Bean

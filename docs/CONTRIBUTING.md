@@ -29,6 +29,13 @@ Open an issue or ask in discussions. We’re happy to help.
 
 ---
 
+## Code Style
+
+* Classes are prefixed with `Fmp`
+* 
+
+---
+
 ## Testing
 
 Please see existing tests for examples.
