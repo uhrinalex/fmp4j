@@ -34,3 +34,10 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 *Replace with the name of the client class*
 
 > FmpEtfClient
+
+**Proposed client class name:**
+*Replace with the method names in the client*
+
+> - info()
+> - holdings()
+> - sectorWeightings()
