@@ -28,7 +28,7 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 **Gradle (build.gradle)**
 
 ```groovy
-implementation 'dev.sorn:fmp4j:0.0.1'
+implementation 'dev.sorn:fmp4j:0.1.0'
 ```
 
 **Maven (pom.xml)**
@@ -38,7 +38,7 @@ implementation 'dev.sorn:fmp4j:0.0.1'
 <dependency>
     <groupId>dev.sorn</groupId>
     <artifactId>fmp4j</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -74,11 +74,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#search
 
 |    | Since | Endpoint                    |
 |:--:|:-----:|-----------------------------|
-| ✅️ | alpha | `/search-symbol`            |
-| ✅️ | alpha | `/search-name`              |
+| ✅️ | 0.1.0 | `/search-symbol`            |
+| ✅️ | 0.1.0 | `/search-name`              |
 | ❌️ |   -   | `/search-cik`               |
-| ✅️ | alpha | `/search-cusip`             |
-| ✅️ | alpha | `/search-isin`              |
+| ✅️ | 0.1.0 | `/search-cusip`             |
+| ✅️ | 0.1.0 | `/search-isin`              |
 | ❌️ |   -   | `/search-exchange-variants` |
 | ❌️ |   -   | `/company-screener`         |
 
@@ -88,11 +88,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#directory
 
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
-| ✅️ | alpha | `/stock-list`                      |
+| ✅️ | 0.1.0 | `/stock-list`                      |
 | ❌️ |   -   | `/financial-statement-symbol-list` |
 | ❌️ |   -   | `/cik-list`                        |
 | ❌️ |   -   | `/symbol-change`                   |
-| ✅️ | alpha | `/etf-list`                        |
+| ✅️ | 0.1.0 | `/etf-list`                        |
 | ❌️ |   -   | `/actively-trading-list`           |
 | ❌️ |   -   | `/earnings-transcript-list`        |
 | ❌️ |   -   | `/available-exchanges`             |
@@ -125,10 +125,10 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#calendar
 
 |    | Since | Endpoint              |
 |:--:|:-----:|-----------------------|
-| ✅️ | alpha | `/dividends`          |
-| ✅️ | alpha | `/dividends-calendar` |
-| ✅️ | alpha | `/earnings`           |
-| ✅️ | alpha | `/earnings-calendar`  |
+| ✅️ | 0.1.0 | `/dividends`          |
+| ✅️ | 0.1.0 | `/dividends-calendar` |
+| ✅️ | 0.1.0 | `/earnings`           |
+| ✅️ | 0.1.0 | `/earnings-calendar`  |
 | ❌️ |   -   | `/ipos-calendar`      |
 | ❌️ |   -   | `/ipos-disclosure`    |
 | ❌️ |   -   | `/ipos-prospectus`    |
@@ -141,16 +141,16 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#chart
 
 |    | Since | Endpoint                                   |
 |:--:|:-----:|--------------------------------------------|
-| ✅️ | alpha | `/historical-price-eod/light`              |
-| ✅️ | alpha | `/historical-price-eod/full`               |
+| ✅️ | 0.1.0 | `/historical-price-eod/light`              |
+| ✅️ | 0.1.0 | `/historical-price-eod/full`               |
 | ❌️ |   -   | `/historical-price-eod/non-split-adjusted` |
 | ❌️ |   -   | `/historical-price-eod/dividend-adjusted`  |
-| ✅️ | alpha | `/historical-chart/1min`                   |
-| ✅️ | alpha | `/historical-chart/5min`                   |
-| ✅️ | alpha | `/historical-chart/15min`                  |
-| ✅️ | alpha | `/historical-chart/30min`                  |
-| ✅️ | alpha | `/historical-chart/1hour`                  |
-| ✅️ | alpha | `/historical-chart/4hour`                  |
+| ✅️ | 0.1.0 | `/historical-chart/1min`                   |
+| ✅️ | 0.1.0 | `/historical-chart/5min`                   |
+| ✅️ | 0.1.0 | `/historical-chart/15min`                  |
+| ✅️ | 0.1.0 | `/historical-chart/30min`                  |
+| ✅️ | 0.1.0 | `/historical-chart/1hour`                  |
+| ✅️ | 0.1.0 | `/historical-chart/4hour`                  |
 
 ### Company
 
@@ -158,7 +158,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#chart
 
 |    | Since | Endpoint                             |
 |:--:|:-----:|--------------------------------------|
-| ✅️ | alpha | `/profile`                           |
+| ✅️ | 0.1.0 | `/profile`                           |
 | ❌️ |   -   | `/profile-cik`                       |
 | ❌️ |   -   | `/company-notes`                     |
 | ❌️ |   -   | `/stock-peers`                       |
@@ -227,28 +227,28 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#statements
 |:--:|:-----:|-----------------------------------------|
 | ❌️ |   -   | `/latest-financial-statements`          |
 | ❌️ |   -   | `/financial-statement-full-as-reported` |
-| ✅️ | alpha | `/income-statement`                     |
+| ✅️ | 0.1.0 | `/income-statement`                     |
 | ❌️ |   -   | `/income-statement-ttm`                 |
 | ❌️ |   -   | `/income-statement-growth`              |
-| ✅️ | alpha | `/income-statement-growth-as-reported`  |
-| ✅️ | alpha | `/balance-sheet-statement`              |
+| ✅️ | 0.1.0 | `/income-statement-growth-as-reported`  |
+| ✅️ | 0.1.0 | `/balance-sheet-statement`              |
 | ❌️ |   -   | `/balance-sheet-statement-ttm`          |
 | ❌️ |   -   | `/balance-sheet-statement-growth`       |
-| ✅️ | alpha | `/balance-sheet-statement-as-reported`  |
-| ✅️ | alpha | `/cash-flow-statement`                  |
+| ✅️ | 0.1.0 | `/balance-sheet-statement-as-reported`  |
+| ✅️ | 0.1.0 | `/cash-flow-statement`                  |
 | ❌️ |   -   | `/cash-flow-statement-ttm`              |
 | ❌️ |   -   | `/cash-flow-statement-growth`           |
-| ✅️ | alpha | `/cash-flow-statement-as-reported`      |
-| ✅️ | alpha | `/financial-growth`                     |
-| ✅️ | alpha | `/ratios`                               |
-| ✅️ | alpha | `/ratios-ttm`                           |
-| ✅️ | alpha | `/key-metrics`                          |
-| ✅️ | alpha | `/key-metrics-ttm`                      |
+| ✅️ | 0.1.0 | `/cash-flow-statement-as-reported`      |
+| ✅️ | 0.1.0 | `/financial-growth`                     |
+| ✅️ | 0.1.0 | `/ratios`                               |
+| ✅️ | 0.1.0 | `/ratios-ttm`                           |
+| ✅️ | 0.1.0 | `/key-metrics`                          |
+| ✅️ | 0.1.0 | `/key-metrics-ttm`                      |
 | ❌️ |   -   | `/financial-scores`                     |
 | ❌️ |   -   | `/owner-earnings`                       |
-| ✅️ | alpha | `/enterprise-values`                    |
-| ✅️ | alpha | `/revenue-product-segmentation`         |
-| ✅️ | alpha | `/revenue-geographic-segmentation`      |
+| ✅️ | 0.1.0 | `/enterprise-values`                    |
+| ✅️ | 0.1.0 | `/revenue-product-segmentation`         |
+| ✅️ | 0.1.0 | `/revenue-geographic-segmentation`      |
 
 ### Form 13F
 
@@ -271,14 +271,14 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#indexes
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
 | ❌️ |   -   | `/index-list`                      |
-| ✅️ | alpha | `/quote`                           |
-| ✅️ | alpha | `/quote-short`                     |
+| ✅️ | 0.1.0 | `/quote`                           |
+| ✅️ | 0.1.0 | `/quote-short`                     |
 | ❌️ |   -   | `/batch-index-quotes`              |
-| ✅️ | alpha | `/historical-price-eod/light`      |
-| ✅️ | alpha | `/historical-price-eod/full`       |
-| ✅️ | alpha | `/historical-chart/1min`           |
-| ✅️ | alpha | `/historical-chart/5min`           |
-| ✅️ | alpha | `/historical-chart/1hour`          |
+| ✅️ | 0.1.0 | `/historical-price-eod/light`      |
+| ✅️ | 0.1.0 | `/historical-price-eod/full`       |
+| ✅️ | 0.1.0 | `/historical-chart/1min`           |
+| ✅️ | 0.1.0 | `/historical-chart/5min`           |
+| ✅️ | 0.1.0 | `/historical-chart/1hour`          |
 | ❌️ |   -   | `/sp500-constituent`               |
 | ❌️ |   -   | `/nasdaq-constituent`              |
 | ❌️ |   -   | `/dowjones-constituent`            |
@@ -333,11 +333,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#holdings
 
 |    | Since | Endpoint                           |
 |:--:|:-----:|------------------------------------|
-| ✅️ | alpha | `/etf/holdings`                    |
-| ✅️ | alpha | `/etf/info`                        |
-| ✅️ | alpha | `/etf/country-weightings`          |
-| ✅️ | alpha | `/etf/asset-exposure`              |
-| ✅️ | alpha | `/etf/sector-weightings`           |
+| ✅️ | 0.1.0 | `/etf/holdings`                    |
+| ✅️ | 0.1.0 | `/etf/info`                        |
+| ✅️ | 0.1.0 | `/etf/country-weightings`          |
+| ✅️ | 0.1.0 | `/etf/asset-exposure`              |
+| ✅️ | 0.1.0 | `/etf/sector-weightings`           |
 | ❌️ |   -   | `/funds/disclosure`                |
 | ❌️ |   -   | `/funds/disclosure-holders-latest` |
 | ❌️ |   -   | `/funds/disclosure-holders-search` |
@@ -350,14 +350,14 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#commodities
 |    | Since | Endpoint                      |
 |:--:|:-----:|-------------------------------|
 | ❌️ |   -   | `/commodities-list`           |
-| ✅️ | alpha | `/quote`                      |
-| ✅️ | alpha | `/quote-short`                |
+| ✅️ | 0.1.0 | `/quote`                      |
+| ✅️ | 0.1.0 | `/quote-short`                |
 | ❌️ |   -   | `/batch-commodities-quotes`   |
-| ✅️ | alpha | `/historical-price-eod/light` |
-| ✅️ | alpha | `/historical-price-eod/full`  |
-| ✅️ | alpha | `/historical-chart/1min`      |
-| ✅️ | alpha | `/historical-chart/5min`      |
-| ✅️ | alpha | `/historical-chart/1hour`     |
+| ✅️ | 0.1.0 | `/historical-price-eod/light` |
+| ✅️ | 0.1.0 | `/historical-price-eod/full`  |
+| ✅️ | 0.1.0 | `/historical-chart/1min`      |
+| ✅️ | 0.1.0 | `/historical-chart/5min`      |
+| ✅️ | 0.1.0 | `/historical-chart/1hour`     |
 
 ### Fundraisers
 
@@ -380,13 +380,13 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#crypto
 |:--:|:-----:|-------------------------------|
 | ❌️ |   -   | `/cryptocurrency-list`        |
 | ❌️ |   -   | `/batch-crypto-quotes`        |
-| ✅️ | alpha | `/quote`                      |
-| ✅️ | alpha | `/quote-short`                |
-| ✅️ | alpha | `/historical-price-eod/light` |
-| ✅️ | alpha | `/historical-price-eod/full`  |
-| ✅️ | alpha | `/historical-chart/1min`      |
-| ✅️ | alpha | `/historical-chart/5min`      |
-| ✅️ | alpha | `/historical-chart/1hour`     |
+| ✅️ | 0.1.0 | `/quote`                      |
+| ✅️ | 0.1.0 | `/quote-short`                |
+| ✅️ | 0.1.0 | `/historical-price-eod/light` |
+| ✅️ | 0.1.0 | `/historical-price-eod/full`  |
+| ✅️ | 0.1.0 | `/historical-chart/1min`      |
+| ✅️ | 0.1.0 | `/historical-chart/5min`      |
+| ✅️ | 0.1.0 | `/historical-chart/1hour`     |
 
 ### News
 
@@ -398,11 +398,11 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#news
 | ❌️ |   -   | `/news/general-latest`        |
 | ❌️ |   -   | `/news/press-releases`        |
 | ❌️ |   -   | `/news/press-releases-latest` |
-| ✅️ | alpha | `/news/stock`                 |
+| ✅️ | 0.1.0 | `/news/stock`                 |
 | ❌️ |   -   | `/news/stock-latest`          |
-| ✅️ | alpha | `/news/crypto`                |
+| ✅️ | 0.1.0 | `/news/crypto`                |
 | ❌️ |   -   | `/news/crypto-latest`         |
-| ✅️ | alpha | `/news/forex`                 |
+| ✅️ | 0.1.0 | `/news/forex`                 |
 | ❌️ |   -   | `/news/forex-latest`          |
 
 ### Technical Indicators
@@ -427,8 +427,8 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#quote
 
 |    | Since | Endpoint                   |
 |:--:|:-----:|----------------------------|
-| ✅️ | alpha | `/quote`                   |
-| ✅️ | alpha | `/quote-short`             |
+| ✅️ | 0.1.0 | `/quote`                   |
+| ✅️ | 0.1.0 | `/quote-short`             |
 | ❌️ |   -   | `/aftermarket-trade`       |
 | ❌️ |   -   | `/aftermarket-quote`       |
 | ❌️ |   -   | `/stock-price-change`      |
@@ -455,7 +455,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#sec-filings
 | ❌️ |   -   | `/sec-filings-search/form-type`            |
 | ❌️ |   -   | `/sec-filings-search/cik`                  |
 | ❌️ |   -   | `/sec-filings-company-search/name`         |
-| ✅️ | alpha | `/sec-filings-company-search/symbol`       |
+| ✅️ | 0.1.0 | `/sec-filings-company-search/symbol`       |
 | ❌️ |   -   | `/sec-filings-company-search/cik`          |
 | ❌️ |   -   | `/sec-profile`                             |
 | ❌️ |   -   | `/standard-industrial-classification-list` |

@@ -38,6 +38,7 @@ import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpStock;
+import dev.sorn.fmp4j.models.FmpStockPriceChange;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -842,6 +843,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpPartialQuote.class);
+    }
+
+    @Test
+    void priceChange() {
+        // given
+        var symbol = "AAPL";
+        var typeRef = typeRef(FmpStockPriceChange[].class);
+        var endpoint = "stock-price-change";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.quote().priceChange(symbol);
+
+        // then
+        assertValidResult(result, 1, FmpStockPriceChange.class);
     }
 
     @Test
