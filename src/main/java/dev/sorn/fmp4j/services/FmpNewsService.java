@@ -7,16 +7,16 @@ import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
 public class FmpNewsService extends FmpService<FmpNews[]> {
-    private final String path;
+    protected final String type;
 
-    public FmpNewsService(FmpConfig cfg, FmpHttpClient http, String path) {
+    public FmpNewsService(FmpConfig cfg, FmpHttpClient http, String type) {
         super(cfg, http, typeRef(FmpNews[].class));
-        this.path = path;
+        this.type = type;
     }
 
     @Override
     protected String relativeUrl() {
-        return "/news/" + path;
+        return "/news/" + type;
     }
 
     @Override
