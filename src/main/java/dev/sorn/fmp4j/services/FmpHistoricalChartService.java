@@ -7,7 +7,7 @@ import java.util.Set;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 
 public class FmpHistoricalChartService extends FmpService<FmpHistoricalChart[]> {
-    private final String interval;
+    protected final String interval;
 
     public FmpHistoricalChartService(
         FmpConfig cfg,

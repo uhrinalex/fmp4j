@@ -18,6 +18,7 @@ import dev.sorn.fmp4j.models.FmpEtfHolding;
 import dev.sorn.fmp4j.models.FmpEtfInfo;
 import dev.sorn.fmp4j.models.FmpEtfSectorWeighting;
 import dev.sorn.fmp4j.models.FmpFinancialGrowth;
+import dev.sorn.fmp4j.models.FmpFinancialStatementAsReported;
 import dev.sorn.fmp4j.models.FmpFullQuote;
 import dev.sorn.fmp4j.models.FmpHistoricalChart;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
@@ -362,7 +363,7 @@ class FmpClientTest {
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -370,6 +371,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit, FmpIncomeStatement.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void incomeStatementsAsReported(String period) {
+        // given
+        var symbol = "KO";
+        var limit = 2;
+        var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
+        var endpoint = "income-statement-as-reported";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.statement().incomeAsReported(symbol, Optional.of(period), Optional.of(limit));
+
+        // then
+        assertValidResult(result, limit, FmpFinancialStatementAsReported.class, Set.of("reportedCurrency"));
     }
 
     @ParameterizedTest
@@ -383,7 +405,7 @@ class FmpClientTest {
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -391,6 +413,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit, FmpBalanceSheetStatement.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void balanceSheetStatementsAsReported(String period) {
+        // given
+        var symbol = "KO";
+        var limit = 2;
+        var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
+        var endpoint = "balance-sheet-statement-as-reported";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.statement().balanceSheetAsReported(symbol, Optional.of(period), Optional.of(limit));
+
+        // then
+        assertValidResult(result, limit, FmpFinancialStatementAsReported.class, Set.of("reportedCurrency"));
     }
 
     @ParameterizedTest
@@ -404,7 +447,7 @@ class FmpClientTest {
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
@@ -412,6 +455,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit, FmpCashFlowStatement.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"annual", "quarter"})
+    void cashFlowStatementsAsReported(String period) {
+        // given
+        var symbol = "KO";
+        var limit = 2;
+        var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
+        var endpoint = "cash-flow-statement-as-reported";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.statement().cashFlowAsReported(symbol, Optional.of(period), Optional.of(limit));
+
+        // then
+        assertValidResult(result, limit, FmpFinancialStatementAsReported.class, Set.of("reportedCurrency"));
     }
 
     @ParameterizedTest
@@ -492,7 +556,7 @@ class FmpClientTest {
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "period", period, "limit", limit));
-        var file = format("stable/%s/?symbol=%s&period=annual&limit=%d.json", endpoint, symbol, limit);
+        var file = format("stable/%s/?symbol=%s&period=%s&limit=%d.json", endpoint, symbol, period, limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);

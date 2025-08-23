@@ -6,6 +6,7 @@ import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpFinancialGrowth;
+import dev.sorn.fmp4j.models.FmpFinancialStatementAsReported;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
@@ -17,6 +18,7 @@ import dev.sorn.fmp4j.services.FmpBalanceSheetStatementService;
 import dev.sorn.fmp4j.services.FmpCashFlowStatementService;
 import dev.sorn.fmp4j.services.FmpEnterpriseValuesService;
 import dev.sorn.fmp4j.services.FmpFinancialGrowthService;
+import dev.sorn.fmp4j.services.FmpFinancialStatementAsReportedService;
 import dev.sorn.fmp4j.services.FmpIncomeStatementService;
 import dev.sorn.fmp4j.services.FmpKeyMetricService;
 import dev.sorn.fmp4j.services.FmpKeyMetricTtmService;
@@ -33,6 +35,9 @@ public class FmpStatementClient {
     protected final FmpService<FmpIncomeStatement[]> incomeStatementService;
     protected final FmpService<FmpBalanceSheetStatement[]> balanceSheetStatementService;
     protected final FmpService<FmpCashFlowStatement[]> cashFlowStatementService;
+    protected final FmpService<FmpFinancialStatementAsReported[]> incomeStatementAsReportedService;
+    protected final FmpService<FmpFinancialStatementAsReported[]> balanceSheetStatementAsReportedService;
+    protected final FmpService<FmpFinancialStatementAsReported[]> cashFlowStatementAsReportedService;
     protected final FmpService<FmpFinancialGrowth[]> financialGrowthService;
     protected final FmpService<FmpRatio[]> ratioService;
     protected final FmpService<FmpRatioTtm[]> ratioTtmService;
@@ -48,6 +53,9 @@ public class FmpStatementClient {
         this.incomeStatementService = new FmpIncomeStatementService(fmpConfig, fmpHttpClient);
         this.balanceSheetStatementService = new FmpBalanceSheetStatementService(fmpConfig, fmpHttpClient);
         this.cashFlowStatementService = new FmpCashFlowStatementService(fmpConfig, fmpHttpClient);
+        this.incomeStatementAsReportedService = new FmpFinancialStatementAsReportedService(fmpConfig, fmpHttpClient, "income");
+        this.balanceSheetStatementAsReportedService = new FmpFinancialStatementAsReportedService(fmpConfig, fmpHttpClient, "balance-sheet");
+        this.cashFlowStatementAsReportedService = new FmpFinancialStatementAsReportedService(fmpConfig, fmpHttpClient, "cash-flow");
         this.financialGrowthService = new FmpFinancialGrowthService(fmpConfig, fmpHttpClient);
         this.ratioService = new FmpRatioService(fmpConfig, fmpHttpClient);
         this.ratioTtmService = new FmpRatioTtmService(fmpConfig, fmpHttpClient);
@@ -58,26 +66,32 @@ public class FmpStatementClient {
         this.revenueProductSegmentationService = new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpIncomeStatement[] income(
-        String symbol,
-        Optional<String> period,
-        Optional<Integer> limit
-    ) {
+    public synchronized FmpIncomeStatement[] income(String symbol, Optional<String> period, Optional<Integer> limit) {
         incomeStatementService.param("symbol", symbol);
         incomeStatementService.param("period", period.orElse("annual"));
         incomeStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return incomeStatementService.download();
     }
 
-    public synchronized FmpBalanceSheetStatement[] balanceSheet(
-        String symbol,
-        Optional<String> period,
-        Optional<Integer> limit
-    ) {
+    public synchronized FmpFinancialStatementAsReported[] incomeAsReported(String symbol, Optional<String> period, Optional<Integer> limit) {
+        incomeStatementAsReportedService.param("symbol", symbol);
+        incomeStatementAsReportedService.param("period", period.orElse("annual"));
+        incomeStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return incomeStatementAsReportedService.download();
+    }
+
+    public synchronized FmpBalanceSheetStatement[] balanceSheet(String symbol, Optional<String> period, Optional<Integer> limit) {
         balanceSheetStatementService.param("symbol", symbol);
         balanceSheetStatementService.param("period", period.orElse("annual"));
         balanceSheetStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return balanceSheetStatementService.download();
+    }
+
+    public synchronized FmpFinancialStatementAsReported[] balanceSheetAsReported(String symbol, Optional<String> period, Optional<Integer> limit) {
+        balanceSheetStatementAsReportedService.param("symbol", symbol);
+        balanceSheetStatementAsReportedService.param("period", period.orElse("annual"));
+        balanceSheetStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return balanceSheetStatementAsReportedService.download();
     }
 
     public synchronized FmpCashFlowStatement[] cashFlow(String symbol, Optional<String> period, Optional<Integer> limit) {
@@ -85,6 +99,13 @@ public class FmpStatementClient {
         cashFlowStatementService.param("period", period.orElse("annual"));
         cashFlowStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return cashFlowStatementService.download();
+    }
+
+    public synchronized FmpFinancialStatementAsReported[] cashFlowAsReported(String symbol, Optional<String> period, Optional<Integer> limit) {
+        cashFlowStatementAsReportedService.param("symbol", symbol);
+        cashFlowStatementAsReportedService.param("period", period.orElse("annual"));
+        cashFlowStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
+        return cashFlowStatementAsReportedService.download();
     }
 
     public synchronized FmpFinancialGrowth[] financialGrowth(String symbol, Optional<String> period, Optional<Integer> limit) {

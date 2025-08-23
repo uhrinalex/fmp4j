@@ -22,15 +22,15 @@ class FmpNewsServiceTest implements NewsTestData {
 
     @ParameterizedTest
     @ValueSource(strings = {"crypto", "forex", "stock"})
-    void relative_url(String path) {
+    void relative_url(String type) {
         // given
-        var service = new FmpNewsService(FMP_CONFIG, http, path);
+        var service = new FmpNewsService(FMP_CONFIG, http, type);
 
         // when
         var relativeUrl = service.relativeUrl();
 
         // then
-        assertEquals("/news/" + path, relativeUrl);
+        assertEquals("/news/" + type, relativeUrl);
     }
 
     @ParameterizedTest
@@ -48,9 +48,9 @@ class FmpNewsServiceTest implements NewsTestData {
 
     @ParameterizedTest
     @ValueSource(strings = {"crypto", "forex", "stock"})
-    void optional_params(String path) {
+    void optional_params(String type) {
         // given
-        var service = new FmpNewsService(FMP_CONFIG, http, path);
+        var service = new FmpNewsService(FMP_CONFIG, http, type);
 
         // when
         var params = service.optionalParams();
@@ -66,12 +66,12 @@ class FmpNewsServiceTest implements NewsTestData {
         "forex,EURUSD",
         "stock,AAPL",
     })
-    void successful_download(String path, String symbol) {
+    void successful_download(String type, String symbol) {
         // given
-        var service = new FmpNewsService(FMP_CONFIG, http, path);
+        var service = new FmpNewsService(FMP_CONFIG, http, type);
         service.param("symbols", symbol);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/news/%s/?symbols=%s.json", path, symbol))
+            .body(jsonTestResource("stable/news/%s/?symbols=%s.json", type, symbol))
             .statusCode(200)
             .apply();
 

@@ -39,6 +39,7 @@ public final class TestUtils {
             .replace(">", "%3E")
             .replace("|", "%7C");
         try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(encoded)) {
+            System.out.printf("Reading: %s", encoded);
             return new String(inputStream.readAllBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
