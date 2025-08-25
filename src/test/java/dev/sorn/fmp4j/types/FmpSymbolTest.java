@@ -55,13 +55,14 @@ class FmpSymbolTest {
     @Test
     void hashCode_value() {
         // given
-        var s = symbol("AAPL");
+        var str = "AAPL";
+        var s = symbol(str);
 
         // when
         var hc = s.hashCode();
 
         // then
-        assertEquals(s.hashCode(), hc);
+        assertEquals(str.hashCode(), hc);
     }
 
     @Test
