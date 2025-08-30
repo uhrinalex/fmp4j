@@ -62,6 +62,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -767,7 +768,9 @@ class FmpClientTest {
     @Test
     void cryptoNews_multiple() {
         // given
-        var symbols = Set.of(symbol("BTCUSD"), symbol("ETHUSD"));
+        var symbols = new TreeSet<FmpSymbol>(); // guarantee order
+        symbols.add(symbol("BTCUSD"));
+        symbols.add(symbol("ETHUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/crypto";
         var uri = buildUri(endpoint);
