@@ -13,7 +13,7 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 
 ---
 
-**Is the value object an FMP parameter?**
+**Is the value object an FMP parameter or in response body?**
 > Yes/No
 
 **(If "yes") FMP Docs Link:**
@@ -28,16 +28,16 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 
 **Value Object**
 
-- [x] implements `FmpValueObject`
-- [x] consider edge cases (max, min, patterns, ...)
-- [x] implements `equals()`
-- [x] implements `hashCode()`
-- [x] has `serialVersionUID`
-- [x] has static factory method matching the value object name
-- [x] has private constructor
-- [x] where appropriate, use enums
-- [x] where appropriate, implements `Comparable` interface
+- [ ] implements `FmpValueObject`
+- [ ] consider edge cases (max, min, patterns, ...)
+- [ ] implements `equals()`
+- [ ] implements `hashCode()`
+- [ ] has `serialVersionUID`
+- [ ] has static factory method matching the value object name
+- [ ] has private constructor
+- [ ] where appropriate, use enums
+- [ ] where appropriate, implements `Comparable` interface
 
 **General**
 
-- [x] replace *all* existing primitives with the new Value Object in the same PR
+- [ ] replace *all* existing primitives with the new Value Object in the same PR

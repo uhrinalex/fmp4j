@@ -48,26 +48,26 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 
 **All models**
 
-- [x] start with `Fmp`
-- [x] are implemented as Java 16+ records
-- [x] implement the `FmpModel` interface
-- [x] have `serialVersionUID`
-- [x] have test: `is_serializable`
-- [x] have test: `serializes`
-- [x] use date time classes for dates, instead of strings, where appropriate
-- [x] use value objects, instead of strings, where appropriate
-- [x] have `*TestData` in `testFixtures`
+- [ ] start with `Fmp`
+- [ ] are implemented as Java 16+ records
+- [ ] implement the `FmpModel` interface
+- [ ] have `serialVersionUID`
+- [ ] have test: `is_serializable`
+- [ ] have test: `serializes`
+- [ ] use date time classes for dates, instead of strings, where appropriate
+- [ ] use value objects, instead of strings, where appropriate
+- [ ] have `*TestData` in `testFixtures`
 
 **All services**
 
-- [x] use the model name + `Service` suffix
-- [x] are added to the appropriate FmpClient
-- [x] have tests with real responses from FMP
-- [x] with responses stored as JSON in `testFixtures` (*for large responses, include only an excerpt*)
+- [ ] use the model name + `Service` suffix
+- [ ] are added to the appropriate FmpClient
+- [ ] have tests with real responses from FMP
+- [ ] with responses stored as JSON in `testFixtures` (*for large responses, include only an excerpt*)
 
 **General**
 
-- [x] aim for 100% test coverage; TDD is preferred
-- [x] double-check your work before creating a PR
-- [x] refactor unrelated code in a separate PR from feature or bugfix changes (don’t refactor "as you go")
-- [x] adhere to the existing code style
+- [ ] aim for 100% test coverage; TDD is preferred
+- [ ] double-check your work before creating a PR
+- [ ] refactor unrelated code in a separate PR from feature or bugfix changes (don’t refactor "as you go")
+- [ ] adhere to the existing code style
