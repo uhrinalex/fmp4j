@@ -1,15 +1,17 @@
 package dev.sorn.fmp4j.types;
 
-import dev.sorn.fmp4j.exceptions.FmpInvalidLimitException;
-import java.io.Serial;
 import static java.lang.String.valueOf;
 
-final public class FmpLimit implements FmpValueObject<Integer> {
+import dev.sorn.fmp4j.exceptions.FmpInvalidLimitException;
+import java.io.Serial;
+
+public final class FmpLimit implements FmpValueObject<Integer> {
     public static final int MIN_LIMIT_VALUE = 1;
     public static final int MAX_LIMIT_VALUE = 1000;
 
     @Serial
     private static final long serialVersionUID = 1L;
+
     private final int value;
 
     private FmpLimit(int value) {

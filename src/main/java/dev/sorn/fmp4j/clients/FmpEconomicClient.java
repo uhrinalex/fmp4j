@@ -9,8 +9,7 @@ import dev.sorn.fmp4j.services.FmpTreasuryRatesService;
 public class FmpEconomicClient {
     protected final FmpService<FmpTreasuryRate[]> fmpTreasuryRatesService;
 
-    public FmpEconomicClient(FmpConfig fmpConfig,
-                             FmpHttpClient fmpHttpClient) {
+    public FmpEconomicClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this.fmpTreasuryRatesService = new FmpTreasuryRatesService(fmpConfig, fmpHttpClient);
     }
 
@@ -19,5 +18,4 @@ public class FmpEconomicClient {
         fmpTreasuryRatesService.param("to", to);
         return fmpTreasuryRatesService.download();
     }
-
 }

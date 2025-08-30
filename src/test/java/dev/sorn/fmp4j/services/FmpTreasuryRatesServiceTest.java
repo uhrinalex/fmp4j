@@ -1,13 +1,5 @@
 package dev.sorn.fmp4j.services;
 
-import dev.sorn.fmp4j.HttpClientStub;
-import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpTreasuryRate;
-import org.junit.jupiter.api.Test;
-
-import java.util.Set;
-
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
@@ -17,6 +9,13 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.models.FmpTreasuryRate;
+import java.util.Set;
+import org.junit.jupiter.api.Test;
 
 class FmpTreasuryRatesServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
@@ -38,7 +37,7 @@ class FmpTreasuryRatesServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("from","to"), params);
+        assertEquals(Set.of("from", "to"), params);
     }
 
     @Test
@@ -58,9 +57,9 @@ class FmpTreasuryRatesServiceTest {
         service.param("from", from);
         service.param("to", to);
         httpStub.configureResponse()
-            .body(jsonTestResource("stable/treasury-rates/?from=%s&to=%s.json", from, to))
-            .statusCode(200)
-            .apply();
+                .body(jsonTestResource("stable/treasury-rates/?from=%s&to=%s.json", from, to))
+                .statusCode(200)
+                .apply();
 
         // when
         var result = service.download();

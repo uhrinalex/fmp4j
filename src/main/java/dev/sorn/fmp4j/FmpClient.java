@@ -1,5 +1,8 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
+import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
+
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.clients.FmpCalendarClient;
 import dev.sorn.fmp4j.clients.FmpChartClient;
@@ -13,8 +16,6 @@ import dev.sorn.fmp4j.clients.FmpSearchClient;
 import dev.sorn.fmp4j.clients.FmpSecFilingsSearchClient;
 import dev.sorn.fmp4j.clients.FmpStatementClient;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
-import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
 
 public class FmpClient {
     protected final FmpConfig fmpConfig;
@@ -59,37 +60,35 @@ public class FmpClient {
 
     public FmpClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this(
-            fmpConfig,
-            fmpHttpClient,
-            new FmpSearchClient(fmpConfig, fmpHttpClient),
-            new FmpDirectoryClient(fmpConfig, fmpHttpClient),
-            new FmpCalendarClient(fmpConfig, fmpHttpClient),
-            new FmpChartClient(fmpConfig, fmpHttpClient),
-            new FmpCompanyClient(fmpConfig, fmpHttpClient),
-            new FmpStatementClient(fmpConfig, fmpHttpClient),
-            new FmpEtfClient(fmpConfig, fmpHttpClient),
-            new FmpNewsClient(fmpConfig, fmpHttpClient),
-            new FmpQuoteClient(fmpConfig, fmpHttpClient),
-            new FmpSecFilingsSearchClient(fmpConfig, fmpHttpClient),
-            new FmpEconomicClient(fmpConfig, fmpHttpClient)
-        );
+                fmpConfig,
+                fmpHttpClient,
+                new FmpSearchClient(fmpConfig, fmpHttpClient),
+                new FmpDirectoryClient(fmpConfig, fmpHttpClient),
+                new FmpCalendarClient(fmpConfig, fmpHttpClient),
+                new FmpChartClient(fmpConfig, fmpHttpClient),
+                new FmpCompanyClient(fmpConfig, fmpHttpClient),
+                new FmpStatementClient(fmpConfig, fmpHttpClient),
+                new FmpEtfClient(fmpConfig, fmpHttpClient),
+                new FmpNewsClient(fmpConfig, fmpHttpClient),
+                new FmpQuoteClient(fmpConfig, fmpHttpClient),
+                new FmpSecFilingsSearchClient(fmpConfig, fmpHttpClient),
+                new FmpEconomicClient(fmpConfig, fmpHttpClient));
     }
 
     public FmpClient(
-        FmpConfig fmpConfig,
-        FmpHttpClient fmpHttpClient,
-        FmpSearchClient fmpSearchClient,
-        FmpDirectoryClient fmpDirectoryClient,
-        FmpCalendarClient fmpCalendarClient,
-        FmpChartClient fmpChartClient,
-        FmpCompanyClient fmpCompanyClient,
-        FmpStatementClient fmpStatementClient,
-        FmpEtfClient fmpEtfClient,
-        FmpNewsClient fmpNewsClient,
-        FmpQuoteClient fmpQuoteClient,
-        FmpSecFilingsSearchClient fmpSecFilingsSearchClient,
-        FmpEconomicClient fmpEconomicClient
-    ) {
+            FmpConfig fmpConfig,
+            FmpHttpClient fmpHttpClient,
+            FmpSearchClient fmpSearchClient,
+            FmpDirectoryClient fmpDirectoryClient,
+            FmpCalendarClient fmpCalendarClient,
+            FmpChartClient fmpChartClient,
+            FmpCompanyClient fmpCompanyClient,
+            FmpStatementClient fmpStatementClient,
+            FmpEtfClient fmpEtfClient,
+            FmpNewsClient fmpNewsClient,
+            FmpQuoteClient fmpQuoteClient,
+            FmpSecFilingsSearchClient fmpSecFilingsSearchClient,
+            FmpEconomicClient fmpEconomicClient) {
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
         this.fmpSearchClient = fmpSearchClient;

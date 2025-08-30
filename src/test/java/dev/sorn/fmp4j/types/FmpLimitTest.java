@@ -1,9 +1,5 @@
 package dev.sorn.fmp4j.types;
 
-import dev.sorn.fmp4j.exceptions.FmpInvalidLimitException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import static dev.sorn.fmp4j.types.FmpLimit.MAX_LIMIT_VALUE;
 import static dev.sorn.fmp4j.types.FmpLimit.MIN_LIMIT_VALUE;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
@@ -14,18 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dev.sorn.fmp4j.exceptions.FmpInvalidLimitException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 class FmpLimitTest {
     @ParameterizedTest
-    @ValueSource(ints = {
-        1,
-        3,
-        5,
-        10,
-        28,
-        42,
-        100,
-        1000
-    })
+    @ValueSource(ints = {1, 3, 5, 10, 28, 42, 100, 1000})
     void valid_limit(int limit) {
         // given // when
         var lim = limit(limit);
@@ -55,12 +47,7 @@ class FmpLimitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {
-        3,
-        5,
-        10,
-        50
-    })
+    @ValueSource(ints = {3, 5, 10, 50})
     void toString_returns_value(int limit) {
         // given // when
         var lim = limit(limit);

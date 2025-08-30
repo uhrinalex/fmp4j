@@ -1,7 +1,6 @@
 package dev.sorn.fmp4j;
 
 import dev.sorn.fmp4j.models.FmpTreasuryRate;
-
 import java.time.LocalDate;
 
 public interface TreasuryRatesTestData {
@@ -19,7 +18,6 @@ public interface TreasuryRatesTestData {
                 80.96297,
                 783.47556,
                 177352.27892,
-                1.3
-        );
+                1.3);
     }
 }
