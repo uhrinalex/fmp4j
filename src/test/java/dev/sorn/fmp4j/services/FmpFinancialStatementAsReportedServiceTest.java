@@ -12,6 +12,7 @@ import dev.sorn.fmp4j.FinancialStatementAsReportedTestData;
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -65,7 +66,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
 
     @ParameterizedTest
     @MethodSource("reportCompanyProvider")
-    void successful_download(String type, String symbol, String period) {
+    void successful_download(String type, FmpSymbol symbol, String period) {
         // given
         var service = new FmpFinancialStatementAsReportedService(FMP_CONFIG, http, type);
         var limit = 2;

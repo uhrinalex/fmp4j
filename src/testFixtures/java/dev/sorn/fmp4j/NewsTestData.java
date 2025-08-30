@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpNews;
 import java.net.URI;
 import java.time.LocalDate;
@@ -8,7 +10,7 @@ import java.time.LocalTime;
 public interface NewsTestData {
     default FmpNews aCryptoNews() {
         return new FmpNews(
-                "BTCUSD",
+                symbol("BTCUSD"),
                 LocalDate.parse("2025-08-22").atTime(LocalTime.parse("16:45:47")),
                 "Decrypt",
                 "Public Keys: Ethereum Treasuries Soar, Bitcoin ETFs' $1 Billion Bleed, Crypto IPO Chatter",
@@ -21,7 +23,7 @@ public interface NewsTestData {
 
     default FmpNews aForexNews() {
         return new FmpNews(
-                "EURUSD",
+                symbol("EURUSD"),
                 LocalDate.parse("2025-08-22").atTime(LocalTime.parse("13:06:13")),
                 "FXEmpire",
                 "U.S. Dollar Dives After Powell's Dovish Comments: Analysis For EUR/USD, GBP/USD, USD/CAD, USD/JPY",
@@ -35,7 +37,7 @@ public interface NewsTestData {
 
     default FmpNews aStockNews() {
         return new FmpNews(
-                "AAPL",
+                symbol("AAPL"),
                 LocalDate.parse("2025-08-22").atTime(LocalTime.parse("16:23:55")),
                 "CNBC",
                 "Google shares rise on report of Apple using Gemini for Siri",

@@ -1,10 +1,11 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 
 public record FmpEarningsCalendar(
-        String symbol,
+        FmpSymbol symbol,
         LocalDate date,
         Double epsActual,
         Double epsEstimated,
@@ -13,5 +14,5 @@ public record FmpEarningsCalendar(
         LocalDate lastUpdated)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

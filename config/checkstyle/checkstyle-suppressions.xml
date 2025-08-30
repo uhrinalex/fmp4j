@@ -20,4 +20,5 @@
     <suppress files="FmpKeyMetric.java" checks="AbbreviationAsWordInName"/> <!-- evToEBITDA, netDebtToEBITDA -->
     <suppress files="FmpKeyMetricTtm.java" checks="AbbreviationAsWordInName"/> <!-- evToEBITDATTM, netDebtToEBITDATTM -->
     <suppress files="FmpRatioTtm.java" checks="AbbreviationAsWordInName"/> <!-- netIncomePerEBTTTM -->
+    <suppress files="FmpSymbolTest.java" checks="IllegalCatch"/> <!-- check_all_symbols -->
 </suppressions>

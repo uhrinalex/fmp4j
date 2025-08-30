@@ -1,10 +1,11 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 
 public record FmpDividend(
-        String symbol,
+        FmpSymbol symbol,
         LocalDate date,
         LocalDate recordDate,
         LocalDate paymentDate,
@@ -15,5 +16,5 @@ public record FmpDividend(
         String frequency)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

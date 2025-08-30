@@ -1,10 +1,11 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 
 public record FmpCompany(
-        String symbol,
+        FmpSymbol symbol,
         Double price,
         Long marketCap,
         Double beta,
@@ -42,5 +43,5 @@ public record FmpCompany(
         Boolean isFund)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

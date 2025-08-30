@@ -11,6 +11,7 @@ import dev.sorn.fmp4j.services.FmpSearchByIsinService;
 import dev.sorn.fmp4j.services.FmpSearchByNameService;
 import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpSearchClient {
 
@@ -41,7 +42,7 @@ public class FmpSearchClient {
         return fmpSearchByCusipService.download();
     }
 
-    public synchronized FmpSearchBySymbol[] bySymbol(String query) {
+    public synchronized FmpSearchBySymbol[] bySymbol(FmpSymbol query) {
         fmpSearchBySymbolService.param("query", query);
         return fmpSearchBySymbolService.download();
     }

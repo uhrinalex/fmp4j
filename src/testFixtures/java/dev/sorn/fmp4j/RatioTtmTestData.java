@@ -1,11 +1,13 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 
 public interface RatioTtmTestData {
     default FmpRatioTtm aTtmRatio() {
         return new FmpRatioTtm(
-                "AAPL",
+                symbol("AAPL"),
                 0.4667825022942796,
                 0.31824533496482105,
                 0.3394187825022943,

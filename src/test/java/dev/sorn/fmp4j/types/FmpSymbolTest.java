@@ -1,19 +1,26 @@
 package dev.sorn.fmp4j.types;
 
 import static dev.sorn.fmp4j.TestUtils.deserialize;
+import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.TestUtils.serialize;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static dev.sorn.fmp4j.types.FmpSymbol.FMP_SYMBOL_PATTERN;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
+import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import dev.sorn.fmp4j.exceptions.FmpInvalidSymbolException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -198,6 +205,37 @@ class FmpSymbolTest {
                 e.getMessage());
     }
 
+    @Disabled("The file is 10MB; excluded from Git")
+    @Test
+    void check_all_symbols() {
+        // How to set up:
+        // 1. Download JSON: https://financialmodelingprep.com/stable/financial-statement-symbol-list?apikey=yourapikey
+        // 2. Add it to `testFixtures/resources/stable/financial-statement-symbol-list/full.json`
+        // 3. Open the file
+        // 4. Replace (CMD+R)
+        // 5. Enable regex
+        // 6. Replace \{[^}]*"symbol":\s*"([^"]+)"[^}]*\} with "$1"
+        // 7. Remove @Disabled
+        // 8. Run test
+
+        // given
+        var res = jsonTestResource("stable/financial-statement-symbol-list/full.json");
+        var symbols = FMP_JSON_DESERIALIZER.fromJson(res, typeRef(String[].class));
+
+        var failedSymbols = new ArrayList<String>();
+        stream(symbols).forEach(symbol -> {
+            try {
+                symbol(symbol);
+            } catch (Exception e) {
+                failedSymbols.add(symbol);
+            }
+        });
+
+        if (!failedSymbols.isEmpty()) {
+            fail("Symbols failed:\n" + String.join("\n", failedSymbols));
+        }
+    }
+
     private static Stream<String> validSymbols() {
         return Stream.of(
                 "AAPL",
@@ -223,11 +261,20 @@ class FmpSymbolTest {
                 "BTC-USD",
                 "ETH-EUR",
                 "NYSE:BRK.A",
+                "BOOZT-DKK.CO",
+                "MORARJEE.NS",
+                "CORDSCABLE.BO",
+                "PE&OLES.MX",
+                "EHMEF",
+                "HCL-INSYS.BO",
+                "GIG-SDB.ST",
+                "IMP-A-SDB.ST",
+                "DE000A2NBN90.SG",
                 "A",
                 "0",
-                "123456",
-                "ABCDEF",
-                "ABCDE0",
+                "0123456789",
+                "ABCDEFGHIJ",
+                "ABCDE01234",
                 "A1B2",
                 "A1B2.XY",
                 "A1B2.XYZ1");
@@ -247,9 +294,8 @@ class FmpSymbolTest {
                 "4F_L", // illegal char
                 "GOOＧ", // illegal char (unicode)
                 "SBER.ΜE", // illegal char (unicode)
-                "ABCDEFG", // too long
-                "1234567", // too long numeric
-                "NASDAQ:1234567", // base too long
+                "ABCDEFGHIJKLMN", // too long
+                "01234567890123", // too long numeric
                 "A1B2.XYZ12", // suffix too long
                 "MSFT.", // suffix missing characters
                 "ABC.X!", // suffix illegal char

@@ -12,6 +12,7 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.NewsTestData;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.Set;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -66,7 +67,7 @@ class FmpNewsServiceTest implements NewsTestData {
         "forex,EURUSD",
         "stock,AAPL",
     })
-    void successful_download(String type, String symbol) {
+    void successful_download(String type, FmpSymbol symbol) {
         // given
         var service = new FmpNewsService(FMP_CONFIG, http, type);
         service.param("symbols", symbol);

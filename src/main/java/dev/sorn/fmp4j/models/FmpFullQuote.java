@@ -1,9 +1,10 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 
 public record FmpFullQuote(
-        String symbol,
+        FmpSymbol symbol,
         String name,
         Double price,
         Double changePercentage,
@@ -22,5 +23,5 @@ public record FmpFullQuote(
         Long timestamp)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

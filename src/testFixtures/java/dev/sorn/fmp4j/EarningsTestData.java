@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpEarning;
 import java.time.LocalDate;
 
 public interface EarningsTestData {
     default FmpEarning anEarning() {
         return new FmpEarning(
-                "AAPL",
+                symbol("AAPL"),
                 LocalDate.parse("2025-05-01"),
                 1.65,
                 1.63,

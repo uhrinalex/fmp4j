@@ -1,11 +1,13 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpStockPriceChange;
 
 public interface StockPriceChangeTestData {
     default FmpStockPriceChange aStockPriceChange() {
         return new FmpStockPriceChange(
-                "AAPL",
+                symbol("AAPL"),
                 1.27168,
                 -1.70047,
                 6.35536,

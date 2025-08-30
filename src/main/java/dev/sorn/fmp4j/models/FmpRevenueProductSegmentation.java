@@ -1,11 +1,12 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 import java.util.Map;
 
 public record FmpRevenueProductSegmentation(
-        String symbol,
+        FmpSymbol symbol,
         Integer fiscalYear,
         String period,
         String reportedCurrency,
@@ -13,5 +14,5 @@ public record FmpRevenueProductSegmentation(
         Map<String, Long> data)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

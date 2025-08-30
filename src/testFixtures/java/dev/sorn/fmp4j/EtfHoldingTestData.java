@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpEtfHolding;
 import java.time.LocalDateTime;
 
 public interface EtfHoldingTestData {
     default FmpEtfHolding anEtfHolding() {
         return new FmpEtfHolding(
-                "FUSD.L",
+                symbol("FUSD.L"),
                 "DLB",
                 "DOLBY LABORATORIES A",
                 "US25659T1079",

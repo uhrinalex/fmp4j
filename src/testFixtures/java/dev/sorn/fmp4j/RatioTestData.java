@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpRatio;
 import java.time.LocalDate;
 
 public interface RatioTestData {
     default FmpRatio anAnnualRatio() {
         return new FmpRatio(
-                "AAPL",
+                symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
                 "2024",
                 "FY",

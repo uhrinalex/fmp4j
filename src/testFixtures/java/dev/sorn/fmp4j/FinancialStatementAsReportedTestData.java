@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpFinancialStatementAsReported;
 import java.time.LocalDate;
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Map;
 public interface FinancialStatementAsReportedTestData {
     default FmpFinancialStatementAsReported aFinancialStatementAsReported() {
         return new FmpFinancialStatementAsReported(
-                "KO",
+                symbol("KO"),
                 2024,
                 "FY",
                 null,

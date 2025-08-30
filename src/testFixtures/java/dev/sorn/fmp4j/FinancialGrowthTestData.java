@@ -1,11 +1,13 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpFinancialGrowth;
 
 public interface FinancialGrowthTestData {
     default FmpFinancialGrowth aFinancialGrowth() {
         return new FmpFinancialGrowth(
-                "AAPL",
+                symbol("AAPL"),
                 "2023-09-30",
                 "2023",
                 "FY",

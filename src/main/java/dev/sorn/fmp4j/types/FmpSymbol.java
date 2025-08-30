@@ -2,13 +2,21 @@ package dev.sorn.fmp4j.types;
 
 import static java.util.Objects.compare;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import dev.sorn.fmp4j.exceptions.FmpInvalidSymbolException;
 import java.io.Serial;
 import java.util.regex.Pattern;
 
 public final class FmpSymbol implements Comparable<FmpSymbol>, FmpValueObject<String> {
-    public static final Pattern FMP_SYMBOL_PATTERN =
-            Pattern.compile("^([A-Z]{1,6}:)?[A-Z0-9]{1,6}([./-][A-Z][A-Z0-9]{0,3})?$");
+    // 1. Optional exchange prefix (1-5 alphanumeric characters followed by colon)
+    // 2. Main symbol (1-10 alphanumeric characters or ampersand)
+    // 3. Start group for optional segments
+    // 4. Dash or slash separator followed by segment (1-10 characters, starting with letter)
+    // 5. OR
+    // 6. Dot separator followed by segment (1-4 characters, starting with letter)
+    // 7. End group, repeated zero or more times
+    public static final Pattern FMP_SYMBOL_PATTERN = Pattern.compile("^(?:[A-Z0-9]{1,5}:)?" + "[A-Z0-9&]{1,12}" + "(?:"
+            + "(?:[-/][A-Z][A-Z0-9]{0,9})" + "|" + "(?:\\.[A-Z][A-Z0-9]{0,3})" + ")*$");
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,6 +27,7 @@ public final class FmpSymbol implements Comparable<FmpSymbol>, FmpValueObject<St
         this.value = value;
     }
 
+    @JsonCreator
     public static FmpSymbol symbol(String value) {
         if (value == null) {
             throw new FmpInvalidSymbolException("'value' is required");

@@ -27,6 +27,7 @@ import dev.sorn.fmp4j.services.FmpRatioTtmService;
 import dev.sorn.fmp4j.services.FmpRevenueGeographicSegmentationService;
 import dev.sorn.fmp4j.services.FmpRevenueProductSegmentationService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.Optional;
 
 public class FmpStatementClient {
@@ -68,7 +69,8 @@ public class FmpStatementClient {
         this.revenueProductSegmentationService = new FmpRevenueProductSegmentationService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpIncomeStatement[] income(String symbol, Optional<String> period, Optional<Integer> limit) {
+    public synchronized FmpIncomeStatement[] income(
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         incomeStatementService.param("symbol", symbol);
         incomeStatementService.param("period", period.orElse("annual"));
         incomeStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -76,7 +78,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpFinancialStatementAsReported[] incomeAsReported(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         incomeStatementAsReportedService.param("symbol", symbol);
         incomeStatementAsReportedService.param("period", period.orElse("annual"));
         incomeStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -84,7 +86,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpBalanceSheetStatement[] balanceSheet(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         balanceSheetStatementService.param("symbol", symbol);
         balanceSheetStatementService.param("period", period.orElse("annual"));
         balanceSheetStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -92,7 +94,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpFinancialStatementAsReported[] balanceSheetAsReported(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         balanceSheetStatementAsReportedService.param("symbol", symbol);
         balanceSheetStatementAsReportedService.param("period", period.orElse("annual"));
         balanceSheetStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -100,7 +102,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpCashFlowStatement[] cashFlow(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         cashFlowStatementService.param("symbol", symbol);
         cashFlowStatementService.param("period", period.orElse("annual"));
         cashFlowStatementService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -108,7 +110,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpFinancialStatementAsReported[] cashFlowAsReported(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         cashFlowStatementAsReportedService.param("symbol", symbol);
         cashFlowStatementAsReportedService.param("period", period.orElse("annual"));
         cashFlowStatementAsReportedService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -116,39 +118,39 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpFinancialGrowth[] financialGrowth(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         financialGrowthService.param("symbol", symbol);
         financialGrowthService.param("period", period.orElse("annual"));
         financialGrowthService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return financialGrowthService.download();
     }
 
-    public synchronized FmpRatio[] ratios(String symbol, Optional<String> period, Optional<Integer> limit) {
+    public synchronized FmpRatio[] ratios(FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         ratioService.param("symbol", symbol);
         ratioService.param("period", period.orElse("annual"));
         ratioService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return ratioService.download();
     }
 
-    public synchronized FmpRatioTtm[] ratiosTtm(String symbol) {
+    public synchronized FmpRatioTtm[] ratiosTtm(FmpSymbol symbol) {
         ratioTtmService.param("symbol", symbol);
         return ratioTtmService.download();
     }
 
-    public synchronized FmpKeyMetric[] keyMetrics(String symbol, Optional<String> period, Optional<Integer> limit) {
+    public synchronized FmpKeyMetric[] keyMetrics(FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         keyMetricService.param("symbol", symbol);
         keyMetricService.param("period", period.orElse("annual"));
         keyMetricService.param("limit", limit.orElse(DEFAULT_LIMIT));
         return keyMetricService.download();
     }
 
-    public synchronized FmpKeyMetricTtm[] keyMetricsTtm(String symbol) {
+    public synchronized FmpKeyMetricTtm[] keyMetricsTtm(FmpSymbol symbol) {
         keyMetricTtmService.param("symbol", symbol);
         return keyMetricTtmService.download();
     }
 
     public synchronized FmpEnterpriseValue[] enterpriseValues(
-            String symbol, Optional<String> period, Optional<Integer> limit) {
+            FmpSymbol symbol, Optional<String> period, Optional<Integer> limit) {
         enterpriseValuesService.param("symbol", symbol);
         enterpriseValuesService.param("period", period.orElse("annual"));
         enterpriseValuesService.param("limit", limit.orElse(DEFAULT_LIMIT));
@@ -156,7 +158,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpRevenueGeographicSegmentation[] revenueGeographicSegmentations(
-            String symbol, Optional<String> period, Optional<String> structure) {
+            FmpSymbol symbol, Optional<String> period, Optional<String> structure) {
         revenueGeographicSegmentationService.param("symbol", symbol);
         revenueGeographicSegmentationService.param("period", period.orElse("annual"));
         revenueGeographicSegmentationService.param("structure", structure.orElse("flat"));
@@ -164,7 +166,7 @@ public class FmpStatementClient {
     }
 
     public synchronized FmpRevenueProductSegmentation[] revenueProductSegmentations(
-            String symbol, Optional<String> period, Optional<String> structure) {
+            FmpSymbol symbol, Optional<String> period, Optional<String> structure) {
         revenueProductSegmentationService.param("symbol", symbol);
         revenueProductSegmentationService.param("period", period.orElse("annual"));
         revenueProductSegmentationService.param("structure", structure.orElse("flat"));

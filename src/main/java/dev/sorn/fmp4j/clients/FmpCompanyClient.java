@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.services.FmpCompanyService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpCompanyClient {
 
@@ -14,7 +15,7 @@ public class FmpCompanyClient {
         this.fmpCompanyService = new FmpCompanyService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpCompany[] company(String symbol) {
+    public synchronized FmpCompany[] company(FmpSymbol symbol) {
         fmpCompanyService.param("symbol", symbol);
         return fmpCompanyService.download();
     }

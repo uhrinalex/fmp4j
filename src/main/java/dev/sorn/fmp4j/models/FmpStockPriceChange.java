@@ -1,10 +1,11 @@
 package dev.sorn.fmp4j.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 
 public record FmpStockPriceChange(
-        String symbol,
+        FmpSymbol symbol,
         @JsonProperty(value = "1D") Double _1D,
         @JsonProperty(value = "5D") Double _5D,
         @JsonProperty(value = "1M") Double _1M,
@@ -18,5 +19,5 @@ public record FmpStockPriceChange(
         Double max)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }
