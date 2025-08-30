@@ -39,16 +39,19 @@ import dev.sorn.fmp4j.models.FmpSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.models.FmpStockPriceChange;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import dev.sorn.fmp4j.models.FmpTreasuryRate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
@@ -885,6 +888,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit, FmpSecFilingsSearchBySymbol.class);
+    }
+
+    @Test
+    void treasuryRates() {
+        // given
+        var from = "2024-12-30";
+        var to = "2025-01-01";
+
+        var typeRef = typeRef(FmpTreasuryRate[].class);
+        var endpoint = "treasury-rates";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("from", from, "to", to));
+        var file = format("stable/%s/?from=%s&to=%s.json", endpoint, from, to);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.economic().treasuryRates(from, to);
+
+        // then
+        assertValidResult(result, 2, FmpTreasuryRate.class);
     }
 
     private URI buildUri(String endpoint) {

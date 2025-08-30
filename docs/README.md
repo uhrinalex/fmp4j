@@ -193,7 +193,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#commitment-
 
 |    | Since | Endpoint               |
 |:--:|:-----:|------------------------|
-| ❌️ |   -   | `/treasury-rates`      |
+| ✅️ | 0.2.0 | `/treasury-rates`      |
 | ❌️ |   -   | `/economic-indicators` |
 | ❌️ |   -   | `/economic-calendar`   |
 | ❌️ |   -   | `/market-risk-premium` |

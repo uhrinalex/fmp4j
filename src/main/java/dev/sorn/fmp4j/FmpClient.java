@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.clients.FmpCalendarClient;
 import dev.sorn.fmp4j.clients.FmpChartClient;
 import dev.sorn.fmp4j.clients.FmpCompanyClient;
 import dev.sorn.fmp4j.clients.FmpDirectoryClient;
+import dev.sorn.fmp4j.clients.FmpEconomicClient;
 import dev.sorn.fmp4j.clients.FmpEtfClient;
 import dev.sorn.fmp4j.clients.FmpNewsClient;
 import dev.sorn.fmp4j.clients.FmpQuoteClient;
@@ -49,6 +50,9 @@ public class FmpClient {
     // SEC Filings Search
     protected final FmpSecFilingsSearchClient fmpSecFilingsSearchClient;
 
+    // Economic
+    protected final FmpEconomicClient fmpEconomicClient;
+
     public FmpClient() {
         this(FMP_CONFIG, FMP_HTTP_CLIENT);
     }
@@ -66,7 +70,8 @@ public class FmpClient {
             new FmpEtfClient(fmpConfig, fmpHttpClient),
             new FmpNewsClient(fmpConfig, fmpHttpClient),
             new FmpQuoteClient(fmpConfig, fmpHttpClient),
-            new FmpSecFilingsSearchClient(fmpConfig, fmpHttpClient)
+            new FmpSecFilingsSearchClient(fmpConfig, fmpHttpClient),
+            new FmpEconomicClient(fmpConfig, fmpHttpClient)
         );
     }
 
@@ -82,7 +87,8 @@ public class FmpClient {
         FmpEtfClient fmpEtfClient,
         FmpNewsClient fmpNewsClient,
         FmpQuoteClient fmpQuoteClient,
-        FmpSecFilingsSearchClient fmpSecFilingsSearchClient
+        FmpSecFilingsSearchClient fmpSecFilingsSearchClient,
+        FmpEconomicClient fmpEconomicClient
     ) {
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
@@ -96,6 +102,7 @@ public class FmpClient {
         this.fmpNewsClient = fmpNewsClient;
         this.fmpQuoteClient = fmpQuoteClient;
         this.fmpSecFilingsSearchClient = fmpSecFilingsSearchClient;
+        this.fmpEconomicClient = fmpEconomicClient;
     }
 
     public FmpSearchClient search() {
@@ -136,5 +143,9 @@ public class FmpClient {
 
     public FmpSecFilingsSearchClient filingsSearch() {
         return fmpSecFilingsSearchClient;
+    }
+
+    public FmpEconomicClient economic() {
+        return fmpEconomicClient;
     }
 }
