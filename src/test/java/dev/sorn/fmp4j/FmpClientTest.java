@@ -900,7 +900,7 @@ class FmpClientTest {
         var endpoint = "treasury-rates";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of( "from", from, "to", to));
+        var params = buildParams(Map.of("from", from, "to", to));
         var file = format("stable/%s/?from=%s&to=%s.json", endpoint, from, to);
 
         // when
