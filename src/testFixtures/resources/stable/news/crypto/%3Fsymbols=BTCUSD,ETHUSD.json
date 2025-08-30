@@ -1,0 +1,42 @@
+[
+  {
+    "symbol": "BTCUSD",
+    "publishedDate": "2025-08-22 16:45:47",
+    "publisher": "Decrypt",
+    "title": "Public Keys: Ethereum Treasuries Soar, Bitcoin ETFs' $1 Billion Bleed, Crypto IPO Chatter",
+    "image": "https://images.financialmodelingprep.com/news/public-keys-ethereum-treasuries-soar-bitcoin-etfs-1-billion-20250822.jpeg",
+    "site": "decrypt.co",
+    "text": "Fed hints spark crypto rally as Bitcoin ETFs bleed $1B, but Ethereum bounces back. Plus, Figure Technologies is eyeing an IPO.",
+    "url": "https://decrypt.co/336496/public-keys-ethereum-treasuries-bitcoin-etfs-ipo-chatter"
+  },
+  {
+    "symbol": "BTCUSD",
+    "publishedDate": "2025-08-22 16:29:41",
+    "publisher": "CryptoPotato",
+    "title": "Bitcoin Neutral, Ethereum Strengthening: Divergence in Flow Data Raises Eyebrows",
+    "image": "https://images.financialmodelingprep.com/news/bitcoin-neutral-ethereum-strengthening-divergence-in-flow-data-raises-20250822.jpg",
+    "site": "cryptopotato.com",
+    "text": "Bitcoin pulled back from $123,000 to near $113,000 while exchange reserves remained largely unchanged, indicating a potential short-term correction risk in the near future.",
+    "url": "https://cryptopotato.com/bitcoin-neutral-ethereum-strengthening-divergence-in-flow-data-raises-eyebrows/"
+  },
+  {
+    "symbol": "ETHUSD",
+    "publishedDate": "2025-08-30 08:00:00",
+    "publisher": "Bitcoinist",
+    "title": "Real Vision CEO Raoul Pal Calls ‘Full Port' Into XRP, Ethereum",
+    "image": "https://images.financialmodelingprep.com/news/real-vision-ceo-raoul-pal-calls-full-port-into-20250830.jpg",
+    "site": "bitcoinist.com",
+    "text": "Market expert Raoul Pal has commented on the possibility of an altcoin season using what he described as the ‘Crypto Waiting Room.' He claimed that many altcoins are preparing for a parabolic rally, led by Ethereum, SOL, and XRP.",
+    "url": "https://bitcoinist.com/full-port-into-xrp-ethereum/"
+  },
+  {
+    "symbol": "ETHUSD",
+    "publishedDate": "2025-08-30 07:56:33",
+    "publisher": "Coinpaper",
+    "title": "Why Ethereum Just Posted Its Third-Biggest Month in History",
+    "image": "https://images.financialmodelingprep.com/news/why-ethereum-just-posted-its-thirdbiggest-month-in-history-20250830.jpg",
+    "site": "coinpaper.com",
+    "text": "Ethereum's transaction volume hit $320B in August 2025, its third-highest ever, fueled by institutional demand and ETF growth.",
+    "url": "https://coinpaper.com/10811/why-ethereum-just-posted-its-third-biggest-month-in-history"
+  }
+]

@@ -11,6 +11,7 @@ import dev.sorn.fmp4j.services.FmpDividendsCalendarService;
 import dev.sorn.fmp4j.services.FmpEarningService;
 import dev.sorn.fmp4j.services.FmpEarningsCalendarService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpCalendarClient {
 
@@ -30,7 +31,7 @@ public class FmpCalendarClient {
         return fmpDividendsCalendarService.download();
     }
 
-    public synchronized FmpDividend[] dividends(String symbol) {
+    public synchronized FmpDividend[] dividends(FmpSymbol symbol) {
         fmpDividendService.param("symbol", symbol);
         return fmpDividendService.download();
     }
@@ -39,7 +40,7 @@ public class FmpCalendarClient {
         return fmpEarningsCalendarService.download();
     }
 
-    public synchronized FmpEarning[] earnings(String symbol) {
+    public synchronized FmpEarning[] earnings(FmpSymbol symbol) {
         fmpEarningsService.param("symbol", symbol);
         return fmpEarningsService.download();
     }

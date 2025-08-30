@@ -1,11 +1,12 @@
 package dev.sorn.fmp4j.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDateTime;
 
 public record FmpEtfHolding(
-        String symbol,
+        FmpSymbol symbol,
         String asset,
         String name,
         String isin,
@@ -16,5 +17,5 @@ public record FmpEtfHolding(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime updatedAt)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

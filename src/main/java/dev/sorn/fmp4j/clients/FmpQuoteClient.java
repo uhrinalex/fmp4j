@@ -9,6 +9,7 @@ import dev.sorn.fmp4j.services.FmpQuoteService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.services.FmpShortQuoteService;
 import dev.sorn.fmp4j.services.FmpStockPriceChangeService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpQuoteClient {
     protected final FmpService<FmpFullQuote[]> quoteService;
@@ -21,17 +22,17 @@ public class FmpQuoteClient {
         this.stockPriceChangeService = new FmpStockPriceChangeService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpFullQuote[] full(String symbol) {
+    public synchronized FmpFullQuote[] full(FmpSymbol symbol) {
         quoteService.param("symbol", symbol);
         return quoteService.download();
     }
 
-    public synchronized FmpPartialQuote[] partial(String symbol) {
+    public synchronized FmpPartialQuote[] partial(FmpSymbol symbol) {
         shortQuoteService.param("symbol", symbol);
         return shortQuoteService.download();
     }
 
-    public synchronized FmpStockPriceChange[] priceChange(String symbol) {
+    public synchronized FmpStockPriceChange[] priceChange(FmpSymbol symbol) {
         stockPriceChangeService.param("symbol", symbol);
         return stockPriceChangeService.download();
     }

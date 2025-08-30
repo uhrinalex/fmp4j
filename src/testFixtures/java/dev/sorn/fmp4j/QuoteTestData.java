@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpFullQuote;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 
 public interface QuoteTestData {
     default FmpFullQuote aFullQuote() {
         return new FmpFullQuote(
-                "AAPL",
+                symbol("AAPL"),
                 "Apple Inc.",
                 232.8,
                 2.1008,
@@ -26,6 +28,6 @@ public interface QuoteTestData {
     }
 
     default FmpPartialQuote aPartialQuote() {
-        return new FmpPartialQuote("AAPL", 231.59, -1.19, 54864147L);
+        return new FmpPartialQuote(symbol("AAPL"), 231.59, -1.19, 54864147L);
     }
 }

@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,7 +11,7 @@ public interface IncomeStatementTestData {
     default FmpIncomeStatement anAnnualIncomeStatement() {
         return new FmpIncomeStatement(
                 LocalDate.parse("2024-09-28"),
-                "AAPL",
+                symbol("AAPL"),
                 "USD",
                 "0000320193",
                 LocalDate.parse("2024-11-01"),

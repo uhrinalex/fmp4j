@@ -1,11 +1,12 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 import java.util.Map;
 
 public record FmpFinancialStatementAsReported(
-        String symbol,
+        FmpSymbol symbol,
         Integer fiscalYear,
         String period,
         String reportedCurrency,
@@ -13,5 +14,5 @@ public record FmpFinancialStatementAsReported(
         Map<String, Number> data)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

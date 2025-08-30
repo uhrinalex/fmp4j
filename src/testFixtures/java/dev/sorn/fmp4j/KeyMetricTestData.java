@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import java.time.LocalDate;
 
 public interface KeyMetricTestData {
     default FmpKeyMetric anAnnualKeyMetric() {
         return new FmpKeyMetric(
-                "AAPL",
+                symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
                 "2024",
                 "FY",

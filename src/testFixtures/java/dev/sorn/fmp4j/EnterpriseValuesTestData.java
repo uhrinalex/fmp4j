@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import java.time.LocalDate;
 
 public interface EnterpriseValuesTestData {
     default FmpEnterpriseValue anEnterpriseValue() {
         return new FmpEnterpriseValue(
-                "AAPL",
+                symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
                 227.79,
                 15343783000L,

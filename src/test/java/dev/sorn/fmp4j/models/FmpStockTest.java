@@ -3,6 +3,7 @@ package dev.sorn.fmp4j.models;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static dev.sorn.fmp4j.TestUtils.verifySerialization;
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ class FmpStockTest {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = new FmpStock("AAPL", "Apple Inc.");
+        var before = new FmpStock(symbol("AAPL"), "Apple Inc.");
 
         // when
         var after = (FmpStock) deserialize(serialize(before));
@@ -24,7 +25,7 @@ class FmpStockTest {
     @Test
     void serializes() throws IOException {
         // given
-        var o = new FmpStock("AAPL", "Apple Inc.");
+        var o = new FmpStock(symbol("AAPL"), "Apple Inc.");
 
         // when // then
         verifySerialization(o);

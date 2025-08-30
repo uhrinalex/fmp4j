@@ -5,6 +5,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.services.FmpSecFilingsSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.Optional;
 
 public class FmpSecFilingsSearchClient {
@@ -17,7 +18,7 @@ public class FmpSecFilingsSearchClient {
     }
 
     public synchronized FmpSecFilingsSearchBySymbol[] bySymbol(
-            String symbol, String from, String to, Optional<Integer> page, Optional<Integer> limit) {
+            FmpSymbol symbol, String from, String to, Optional<Integer> page, Optional<Integer> limit) {
         fmpSecFilingsSearchBySymbol.param("symbol", symbol);
         fmpSecFilingsSearchBySymbol.param("from", from);
         fmpSecFilingsSearchBySymbol.param("to", to);

@@ -1,12 +1,13 @@
 package dev.sorn.fmp4j.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.net.URI;
 import java.time.LocalDateTime;
 
 public record FmpNews(
-        String symbol,
+        FmpSymbol symbol,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime publishedDate,
         String publisher,
         String title,
@@ -16,5 +17,5 @@ public record FmpNews(
         URI url)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

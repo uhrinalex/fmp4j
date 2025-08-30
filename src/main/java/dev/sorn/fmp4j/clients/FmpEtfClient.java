@@ -13,6 +13,7 @@ import dev.sorn.fmp4j.services.FmpEtfHoldingService;
 import dev.sorn.fmp4j.services.FmpEtfInfoService;
 import dev.sorn.fmp4j.services.FmpEtfSectorWeightingService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpEtfClient {
     protected final FmpService<FmpEtfAssetExposure[]> etfAssetExposureService;
@@ -29,27 +30,27 @@ public class FmpEtfClient {
         this.etfSectorWeightingService = new FmpEtfSectorWeightingService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpEtfAssetExposure[] assetExposure(String symbol) {
+    public synchronized FmpEtfAssetExposure[] assetExposure(FmpSymbol symbol) {
         etfAssetExposureService.param("symbol", symbol);
         return etfAssetExposureService.download();
     }
 
-    public synchronized FmpEtfCountryWeighting[] countryWeightings(String symbol) {
+    public synchronized FmpEtfCountryWeighting[] countryWeightings(FmpSymbol symbol) {
         etfCountryWeightingService.param("symbol", symbol);
         return etfCountryWeightingService.download();
     }
 
-    public synchronized FmpEtfHolding[] holdings(String symbol) {
+    public synchronized FmpEtfHolding[] holdings(FmpSymbol symbol) {
         etfHoldingService.param("symbol", symbol);
         return etfHoldingService.download();
     }
 
-    public synchronized FmpEtfInfo[] info(String symbol) {
+    public synchronized FmpEtfInfo[] info(FmpSymbol symbol) {
         etfInfoService.param("symbol", symbol);
         return etfInfoService.download();
     }
 
-    public synchronized FmpEtfSectorWeighting[] sectorWeightings(String symbol) {
+    public synchronized FmpEtfSectorWeighting[] sectorWeightings(FmpSymbol symbol) {
         etfSectorWeightingService.param("symbol", symbol);
         return etfSectorWeightingService.download();
     }

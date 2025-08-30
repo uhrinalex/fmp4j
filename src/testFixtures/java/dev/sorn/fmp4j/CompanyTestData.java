@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpCompany;
 import java.time.LocalDate;
 
 public interface CompanyTestData {
     default FmpCompany aCompany() {
         return new FmpCompany(
-                "AAPL",
+                symbol("AAPL"),
                 232.8,
                 3500823120000L,
                 1.24,

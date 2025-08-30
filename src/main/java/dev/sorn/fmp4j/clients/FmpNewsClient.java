@@ -1,6 +1,5 @@
 package dev.sorn.fmp4j.clients;
 
-import static java.lang.String.join;
 import static java.util.Optional.empty;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
@@ -8,6 +7,7 @@ import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.services.FmpNewsService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
@@ -23,20 +23,20 @@ public class FmpNewsClient {
         this.fmpStockNewsService = new FmpNewsService(fmpConfig, fmpHttpClient, "stock");
     }
 
-    public synchronized FmpNews[] crypto(Set<String> symbols) {
+    public synchronized FmpNews[] crypto(Set<FmpSymbol> symbols) {
         return crypto(symbols, empty(), empty(), empty(), empty());
     }
 
-    public synchronized FmpNews[] forex(Set<String> symbols) {
+    public synchronized FmpNews[] forex(Set<FmpSymbol> symbols) {
         return forex(symbols, empty(), empty(), empty(), empty());
     }
 
-    public synchronized FmpNews[] stock(Set<String> symbols) {
+    public synchronized FmpNews[] stock(Set<FmpSymbol> symbols) {
         return stock(symbols, empty(), empty(), empty(), empty());
     }
 
     public synchronized FmpNews[] crypto(
-            Set<String> symbols,
+            Set<FmpSymbol> symbols,
             Optional<LocalDate> from,
             Optional<LocalDate> to,
             Optional<Integer> page,
@@ -45,7 +45,7 @@ public class FmpNewsClient {
     }
 
     public synchronized FmpNews[] forex(
-            Set<String> symbols,
+            Set<FmpSymbol> symbols,
             Optional<LocalDate> from,
             Optional<LocalDate> to,
             Optional<Integer> page,
@@ -54,7 +54,7 @@ public class FmpNewsClient {
     }
 
     public synchronized FmpNews[] stock(
-            Set<String> symbols,
+            Set<FmpSymbol> symbols,
             Optional<LocalDate> from,
             Optional<LocalDate> to,
             Optional<Integer> page,
@@ -64,12 +64,12 @@ public class FmpNewsClient {
 
     protected synchronized FmpNews[] news(
             FmpService<FmpNews[]> service,
-            Set<String> symbols,
+            Set<FmpSymbol> symbols,
             Optional<LocalDate> from,
             Optional<LocalDate> to,
             Optional<Integer> page,
             Optional<Integer> limit) {
-        service.param("symbols", join(",", symbols));
+        service.param("symbols", symbols);
         from.ifPresent(date -> service.param("from", date));
         to.ifPresent(date -> service.param("to", date));
         service.param("page", page.orElse(0));

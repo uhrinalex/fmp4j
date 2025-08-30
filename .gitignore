@@ -38,3 +38,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /src/main/resources/fmp4j.properties
+
+## Large test fixtures
+/src/testFixtures/resources/stable/financial-statement-symbol-list/

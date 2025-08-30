@@ -1,11 +1,13 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
 
 public interface KeyMetricTtmTestData {
     default FmpKeyMetricTtm aTtmKeyMetric() {
         return new FmpKeyMetricTtm(
-                "AAPL",
+                symbol("AAPL"),
                 3436888206356L,
                 3508121206356L,
                 8.585184965080453,

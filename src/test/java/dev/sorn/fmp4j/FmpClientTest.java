@@ -3,7 +3,9 @@ package dev.sorn.fmp4j;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,6 +56,7 @@ import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.models.FmpStockPriceChange;
 import dev.sorn.fmp4j.models.FmpTreasuryRate;
+import dev.sorn.fmp4j.types.FmpSymbol;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -139,7 +142,7 @@ class FmpClientTest {
     @Test
     void searchBySymbol() {
         // given
-        var query = "ADYEN";
+        var query = symbol("ADYEN");
         var typeRef = typeRef(FmpSearchBySymbol[].class);
         var endpoint = "search-symbol";
         var uri = buildUri(endpoint);
@@ -214,7 +217,7 @@ class FmpClientTest {
         // given
         var typeRef = typeRef(FmpDividend[].class);
         var endpoint = "dividends";
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol));
@@ -255,7 +258,7 @@ class FmpClientTest {
         // given
         var typeRef = typeRef(FmpEarning[].class);
         var endpoint = "earnings";
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol));
@@ -275,7 +278,7 @@ class FmpClientTest {
         // given
         var typeRef = typeRef(FmpHistoricalPriceEodLight[].class);
         var endpoint = "historical-price-eod/light";
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var from = "2024-02-22";
         var to = "2024-02-28";
         var uri = buildUri(endpoint);
@@ -296,7 +299,7 @@ class FmpClientTest {
         // given
         var typeRef = typeRef(FmpHistoricalPriceEodFull[].class);
         var endpoint = "historical-price-eod/full";
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var from = "2024-02-22";
         var to = "2024-02-28";
         var uri = buildUri(endpoint);
@@ -321,7 +324,7 @@ class FmpClientTest {
         // given
         var typeRef = typeRef(FmpHistoricalChart[].class);
         var endpoint = "historical-chart/" + interval;
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var from = "2024-01-01";
         var to = "2024-01-02";
         var uri = buildUri(endpoint);
@@ -331,7 +334,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.chart().historical(interval, symbol, Optional.of(from), Optional.of(to));
+        var result = fmpClient.chart().historical(symbol, interval, Optional.of(from), Optional.of(to));
 
         // then
         assertValidResult(result, 2, FmpHistoricalChart.class, emptySet());
@@ -340,7 +343,7 @@ class FmpClientTest {
     @Test
     void company() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpCompany[].class);
         var endpoint = "profile";
         var uri = buildUri(endpoint);
@@ -360,7 +363,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void incomeStatements(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpIncomeStatement[].class);
         var endpoint = "income-statement";
@@ -381,7 +384,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void incomeStatementsAsReported(String period) {
         // given
-        var symbol = "KO";
+        var symbol = symbol("KO");
         var limit = 2;
         var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
         var endpoint = "income-statement-as-reported";
@@ -402,7 +405,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void balanceSheetStatements(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpBalanceSheetStatement[].class);
         var endpoint = "balance-sheet-statement";
@@ -423,7 +426,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void balanceSheetStatementsAsReported(String period) {
         // given
-        var symbol = "KO";
+        var symbol = symbol("KO");
         var limit = 2;
         var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
         var endpoint = "balance-sheet-statement-as-reported";
@@ -444,7 +447,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void cashFlowStatements(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpCashFlowStatement[].class);
         var endpoint = "cash-flow-statement";
@@ -465,7 +468,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void cashFlowStatementsAsReported(String period) {
         // given
-        var symbol = "KO";
+        var symbol = symbol("KO");
         var limit = 2;
         var typeRef = typeRef(FmpFinancialStatementAsReported[].class);
         var endpoint = "cash-flow-statement-as-reported";
@@ -486,7 +489,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void financialGrowth(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 2;
         var typeRef = typeRef(FmpFinancialGrowth[].class);
         var endpoint = "financial-growth";
@@ -516,7 +519,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void ratios(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpRatio[].class);
         var endpoint = "ratios";
@@ -536,7 +539,7 @@ class FmpClientTest {
     @Test
     void ratiosTtm() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpRatioTtm[].class);
         var endpoint = "ratios-ttm";
         var uri = buildUri(endpoint);
@@ -556,7 +559,7 @@ class FmpClientTest {
     @ValueSource(strings = {"annual", "quarter"})
     void keyMetrics(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpKeyMetric[].class);
         var endpoint = "key-metrics";
@@ -576,7 +579,7 @@ class FmpClientTest {
     @Test
     void keyMetricsTtm() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpKeyMetricTtm[].class);
         var endpoint = "key-metrics-ttm";
         var uri = buildUri(endpoint);
@@ -599,7 +602,7 @@ class FmpClientTest {
             })
     void enterpriseValues(String period) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var limit = 3;
         var typeRef = typeRef(FmpEnterpriseValue[].class);
         var endpoint = "enterprise-values";
@@ -620,7 +623,7 @@ class FmpClientTest {
     @CsvSource({"annual,15", "quarter,42"})
     void revenueProductSegmentation(String period, int expectedCount) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var structure = "flat";
         var typeRef = typeRef(FmpRevenueProductSegmentation[].class);
         var endpoint = "revenue-product-segmentation";
@@ -642,7 +645,7 @@ class FmpClientTest {
     @CsvSource({"annual,15", "quarter,59"})
     void revenueGeographicSegmentation(String period, int expectedCount) {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var structure = "flat";
         var typeRef = typeRef(FmpRevenueGeographicSegmentation[].class);
         var endpoint = "revenue-geographic-segmentation";
@@ -664,7 +667,7 @@ class FmpClientTest {
     @Test
     void etfAssetExposure() {
         // given
-        var symbol = "NVO";
+        var symbol = symbol("NVO");
         var typeRef = typeRef(FmpEtfAssetExposure[].class);
         var endpoint = "etf/asset-exposure";
         var uri = buildUri(endpoint);
@@ -683,7 +686,7 @@ class FmpClientTest {
     @Test
     void etfCountryWeightings() {
         // given
-        var symbol = "SPY";
+        var symbol = symbol("SPY");
         var typeRef = typeRef(FmpEtfCountryWeighting[].class);
         var endpoint = "etf/country-weightings";
         var uri = buildUri(endpoint);
@@ -704,7 +707,7 @@ class FmpClientTest {
         "FUSD.L,111",
         "SCHD,103",
     })
-    void etfHoldings(String symbol, int holdings) {
+    void etfHoldings(FmpSymbol symbol, int holdings) {
         // given
         var typeRef = typeRef(FmpEtfHolding[].class);
         var endpoint = "etf/holdings";
@@ -724,7 +727,7 @@ class FmpClientTest {
     @Test
     void etfInfo() {
         // given
-        var symbol = "SPY";
+        var symbol = symbol("SPY");
         var typeRef = typeRef(FmpEtfInfo[].class);
         var endpoint = "etf/info";
         var uri = buildUri(endpoint);
@@ -743,36 +746,61 @@ class FmpClientTest {
     @Test
     void cryptoNews() {
         // given
-        var symbol = "BTCUSD";
+        var symbols = Set.of(symbol("BTCUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/crypto";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
-        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var file = format(
+                "stable/%s/?symbols=%s.json",
+                endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.news().crypto(Set.of(symbol));
+        var result = fmpClient.news().crypto(symbols);
 
         // then
         assertValidResult(result, 2, FmpNews.class, emptySet());
     }
 
     @Test
+    void cryptoNews_multiple() {
+        // given
+        var symbols = Set.of(symbol("BTCUSD"), symbol("ETHUSD"));
+        var typeRef = typeRef(FmpNews[].class);
+        var endpoint = "news/crypto";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var file = format(
+                "stable/%s/?symbols=%s.json",
+                endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.news().crypto(symbols);
+
+        // then
+        assertValidResult(result, 4, FmpNews.class, emptySet());
+    }
+
+    @Test
     void forexNews() {
         // given
-        var symbol = "EURUSD";
+        var symbols = Set.of(symbol("EURUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/forex";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
-        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var file = format(
+                "stable/%s/?symbols=%s.json",
+                endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.news().forex(Set.of(symbol));
+        var result = fmpClient.news().forex(symbols);
 
         // then
         assertValidResult(result, 2, FmpNews.class, emptySet());
@@ -781,17 +809,19 @@ class FmpClientTest {
     @Test
     void stockNews() {
         // given
-        var symbol = "AAPL";
+        var symbols = Set.of(symbol("AAPL"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/stock";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbol, "page", 0, "limit", 100));
-        var file = format("stable/%s/?symbols=%s.json", endpoint, symbol);
+        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var file = format(
+                "stable/%s/?symbols=%s.json",
+                endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.news().stock(Set.of(symbol));
+        var result = fmpClient.news().stock(symbols);
 
         // then
         assertValidResult(result, 2, FmpNews.class, emptySet());
@@ -800,7 +830,7 @@ class FmpClientTest {
     @Test
     void etfSectorWeightings() {
         // given
-        var symbol = "SPY";
+        var symbol = symbol("SPY");
         var typeRef = typeRef(FmpEtfSectorWeighting[].class);
         var endpoint = "etf/sector-weightings";
         var uri = buildUri(endpoint);
@@ -819,7 +849,7 @@ class FmpClientTest {
     @Test
     void fullQuotes() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpFullQuote[].class);
         var endpoint = "quote";
         var uri = buildUri(endpoint);
@@ -838,7 +868,7 @@ class FmpClientTest {
     @Test
     void partialQuotes() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpPartialQuote[].class);
         var endpoint = "quote-short";
         var uri = buildUri(endpoint);
@@ -857,7 +887,7 @@ class FmpClientTest {
     @Test
     void priceChange() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var typeRef = typeRef(FmpStockPriceChange[].class);
         var endpoint = "stock-price-change";
         var uri = buildUri(endpoint);
@@ -876,7 +906,7 @@ class FmpClientTest {
     @Test
     void filingsSearchBySymbol() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         var from = "2024-01-01";
         var to = "2025-01-01";
         var page = 0;
@@ -935,7 +965,7 @@ class FmpClientTest {
         };
     }
 
-    private <T> void mockHttpGet(
+    private synchronized <T> void mockHttpGet(
             URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
         when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(jsonTestResource(typeRef, file));
     }

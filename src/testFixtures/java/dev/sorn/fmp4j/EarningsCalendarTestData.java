@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
 import java.time.LocalDate;
 
 public interface EarningsCalendarTestData {
     default FmpEarningsCalendar anEarningsCalendarRecord() {
         return new FmpEarningsCalendar(
-                "BOOZT-DKK.CO",
+                symbol("BOOZT-DKK.CO"),
                 LocalDate.parse("2025-08-15"),
                 0.4207,
                 0.592,
