@@ -48,6 +48,7 @@ import dev.sorn.fmp4j.models.FmpRatio;
 import dev.sorn.fmp4j.models.FmpRatioTtm;
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
 import dev.sorn.fmp4j.models.FmpRevenueProductSegmentation;
+import dev.sorn.fmp4j.models.FmpSearchByCik;
 import dev.sorn.fmp4j.models.FmpSearchByCusip;
 import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
@@ -157,6 +158,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpSearchBySymbol.class);
+    }
+
+    @Test
+    void searchByCik() {
+        // given
+        var cik = "0000320193";
+        var typeRef = typeRef(FmpSearchByCik[].class);
+        var endpoint = "search-cik";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("cik", cik));
+        var file = format("stable/%s/?cik=%s.json", endpoint, cik);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.search().byCik(cik);
+
+        // then
+        assertValidResult(result, 1, FmpSearchByCik.class);
     }
 
     @Test
