@@ -76,7 +76,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#search
 |:--:|:-----:|-----------------------------|
 | ✅️ | 0.1.0 | `/search-symbol`            |
 | ✅️ | 0.1.0 | `/search-name`              |
-| ❌️ |   -   | `/search-cik`               |
+| ✅️ | 0.2.0 | `/search-cik`               |
 | ✅️ | 0.1.0 | `/search-cusip`             |
 | ✅️ | 0.1.0 | `/search-isin`              |
 | ❌️ |   -   | `/search-exchange-variants` |
