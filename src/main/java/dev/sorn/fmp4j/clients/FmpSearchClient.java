@@ -2,10 +2,12 @@ package dev.sorn.fmp4j.clients;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.models.FmpSearchByCik;
 import dev.sorn.fmp4j.models.FmpSearchByCusip;
 import dev.sorn.fmp4j.models.FmpSearchByIsin;
 import dev.sorn.fmp4j.models.FmpSearchByName;
 import dev.sorn.fmp4j.models.FmpSearchBySymbol;
+import dev.sorn.fmp4j.services.FmpSearchByCikService;
 import dev.sorn.fmp4j.services.FmpSearchByCusipService;
 import dev.sorn.fmp4j.services.FmpSearchByIsinService;
 import dev.sorn.fmp4j.services.FmpSearchByNameService;
@@ -19,12 +21,14 @@ public class FmpSearchClient {
     protected final FmpService<FmpSearchBySymbol[]> fmpSearchBySymbolService;
     protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
     protected final FmpService<FmpSearchByCusip[]> fmpSearchByCusipService;
+    protected final FmpService<FmpSearchByCik[]> fmpSearchByCikService;
 
     public FmpSearchClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this.fmpSearchByIsinService = new FmpSearchByIsinService(fmpConfig, fmpHttpClient);
         this.fmpSearchByNameService = new FmpSearchByNameService(fmpConfig, fmpHttpClient);
         this.fmpSearchBySymbolService = new FmpSearchBySymbolService(fmpConfig, fmpHttpClient);
         this.fmpSearchByCusipService = new FmpSearchByCusipService(fmpConfig, fmpHttpClient);
+        this.fmpSearchByCikService = new FmpSearchByCikService(fmpConfig, fmpHttpClient);
     }
 
     public synchronized FmpSearchByIsin[] byIsin(String isin) {
@@ -45,5 +49,10 @@ public class FmpSearchClient {
     public synchronized FmpSearchBySymbol[] bySymbol(FmpSymbol query) {
         fmpSearchBySymbolService.param("query", query);
         return fmpSearchBySymbolService.download();
+    }
+
+    public synchronized FmpSearchByCik[] byCik(String cik) {
+        fmpSearchByCikService.param("cik", cik);
+        return fmpSearchByCikService.download();
     }
 }
