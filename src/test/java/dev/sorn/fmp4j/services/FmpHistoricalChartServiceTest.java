@@ -5,6 +5,7 @@ import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +30,7 @@ class FmpHistoricalChartServiceTest {
             })
     void relative_url(String interval) {
         // given
-        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval);
+        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval(interval));
 
         // when
         var relativeUrl = service.relativeUrl();
@@ -45,7 +46,7 @@ class FmpHistoricalChartServiceTest {
             })
     void required_params(String interval) {
         // given
-        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval);
+        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval(interval));
 
         // when
         var params = service.requiredParams();
@@ -61,7 +62,7 @@ class FmpHistoricalChartServiceTest {
             })
     void optional_params(String interval) {
         // given
-        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval);
+        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval(interval));
 
         // when
         var params = service.optionalParams();
@@ -77,7 +78,7 @@ class FmpHistoricalChartServiceTest {
             })
     void successful_download(String interval) {
         // given
-        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval);
+        var service = new FmpHistoricalChartService(FMP_CONFIG, http, interval(interval));
         var symbol = "AAPL";
         var from = "2024-01-01";
         var to = "2024-01-02";

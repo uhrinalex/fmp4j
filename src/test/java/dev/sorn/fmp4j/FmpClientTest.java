@@ -3,6 +3,7 @@ package dev.sorn.fmp4j;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
 import static java.lang.String.join;
@@ -341,11 +342,12 @@ class FmpClientTest {
             strings = {
                 "1min", "5min", "15min", "30min", "1hour", "4hour",
             })
-    void historicalChart(String interval) {
+    void historicalChart(String intervalStr) {
         // given
         var typeRef = typeRef(FmpHistoricalChart[].class);
-        var endpoint = "historical-chart/" + interval;
+        var endpoint = "historical-chart/" + intervalStr;
         var symbol = symbol("AAPL");
+        var interval = interval(intervalStr);
         var from = "2024-01-01";
         var to = "2024-01-02";
         var uri = buildUri(endpoint);

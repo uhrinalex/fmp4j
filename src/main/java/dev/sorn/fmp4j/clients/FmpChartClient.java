@@ -1,5 +1,12 @@
 package dev.sorn.fmp4j.clients;
 
+import static dev.sorn.fmp4j.types.FmpInterval.FIFTEEN_MINUTE;
+import static dev.sorn.fmp4j.types.FmpInterval.FIVE_MINUTE;
+import static dev.sorn.fmp4j.types.FmpInterval.FOUR_HOUR;
+import static dev.sorn.fmp4j.types.FmpInterval.ONE_HOUR;
+import static dev.sorn.fmp4j.types.FmpInterval.ONE_MINUTE;
+import static dev.sorn.fmp4j.types.FmpInterval.THIRTY_MINUTE;
+
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpHistoricalChart;
@@ -9,6 +16,7 @@ import dev.sorn.fmp4j.services.FmpHistoricalChartService;
 import dev.sorn.fmp4j.services.FmpHistoricalPriceEodFullService;
 import dev.sorn.fmp4j.services.FmpHistoricalPriceEodLightService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpInterval;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.Optional;
 
@@ -26,12 +34,15 @@ public class FmpChartClient {
     public FmpChartClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this.fmpHistoricalPriceEodLightService = new FmpHistoricalPriceEodLightService(fmpConfig, fmpHttpClient);
         this.fmpHistoricalPriceEodFullService = new FmpHistoricalPriceEodFullService(fmpConfig, fmpHttpClient);
-        this.fmpHistoricalChartService1MinService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "1min");
-        this.fmpHistoricalChartService5MinService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "5min");
-        this.fmpHistoricalChartService15MinService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "15min");
-        this.fmpHistoricalChartService30MinService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "30min");
-        this.fmpHistoricalChartService1HourService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "1hour");
-        this.fmpHistoricalChartService4HourService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, "4hour");
+        this.fmpHistoricalChartService1MinService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, ONE_MINUTE);
+        this.fmpHistoricalChartService5MinService =
+                new FmpHistoricalChartService(fmpConfig, fmpHttpClient, FIVE_MINUTE);
+        this.fmpHistoricalChartService15MinService =
+                new FmpHistoricalChartService(fmpConfig, fmpHttpClient, FIFTEEN_MINUTE);
+        this.fmpHistoricalChartService30MinService =
+                new FmpHistoricalChartService(fmpConfig, fmpHttpClient, THIRTY_MINUTE);
+        this.fmpHistoricalChartService1HourService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, ONE_HOUR);
+        this.fmpHistoricalChartService4HourService = new FmpHistoricalChartService(fmpConfig, fmpHttpClient, FOUR_HOUR);
     }
 
     public synchronized FmpHistoricalPriceEodLight[] historicalPriceEodLight(
@@ -51,45 +62,44 @@ public class FmpChartClient {
     }
 
     public synchronized FmpHistoricalChart[] historical(
-            FmpSymbol symbol, String interval, Optional<String> from, Optional<String> to) {
+            FmpSymbol symbol, FmpInterval interval, Optional<String> from, Optional<String> to) {
         return switch (interval) {
-            case "1min" -> {
+            case ONE_MINUTE -> {
                 fmpHistoricalChartService1MinService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService1MinService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService1MinService.param("to", date));
                 yield fmpHistoricalChartService1MinService.download();
             }
-            case "5min" -> {
+            case FIVE_MINUTE -> {
                 fmpHistoricalChartService5MinService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService5MinService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService5MinService.param("to", date));
                 yield fmpHistoricalChartService5MinService.download();
             }
-            case "15min" -> {
+            case FIFTEEN_MINUTE -> {
                 fmpHistoricalChartService15MinService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService15MinService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService15MinService.param("to", date));
                 yield fmpHistoricalChartService15MinService.download();
             }
-            case "30min" -> {
+            case THIRTY_MINUTE -> {
                 fmpHistoricalChartService30MinService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService30MinService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService30MinService.param("to", date));
                 yield fmpHistoricalChartService30MinService.download();
             }
-            case "1hour" -> {
+            case ONE_HOUR -> {
                 fmpHistoricalChartService1HourService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService1HourService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService1HourService.param("to", date));
                 yield fmpHistoricalChartService1HourService.download();
             }
-            case "4hour" -> {
+            case FOUR_HOUR -> {
                 fmpHistoricalChartService4HourService.param("symbol", symbol);
                 from.ifPresent(date -> fmpHistoricalChartService4HourService.param("from", date));
                 to.ifPresent(date -> fmpHistoricalChartService4HourService.param("to", date));
                 yield fmpHistoricalChartService4HourService.download();
             }
-            default -> throw new IllegalStateException("Unexpected interval: " + interval);
         };
     }
 }
