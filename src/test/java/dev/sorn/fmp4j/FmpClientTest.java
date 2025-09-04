@@ -40,6 +40,9 @@ import dev.sorn.fmp4j.models.FmpHistoricalChart;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodFull;
 import dev.sorn.fmp4j.models.FmpHistoricalPriceEodLight;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
+import dev.sorn.fmp4j.models.FmpIposCalendar;
+import dev.sorn.fmp4j.models.FmpIposDisclosure;
+import dev.sorn.fmp4j.models.FmpIposProspectus;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
 import dev.sorn.fmp4j.models.FmpNews;
@@ -292,6 +295,60 @@ class FmpClientTest {
         // then
         assertValidResult(
                 result, 4, FmpEarning.class, Set.of("epsActual", "epsEstimated", "revenueActual", "revenueEstimated"));
+    }
+
+    @Test
+    void iposCalendar() {
+        // given
+        var typeRef = typeRef(FmpIposCalendar[].class);
+        var endpoint = "ipos-calendar";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.calendar().iposCalendar();
+
+        // then
+        assertValidResult(result, 2, FmpIposCalendar.class, Set.of("shares", "priceRange", "marketCap"));
+    }
+
+    @Test
+    void iposDisclosure() {
+        // given
+        var typeRef = typeRef(FmpIposDisclosure[].class);
+        var endpoint = "ipos-disclosure";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var param = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, param, file, typeRef);
+        var result = fmpClient.calendar().iposDisclosures();
+
+        // then
+        assertValidResult(result, 2, FmpIposDisclosure.class, Set.of());
+    }
+
+    @Test
+    void iposProspectus() {
+        // given
+        var typeRef = typeRef(FmpIposProspectus[].class);
+        var endpoint = "ipos-prospectus";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var param = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, param, file, typeRef);
+        var result = fmpClient.calendar().iposProspectus();
+
+        // then
+        assertValidResult(result, 2, FmpIposProspectus.class, Set.of());
     }
 
     @Test

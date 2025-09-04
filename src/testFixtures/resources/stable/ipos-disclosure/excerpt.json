@@ -1,0 +1,20 @@
+[
+  {
+    "symbol": "SCHM",
+    "filingDate": "2025-02-03",
+    "acceptedDate": "2025-02-03",
+    "effectivenessDate": "2025-02-03",
+    "cik": "0001454889",
+    "form": "CERT",
+    "url": "https://www.sec.gov/Archives/edgar/data/1454889/000114336225000044/SCCR020325.pdf"
+  },
+  {
+    "symbol": "ABCD",
+    "filingDate": "2025-02-05",
+    "acceptedDate": "2025-02-05",
+    "effectivenessDate": "2025-02-07",
+    "cik": "0001234567",
+    "form": "S-1",
+    "url": "https://www.sec.gov/Archives/edgar/data/1234567/000123456725000001/s1.htm"
+  }
+]

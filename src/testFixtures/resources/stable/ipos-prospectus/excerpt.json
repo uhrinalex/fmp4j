@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "ATAK",
+    "acceptedDate": "2025-02-03",
+    "filingDate": "2025-02-03",
+    "ipoDate": "2022-03-20",
+    "cik": "0001883788",
+    "pricePublicPerShare": 0.78,
+    "pricePublicTotal": 4649936.72,
+    "discountsAndCommissionsPerShare": 0.04,
+    "discountsAndCommissionsTotal": 254909.67,
+    "proceedsBeforeExpensesPerShare": 0.74,
+    "proceedsBeforeExpensesTotal": 4395207.05,
+    "form": "424B4",
+    "url": "https://www.sec.gov/Archives/edgar/data/1883788/000149315225004604/form424b4.htm"
+  },
+  {
+    "symbol": "QWER",
+    "acceptedDate": "2025-02-10",
+    "filingDate": "2025-02-10",
+    "ipoDate": "2025-03-01",
+    "cik": "0007654321",
+    "pricePublicPerShare": 12.5,
+    "pricePublicTotal": 25000000.0,
+    "discountsAndCommissionsPerShare": 0.5,
+    "discountsAndCommissionsTotal": 1000000.0,
+    "proceedsBeforeExpensesPerShare": 12.0,
+    "proceedsBeforeExpensesTotal": 24000000.0,
+    "form": "424B4",
+    "url": "https://www.sec.gov/Archives/edgar/data/7654321/000765432125000001/form424b4.htm"
+  }
+]
