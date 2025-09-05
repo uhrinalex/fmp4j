@@ -22,6 +22,9 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 **(If "no") Why is it needed? (be clear and concise)**
 >
 
+**Invariants**
+>
+
 ---
 
 ## Requirements
