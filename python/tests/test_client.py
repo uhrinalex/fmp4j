@@ -1,6 +1,15 @@
-from fmp4j.client import Fmp4jClient
+from fmp4j import Fmp4jClient
 
-def test_get_stock_price():
+def test_calendar_dividends():
+    # given
     client = Fmp4jClient()
-    result = client.search_by_symbol("AAPL")
-    assert result is not None
+
+    # when
+    dividends = client.dividends("JNJ")
+
+    # then
+    assert dividends is not None
+    assert len(dividends) > 0
+    for d in dividends:
+        assert d.symbol().value() == "JNJ"
+        assert d.dividend() >= 0
