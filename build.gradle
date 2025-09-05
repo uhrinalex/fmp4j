@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id 'java-library'
     id 'java-test-fixtures'
@@ -5,6 +7,7 @@ plugins {
     id 'jacoco'
     id 'com.vanniktech.maven.publish' version '0.34.0'
     id 'com.diffplug.spotless' version '7.2.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 apply plugin: dev.sorn.fmp4j.CoveragePlugin
@@ -14,7 +17,7 @@ version = projectVersion
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -63,7 +66,7 @@ test {
             def YELLOW = "\u001B[33m"
             def RESET = "\u001B[0m"
             println """
-${result.resultType == org.gradle.api.tasks.testing.TestResult.ResultType.SUCCESS ? GREEN : RED}Results: ${result.resultType}${RESET}
+${result.resultType == TestResult.ResultType.SUCCESS ? GREEN : RED}Results: ${result.resultType}${RESET}
 (${GREEN}${result.successfulTestCount} passed${RESET}, ${RED}${result.failedTestCount} failed${RESET}, ${YELLOW}${result.skippedTestCount} skipped${RESET}, ${result.testCount} total)
 """
         }
@@ -153,4 +156,40 @@ afterEvaluate {
     tasks.named('generateMetadataFileForMavenPublication') {
         dependsOn(tasks.named('plainJavadocJar'))
     }
+}
+
+tasks.register('fatJar', ShadowJar) {
+    archiveClassifier.set('all')
+    configurations = [project.configurations.runtimeClasspath]
+    from sourceSets.main.output
+}
+
+def pythonDir = "$projectDir/python"
+def venvDir = "$buildDir/venv"
+def pipPath = "${venvDir}/bin/pip"
+def pythonPath = "${venvDir}/bin/python"
+def pytestPath = "${venvDir}/bin/pytest"
+def jarPath = "$buildDir/libs/${project.name}-${project.version}-all.jar"
+
+tasks.register('createVirtualEnv', Exec) {
+    description = "Create Python virtual environment"
+    outputs.dir venvDir
+    commandLine 'python3', '-m', 'venv', venvDir
+    onlyIf { !file(pythonPath).exists() }
+}
+
+tasks.register('installPythonDependencies', Exec) {
+    description = "Install Python dependencies using pip"
+    dependsOn 'createVirtualEnv'
+    workingDir pythonDir
+    commandLine pipPath, 'install', '-r', 'requirements.txt'
+}
+
+tasks.register('runPythonTests', Exec) {
+    description = "Run Python tests with pytest"
+    dependsOn 'fatJar', 'installPythonDependencies'
+    workingDir pythonDir
+    environment "FMP_JAR_PATH", jarPath
+    environment "PYTHONPATH", pythonDir
+    commandLine pytestPath, '-p', 'no:faulthandler', 'tests'
 }

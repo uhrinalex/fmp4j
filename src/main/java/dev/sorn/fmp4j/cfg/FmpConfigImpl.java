@@ -15,7 +15,7 @@ public final class FmpConfigImpl implements FmpConfig {
         var properties = new Properties();
         try (var input = getClass().getClassLoader().getResourceAsStream(FMP4J_PROPERTIES_FILE)) {
             if (input == null) {
-                throw new FmpConfigException("Sorry, unabled to find %s", FMP4J_PROPERTIES_FILE);
+                throw new FmpConfigException("Sorry, unable to find %s", FMP4J_PROPERTIES_FILE);
             }
             properties.load(input);
             fmpApiKey = properties.getProperty(FMP4J_API_KEY_PROPERTY);
