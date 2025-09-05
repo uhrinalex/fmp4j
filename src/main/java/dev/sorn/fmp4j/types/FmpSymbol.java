@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j.types;
 
 import static java.util.Objects.compare;
+import static java.util.regex.Pattern.compile;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import dev.sorn.fmp4j.exceptions.FmpInvalidSymbolException;
@@ -15,7 +16,7 @@ public final class FmpSymbol implements Comparable<FmpSymbol>, FmpValueObject<St
     // 5. OR
     // 6. Dot separator followed by segment (1-4 characters, starting with letter)
     // 7. End group, repeated zero or more times
-    public static final Pattern FMP_SYMBOL_PATTERN = Pattern.compile("^(?:[A-Z0-9]{1,5}:)?" + "[A-Z0-9&]{1,12}" + "(?:"
+    public static final Pattern FMP_SYMBOL_PATTERN = compile("^(?:[A-Z0-9]{1,5}:)?" + "[A-Z0-9&]{1,12}" + "(?:"
             + "(?:[-/][A-Z][A-Z0-9]{0,9})" + "|" + "(?:\\.[A-Z][A-Z0-9]{0,3})" + ")*$");
 
     @Serial

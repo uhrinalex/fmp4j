@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpEtfHolding;
@@ -11,7 +12,7 @@ public interface EtfHoldingTestData {
                 symbol("FUSD.L"),
                 "DLB",
                 "DOLBY LABORATORIES A",
-                "US25659T1079",
+                isin("US25659T1079"),
                 "25659T107",
                 50906.27973141132,
                 0.237,

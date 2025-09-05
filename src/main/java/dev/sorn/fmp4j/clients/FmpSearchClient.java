@@ -13,6 +13,7 @@ import dev.sorn.fmp4j.services.FmpSearchByIsinService;
 import dev.sorn.fmp4j.services.FmpSearchByNameService;
 import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpSearchClient {
@@ -31,7 +32,7 @@ public class FmpSearchClient {
         this.fmpSearchByCikService = new FmpSearchByCikService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpSearchByIsin[] byIsin(String isin) {
+    public synchronized FmpSearchByIsin[] byIsin(FmpIsin isin) {
         fmpSearchByIsinService.param("isin", isin);
         return fmpSearchByIsinService.download();
     }

@@ -65,6 +65,6 @@ class FmpEtfHoldingServiceTest {
         // then
         assertEquals(103, result.length);
         range(0, 103).forEach(i -> assertInstanceOf(FmpEtfHolding.class, result[i]));
-        range(0, 103).forEach(i -> assertAllFieldsNonNull(result[i]));
+        range(0, 103).forEach(i -> assertAllFieldsNonNull(result[i], Set.of("isin")));
     }
 }

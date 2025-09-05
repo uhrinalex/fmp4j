@@ -81,6 +81,7 @@ class FmpSymbolTest {
         // when
         var eq = s.equals(s);
 
+        // then
         assertTrue(eq);
     }
 
@@ -93,6 +94,7 @@ class FmpSymbolTest {
         // when
         var eq = s1.equals(s2);
 
+        // then
         assertTrue(eq);
     }
 
@@ -105,6 +107,7 @@ class FmpSymbolTest {
         // when
         var eq = s1.equals(s2);
 
+        // then
         assertFalse(eq);
     }
 
@@ -117,6 +120,7 @@ class FmpSymbolTest {
         // when
         var eq = s1.equals(s2);
 
+        // then
         assertFalse(eq);
     }
 
@@ -129,6 +133,7 @@ class FmpSymbolTest {
         // when
         var eq = s1.equals(s2);
 
+        // then
         assertFalse(eq);
     }
 
