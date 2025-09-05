@@ -10,7 +10,21 @@ def test_search_by_symbol():
 
     # then
     assert res is not None
-    assert res.symbol().value() == symbol
+    assert res[0] is not None
+    assert res[0].symbol().value() == symbol
+
+def test_search_by_isin():
+    # given
+    isin = "US0378331005"
+    client = Fmp4jClient()
+
+    # when
+    res = client.search_by_isin(isin)
+
+    # then
+    assert res is not None
+    assert res[0] is not None
+    assert res[0].isin().value() == isin
 
 def test_etfs():
     # given

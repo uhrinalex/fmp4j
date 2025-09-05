@@ -12,7 +12,8 @@ public final class FmpJsonDeserializerImpl implements FmpJsonDeserializer {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-            .registerModule(new JavaTimeModule());
+            .registerModule(new JavaTimeModule())
+            .registerModule(new FmpJsonModule());
 
     private FmpJsonDeserializerImpl() {
         // prevent direct instantiation

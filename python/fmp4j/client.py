@@ -21,6 +21,7 @@ if not jpype.isJVMStarted():
 from dev.sorn.fmp4j import FmpClient
 from dev.sorn.fmp4j.cfg import FmpConfig
 from dev.sorn.fmp4j.types import FmpSymbol
+from dev.sorn.fmp4j.types.FmpIsin import isin as to_isin
 from dev.sorn.fmp4j.types.FmpSymbol import symbol as to_symbol
 
 class Fmp4jClient:
@@ -30,6 +31,10 @@ class Fmp4jClient:
     def search_by_symbol(self, symbol):
         symbol = to_symbol(symbol)
         return self.client.search().bySymbol(symbol)
+
+    def search_by_isin(self, isin):
+        isin = to_isin(isin)
+        return self.client.search().byIsin(isin)
 
     def etfs(self):
         return self.client.list().etfs()

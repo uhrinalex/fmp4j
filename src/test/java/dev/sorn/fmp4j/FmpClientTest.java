@@ -4,6 +4,7 @@ import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static dev.sorn.fmp4j.types.FmpInterval.interval;
+import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
 import static java.lang.String.join;
@@ -91,7 +92,7 @@ class FmpClientTest {
     @Test
     void searchByIsin() {
         // given
-        var isin = "NL0012969182";
+        var isin = isin("NL0012969182");
         var typeRef = typeRef(FmpSearchByIsin[].class);
         var endpoint = "search-isin";
         var uri = buildUri(endpoint);
@@ -801,7 +802,7 @@ class FmpClientTest {
         var result = fmpClient.etf().holdings(symbol);
 
         // then
-        assertValidResult(result, holdings, FmpEtfHolding.class, emptySet());
+        assertValidResult(result, holdings, FmpEtfHolding.class, Set.of("isin"));
     }
 
     @Test

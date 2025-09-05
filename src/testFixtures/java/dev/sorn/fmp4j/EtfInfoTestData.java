@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpEtfInfo;
@@ -14,7 +15,7 @@ public interface EtfInfoTestData {
                 symbol("SPY"),
                 "SPDR S&P 500 ETF Trust",
                 "The SPDR S&P 500 ETF Trust seeks to provide investment results that, before expenses, correspond generally to the price and yield performance of the S&P 500 Index (the “Index”)The S&P 500 Index is a diversified large cap U.S. index that holds companies across all eleven GICS sectorsLaunched in January 1993, SPY was the very first exchange traded fund listed in the United States",
-                "US78462F1030",
+                isin("US78462F1030"),
                 "Equity",
                 "78462F103",
                 "US",

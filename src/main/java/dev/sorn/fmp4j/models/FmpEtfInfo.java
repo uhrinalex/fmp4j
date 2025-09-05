@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ public record FmpEtfInfo(
         FmpSymbol symbol,
         String name,
         String description,
-        String isin,
+        FmpIsin isin,
         String assetClass,
         String securityCusip,
         String domicile,
@@ -27,7 +28,7 @@ public record FmpEtfInfo(
         List<SectorExposure> sectorsList)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     public record SectorExposure(String industry, Double weight) implements FmpModel {
         @Serial

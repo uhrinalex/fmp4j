@@ -17,6 +17,8 @@
     <!-- Alphabetically sorted -->
     <suppress files="FmpClient.java" checks="ParameterNumber"/> <!-- constructor() -->
     <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- getJsonList() -->
+    <suppress files="FmpIsin.java" checks="MagicNumber"/> <!-- isValidLuhn() -->
+    <suppress files="FmpIsin.java" checks="AvoidInlineConditionals"/> <!-- isValidLuhn() -->
     <suppress files="FmpKeyMetric.java" checks="AbbreviationAsWordInName"/> <!-- evToEBITDA, netDebtToEBITDA -->
     <suppress files="FmpKeyMetricTtm.java" checks="AbbreviationAsWordInName"/> <!-- evToEBITDATTM, netDebtToEBITDATTM -->
     <suppress files="FmpRatioTtm.java" checks="AbbreviationAsWordInName"/> <!-- netIncomePerEBTTTM -->
