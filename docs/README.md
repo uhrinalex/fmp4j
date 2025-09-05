@@ -525,3 +525,4 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#bulk
 - [andyyngo](https://github.com/andyyngo)
 - [HamzaIddaoui](https://github.com/HamzaIddaoui)
 - [siddhantkore](https://github.com/siddhantkore)
+- [joonseolee](https://github.com/joonseolee)
