@@ -1,17 +1,17 @@
 ## Prerequisites
 
-You need to have **Java 21** installed to build and run this project.
+You need to have **Java 17** installed to build and run this project.
 
 ---
 
-## 1. Install Java 21
+## 1. Install Java 17
 
-* **Mac**: Use [Homebrew OpenJDK 21](https://formulae.brew.sh/formula/openjdk@21) to install Java 21.
-* **Linux (Debian/Ubuntu)**: Install via the package manager (`openjdk-21-jdk`).
+* **Mac**: Use [Homebrew OpenJDK 21](https://formulae.brew.sh/formula/openjdk@21) to install Java 17.
+* **Linux (Debian/Ubuntu)**: Install via the package manager (`openjdk-17-jdk`).
   See [Ubuntu OpenJDK package](https://packages.ubuntu.com/search?keywords=openjdk-21).
 * **Windows**: Download and install Java 21 from either:
-  * [Oracle JDK 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-  * [Adoptium Temurin 21](https://adoptium.net/en-GB/temurin/releases/?version=21)
+  * [Oracle JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+  * [Adoptium Temurin 17](https://adoptium.net/en-GB/temurin/releases/?version=17)
 
 ### Verify Java Installation
 
@@ -22,7 +22,7 @@ java -version
 You should see something like:
 
 ```
-java version "21"
+java version "17"
 ```
 
 ---

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fmp4j"
+version = "0.1.0"
+description = "Thin Python wrapper around the fmp4j Java SDK"
+authors = [
+    { name="Sorn Maksumic", email="sorn@sorn.dev" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "jpype1>=1.4.1"
+]
+
+[tool.setuptools.packages.find]
+where = ["fmp4j"]
