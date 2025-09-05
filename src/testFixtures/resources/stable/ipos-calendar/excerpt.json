@@ -1,0 +1,24 @@
+[
+  {
+    "symbol": "PEVC",
+    "date": "2025-02-03",
+    "daa": "2025-02-03T05:00:00.000Z",
+    "company": "Pacer Funds Trust",
+    "exchange": "NYSE",
+    "actions": "Expected",
+    "shares": null,
+    "priceRange": null,
+    "marketCap": null
+  },
+  {
+    "symbol": "XYZC",
+    "date": "2025-02-10",
+    "daa": "2025-02-10T05:00:00.000Z",
+    "company": "XYZ Corp",
+    "exchange": "NASDAQ",
+    "actions": "Filed",
+    "shares": 500000,
+    "priceRange": 20.0,
+    "marketCap": 10000000
+  }
+]

@@ -123,17 +123,17 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#analyst
 
 Copy of https://site.financialmodelingprep.com/developer/docs/stable#calendar
 
-|    | Since | Endpoint              |
-|:--:|:-----:|-----------------------|
-| ✅️ | 0.1.0 | `/dividends`          |
-| ✅️ | 0.1.0 | `/dividends-calendar` |
-| ✅️ | 0.1.0 | `/earnings`           |
-| ✅️ | 0.1.0 | `/earnings-calendar`  |
-| ❌️ |   -   | `/ipos-calendar`      |
-| ❌️ |   -   | `/ipos-disclosure`    |
-| ❌️ |   -   | `/ipos-prospectus`    |
-| ❌️ |   -   | `/splits`             |
-| ❌️ |   -   | `/splits-calendar`    |
+|     | Since | Endpoint              |
+|:---:|:-----:|-----------------------|
+| ✅️  | 0.1.0 | `/dividends`          |
+| ✅️  | 0.1.0 | `/dividends-calendar` |
+| ✅️  | 0.1.0 | `/earnings`           |
+| ✅️  | 0.1.0 | `/earnings-calendar`  |
+| ✅️  | 0.2.0 | `/ipos-calendar`      |
+| ✅️️  | 0.2.0 | `/ipos-disclosure`    |
+| ✅️️  | 0.2.0 | `/ipos-prospectus`    |
+| ❌️  |   -   | `/splits`             |
+| ❌️  |   -   | `/splits-calendar`    |
 
 ### Chart
 
