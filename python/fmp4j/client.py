@@ -21,15 +21,19 @@ if not jpype.isJVMStarted():
 from dev.sorn.fmp4j import FmpClient
 from dev.sorn.fmp4j.cfg import FmpConfig
 from dev.sorn.fmp4j.types import FmpSymbol
+from dev.sorn.fmp4j.types.FmpSymbol import symbol as to_symbol
 
 class Fmp4jClient:
     def __init__(self):
         self.client = FmpClient()
 
     def search_by_symbol(self, symbol):
-        symbol = FmpSymbol.symbol(symbol)
+        symbol = to_symbol(symbol)
         return self.client.search().bySymbol(symbol)
 
+    def etfs(self):
+        return self.client.list().etfs()
+
     def dividends(self, symbol):
-        symbol = FmpSymbol.symbol(symbol)
+        symbol = to_symbol(symbol)
         return self.client.calendar().dividends(symbol)
