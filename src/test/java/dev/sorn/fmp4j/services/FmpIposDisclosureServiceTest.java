@@ -46,7 +46,7 @@ public class FmpIposDisclosureServiceTest {
         var params = service.optionalParams();
 
         // then
-        assertEquals(emptySet(), params);
+        assertEquals(Set.of("from", "to"), params);
     }
 
     @Test

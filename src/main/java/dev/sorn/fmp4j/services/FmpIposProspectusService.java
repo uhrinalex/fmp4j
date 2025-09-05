@@ -25,6 +25,6 @@ public class FmpIposProspectusService extends FmpService<FmpIposProspectus[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return emptySet();
+        return Set.of("from", "to");
     }
 }

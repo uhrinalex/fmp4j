@@ -25,6 +25,6 @@ public class FmpIposCalendarService extends FmpService<FmpIposCalendar[]> {
 
     @Override
     protected Set<String> optionalParams() {
-        return emptySet();
+        return Set.of("from", "to");
     }
 }
