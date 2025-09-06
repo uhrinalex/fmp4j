@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpCik;
+import dev.sorn.fmp4j.types.FmpCusip;
 import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
@@ -18,9 +20,9 @@ public record FmpCompany(
         Long averageVolume,
         String companyName,
         String currency,
-        String cik,
+        FmpCik cik,
         FmpIsin isin,
-        String cusip,
+        FmpCusip cusip,
         String exchangeFullName,
         String exchange,
         String industry,
@@ -44,5 +46,5 @@ public record FmpCompany(
         Boolean isFund)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 }

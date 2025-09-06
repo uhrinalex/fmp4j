@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCik.cik;
 import static dev.sorn.fmp4j.types.FmpFormType.formType;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
@@ -11,7 +12,7 @@ public interface SecFilingsSearchBySymbolTestData {
     default FmpSecFilingsSearchBySymbol aSecFilingsSearchBySymbol() {
         return new FmpSecFilingsSearchBySymbol(
                 symbol("AAPL"),
-                "0000320193",
+                cik("0000320193"),
                 LocalDate.parse("2024-12-18").atTime(LocalTime.parse("00:00:00")),
                 LocalDate.parse("2024-12-18").atTime(LocalTime.parse("18:30:20")),
                 formType("4"),

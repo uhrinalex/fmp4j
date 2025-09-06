@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCik.cik;
+import static dev.sorn.fmp4j.types.FmpCusip.cusip;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
@@ -21,9 +23,9 @@ public interface CompanyTestData {
                 50542058L,
                 "Apple Inc.",
                 "USD",
-                "0000320193",
+                cik("0000320193"),
                 isin("US0378331005"),
-                "037833100",
+                cusip("037833100"),
                 "NASDAQ Global Select",
                 "NASDAQ",
                 "Consumer Electronics",

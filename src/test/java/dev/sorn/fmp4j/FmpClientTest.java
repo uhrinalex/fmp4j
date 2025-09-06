@@ -3,6 +3,8 @@ package dev.sorn.fmp4j;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static dev.sorn.fmp4j.types.FmpCik.cik;
+import static dev.sorn.fmp4j.types.FmpCusip.cusip;
 import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
@@ -134,7 +136,7 @@ class FmpClientTest {
     @Test
     void searchByCusip() {
         // given
-        var cusip = "037833100";
+        var cusip = cusip("037833100");
         var typeRef = typeRef(FmpSearchByCusip[].class);
         var endpoint = "search-cusip";
         var uri = buildUri(endpoint);
@@ -172,7 +174,7 @@ class FmpClientTest {
     @Test
     void searchByCik() {
         // given
-        var cik = "0000320193";
+        var cik = cik("0000320193");
         var typeRef = typeRef(FmpSearchByCik[].class);
         var endpoint = "search-cik";
         var uri = buildUri(endpoint);

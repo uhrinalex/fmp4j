@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCik.cik;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpIposDisclosure;
@@ -12,7 +13,7 @@ public interface IposDisclosureTestData {
                 LocalDate.parse("2025-02-03"),
                 LocalDate.parse("2025-02-03"),
                 LocalDate.parse("2025-02-03"),
-                "0001454889",
+                cik("0001454889"),
                 "CERT",
                 "https://www.sec.gov/Archives/edgar/data/1454889/000114336225000044/SCCR020325.pdf");
     }
