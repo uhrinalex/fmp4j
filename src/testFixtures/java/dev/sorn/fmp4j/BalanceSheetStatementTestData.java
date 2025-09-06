@@ -1,6 +1,8 @@
 package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.types.FmpCik.cik;
+import static dev.sorn.fmp4j.types.FmpCurrency.USD;
+import static dev.sorn.fmp4j.types.FmpPeriod.FY;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 
@@ -14,12 +16,12 @@ public interface BalanceSheetStatementTestData {
         return new FmpBalanceSheetStatement(
                 LocalDate.parse("2024-09-28"),
                 symbol("AAPL"),
-                "USD",
+                USD,
                 cik("0000320193"),
                 LocalDate.parse("2024-11-01"),
                 LocalDateTime.of(LocalDate.parse("2024-11-01"), LocalTime.of(6, 1, 36)),
                 year("2024"),
-                "FY",
+                FY,
                 29943000000L,
                 35228000000L,
                 65171000000L,

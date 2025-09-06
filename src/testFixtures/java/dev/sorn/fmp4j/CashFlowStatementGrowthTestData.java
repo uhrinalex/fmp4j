@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j;
 
-import static dev.sorn.fmp4j.types.FmpPeriod.period;
+import static dev.sorn.fmp4j.types.FmpCurrency.USD;
+import static dev.sorn.fmp4j.types.FmpPeriod.FY;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 
@@ -13,8 +14,8 @@ public interface CashFlowStatementGrowthTestData {
                 symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
                 year("2024"),
-                period("FY"),
-                "USD",
+                FY,
+                USD,
                 -0.033599670086086914,
                 -0.006424168764649709,
                 0.0,

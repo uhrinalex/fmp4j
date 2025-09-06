@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCurrency.USD;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
@@ -26,7 +27,7 @@ public interface EtfInfoTestData {
                 73651172L,
                 LocalDate.parse("1993-01-22"),
                 645.07,
-                "USD",
+                USD,
                 503,
                 ZonedDateTime.parse("2025-08-17T21:15:43.242Z"),
                 List.of(

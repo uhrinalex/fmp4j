@@ -2,6 +2,8 @@ package dev.sorn.fmp4j.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.sorn.fmp4j.types.FmpCik;
+import dev.sorn.fmp4j.types.FmpCurrency;
+import dev.sorn.fmp4j.types.FmpPeriod;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import dev.sorn.fmp4j.types.FmpYear;
 import java.io.Serial;
@@ -11,12 +13,12 @@ import java.time.LocalDateTime;
 public record FmpIncomeStatement(
         LocalDate date,
         FmpSymbol symbol,
-        String reportedCurrency,
+        FmpCurrency reportedCurrency,
         FmpCik cik,
         LocalDate filingDate,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime acceptedDate,
         FmpYear fiscalYear,
-        String period,
+        FmpPeriod period,
         Long revenue,
         Long costOfRevenue,
         Long grossProfit,
@@ -50,5 +52,5 @@ public record FmpIncomeStatement(
         Long weightedAverageShsOutDil)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 }

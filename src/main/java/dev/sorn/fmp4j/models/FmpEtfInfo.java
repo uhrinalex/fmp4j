@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpCurrency;
 import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
@@ -22,13 +23,13 @@ public record FmpEtfInfo(
         Long avgVolume,
         LocalDate inceptionDate,
         Double nav,
-        String navCurrency,
+        FmpCurrency navCurrency,
         Integer holdingsCount,
         ZonedDateTime updatedAt,
         List<SectorExposure> sectorsList)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     public record SectorExposure(String industry, Double weight) implements FmpModel {
         @Serial

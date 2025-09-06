@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpCurrency;
 import dev.sorn.fmp4j.types.FmpPeriod;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import dev.sorn.fmp4j.types.FmpYear;
@@ -11,7 +12,7 @@ public record FmpCashFlowStatementGrowth(
         LocalDate date,
         FmpYear fiscalYear,
         FmpPeriod period,
-        String reportedCurrency,
+        FmpCurrency reportedCurrency,
         Double growthNetIncome,
         Double growthDepreciationAndAmortization,
         Double growthDeferredIncomeTax,
@@ -51,5 +52,5 @@ public record FmpCashFlowStatementGrowth(
         Double growthInterestPaid)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

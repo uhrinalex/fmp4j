@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCurrency.USD;
+import static dev.sorn.fmp4j.types.FmpPeriod.FY;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 
@@ -12,8 +14,8 @@ public interface KeyMetricTestData {
                 symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
                 year("2024"),
-                "FY",
-                "USD",
+                FY,
+                USD,
                 3495160329570L,
                 3584276329570L,
                 9.166126637180815,

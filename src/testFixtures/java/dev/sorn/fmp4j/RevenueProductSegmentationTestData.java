@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpPeriod.FY;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 
@@ -12,7 +13,7 @@ public interface RevenueProductSegmentationTestData {
         return new FmpRevenueProductSegmentation(
                 symbol("AAPL"),
                 year(2024),
-                "FY",
+                FY,
                 null,
                 LocalDate.parse("2024-09-28"),
                 Map.of(

@@ -1,5 +1,7 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpCurrency;
+import dev.sorn.fmp4j.types.FmpPeriod;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import dev.sorn.fmp4j.types.FmpYear;
 import java.io.Serial;
@@ -9,8 +11,8 @@ public record FmpKeyMetric(
         FmpSymbol symbol,
         LocalDate date,
         FmpYear fiscalYear,
-        String period,
-        String reportedCurrency,
+        FmpPeriod period,
+        FmpCurrency reportedCurrency,
         Long marketCap,
         Long enterpriseValue,
         Double evToSales,
@@ -55,5 +57,5 @@ public record FmpKeyMetric(
         Long netCurrentAssetValue)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 }

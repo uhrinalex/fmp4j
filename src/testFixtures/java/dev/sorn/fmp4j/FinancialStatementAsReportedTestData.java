@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpPeriod.FY;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 
@@ -12,7 +13,7 @@ public interface FinancialStatementAsReportedTestData {
         return new FmpFinancialStatementAsReported(
                 symbol("KO"),
                 year(2024),
-                "FY",
+                FY,
                 null,
                 LocalDate.parse("2024-12-30"),
                 Map.of("somefield1", 123.45, "somefield2", 10000L, "somefield3", 90));
