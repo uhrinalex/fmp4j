@@ -1,0 +1,25 @@
+name: PR Blacklist Check
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  check-blacklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for blacklisted user
+        env:
+          BLACKLISTED_USERS: ${{ vars.BLACKLISTED_USERS }}
+          PR_AUTHOR: ${{ github.actor }}
+        run: |
+          if [[ -n "$BLACKLISTED_USERS" ]]; then
+            # Convert comma-separated list to array
+            IFS=',' read -ra USERS <<< "$BLACKLISTED_USERS"
+            for user in "${USERS[@]}"; do
+              if [[ "$user" == "$PR_AUTHOR" ]]; then
+                echo "::error::User $PR_AUTHOR is blacklisted from submitting PRs"
+                exit 1
+              fi
+            done
+          fi
