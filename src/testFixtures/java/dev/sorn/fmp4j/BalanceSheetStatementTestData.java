@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+import static dev.sorn.fmp4j.types.FmpYear.year;
 
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public interface BalanceSheetStatementTestData {
                 "0000320193",
                 LocalDate.parse("2024-11-01"),
                 LocalDateTime.of(LocalDate.parse("2024-11-01"), LocalTime.of(6, 1, 36)),
-                "2024",
+                year("2024"),
                 "FY",
                 29943000000L,
                 35228000000L,

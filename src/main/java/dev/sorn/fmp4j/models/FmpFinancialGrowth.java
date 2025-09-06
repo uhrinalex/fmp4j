@@ -1,12 +1,14 @@
 package dev.sorn.fmp4j.models;
 
 import dev.sorn.fmp4j.types.FmpSymbol;
+import dev.sorn.fmp4j.types.FmpYear;
 import java.io.Serial;
+import java.time.LocalDate;
 
 public record FmpFinancialGrowth(
         FmpSymbol symbol,
-        String date,
-        String fiscalYear,
+        LocalDate date,
+        FmpYear fiscalYear,
         String period,
         String reportedCurrency,
         Double revenueGrowth,
@@ -50,5 +52,5 @@ public record FmpFinancialGrowth(
         Double threeYBottomLineNetIncomeGrowthPerShare)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 }

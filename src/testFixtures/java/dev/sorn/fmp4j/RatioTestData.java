@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+import static dev.sorn.fmp4j.types.FmpYear.year;
 
 import dev.sorn.fmp4j.models.FmpRatio;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ public interface RatioTestData {
         return new FmpRatio(
                 symbol("AAPL"),
                 LocalDate.parse("2024-09-28"),
-                "2024",
+                year("2024"),
                 "FY",
                 "USD",
                 0.4620634981523393,

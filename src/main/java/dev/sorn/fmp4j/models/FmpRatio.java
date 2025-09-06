@@ -1,13 +1,14 @@
 package dev.sorn.fmp4j.models;
 
 import dev.sorn.fmp4j.types.FmpSymbol;
+import dev.sorn.fmp4j.types.FmpYear;
 import java.io.Serial;
 import java.time.LocalDate;
 
 public record FmpRatio(
         FmpSymbol symbol,
         LocalDate date,
-        String fiscalYear,
+        FmpYear fiscalYear,
         String period,
         String reportedCurrency,
         Double grossProfitMargin,
@@ -71,5 +72,5 @@ public record FmpRatio(
         Double dividendPerShare)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 }

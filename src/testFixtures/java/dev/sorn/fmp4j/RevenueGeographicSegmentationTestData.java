@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+import static dev.sorn.fmp4j.types.FmpYear.year;
 
 import dev.sorn.fmp4j.models.FmpRevenueGeographicSegmentation;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ public interface RevenueGeographicSegmentationTestData {
     default FmpRevenueGeographicSegmentation aRevenueGeographicSegmentation() {
         return new FmpRevenueGeographicSegmentation(
                 symbol("AAPL"),
-                2024,
+                year(2024),
                 "FY",
                 null,
                 LocalDate.parse("2024-09-28"),
