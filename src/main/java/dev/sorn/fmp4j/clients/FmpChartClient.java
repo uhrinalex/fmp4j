@@ -18,6 +18,7 @@ import dev.sorn.fmp4j.services.FmpHistoricalPriceEodLightService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.types.FmpInterval;
 import dev.sorn.fmp4j.types.FmpSymbol;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class FmpChartClient {
@@ -46,7 +47,7 @@ public class FmpChartClient {
     }
 
     public synchronized FmpHistoricalPriceEodLight[] historicalPriceEodLight(
-            FmpSymbol symbol, Optional<String> from, Optional<String> to) {
+            FmpSymbol symbol, Optional<LocalDate> from, Optional<LocalDate> to) {
         fmpHistoricalPriceEodLightService.param("symbol", symbol);
         from.ifPresent(date -> fmpHistoricalPriceEodLightService.param("from", date));
         to.ifPresent(date -> fmpHistoricalPriceEodLightService.param("to", date));
@@ -54,7 +55,7 @@ public class FmpChartClient {
     }
 
     public synchronized FmpHistoricalPriceEodFull[] historicalPriceEodFull(
-            FmpSymbol symbol, Optional<String> from, Optional<String> to) {
+            FmpSymbol symbol, Optional<LocalDate> from, Optional<LocalDate> to) {
         fmpHistoricalPriceEodFullService.param("symbol", symbol);
         from.ifPresent(date -> fmpHistoricalPriceEodFullService.param("from", date));
         to.ifPresent(date -> fmpHistoricalPriceEodFullService.param("to", date));
@@ -62,7 +63,7 @@ public class FmpChartClient {
     }
 
     public synchronized FmpHistoricalChart[] historical(
-            FmpSymbol symbol, FmpInterval interval, Optional<String> from, Optional<String> to) {
+            FmpSymbol symbol, FmpInterval interval, Optional<LocalDate> from, Optional<LocalDate> to) {
         return switch (interval) {
             case ONE_MINUTE -> {
                 fmpHistoricalChartService1MinService.param("symbol", symbol);
