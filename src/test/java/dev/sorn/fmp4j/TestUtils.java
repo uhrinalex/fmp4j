@@ -40,9 +40,9 @@ public final class TestUtils {
                 .replace(">", "%3E")
                 .replace("|", "%7C");
         try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(encoded)) {
-            //            System.out.printf("Reading: %s", encoded);
             return new String(inputStream.readAllBytes());
-        } catch (IOException e) {
+        } catch (NullPointerException | IOException e) {
+            System.out.printf("Failed reading: %s", encoded);
             throw new RuntimeException(e);
         }
     }
