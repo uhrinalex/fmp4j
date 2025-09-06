@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FmpNewsClient {
+
+    // Alphabetical order
     protected FmpService<FmpNews[]> fmpCryptoNewsService;
     protected FmpService<FmpNews[]> fmpForexNewsService;
     protected FmpService<FmpNews[]> fmpStockNewsService;

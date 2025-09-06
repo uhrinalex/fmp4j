@@ -18,9 +18,12 @@ import dev.sorn.fmp4j.services.FmpIposDisclosureService;
 import dev.sorn.fmp4j.services.FmpIposProspectusService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.types.FmpSymbol;
+import java.time.LocalDate;
+import java.util.Optional;
 
 public class FmpCalendarClient {
 
+    // Alphabetical order
     protected final FmpService<FmpDividend[]> fmpDividendService;
     protected final FmpService<FmpDividendsCalendar[]> fmpDividendsCalendarService;
     protected final FmpService<FmpEarning[]> fmpEarningsService;
@@ -57,15 +60,21 @@ public class FmpCalendarClient {
         return fmpEarningsService.download();
     }
 
-    public synchronized FmpIposCalendar[] iposCalendar() {
+    public synchronized FmpIposCalendar[] ipos(Optional<LocalDate> from, Optional<LocalDate> to) {
+        fmpIposCalendarService.param("from", from);
+        fmpIposCalendarService.param("to", to);
         return fmpIposCalendarService.download();
     }
 
-    public synchronized FmpIposDisclosure[] iposDisclosures() {
+    public synchronized FmpIposDisclosure[] disclosures(Optional<LocalDate> from, Optional<LocalDate> to) {
+        fmpIposDisclosureService.param("from", from);
+        fmpIposDisclosureService.param("to", to);
         return fmpIposDisclosureService.download();
     }
 
-    public synchronized FmpIposProspectus[] iposProspectus() {
+    public synchronized FmpIposProspectus[] prospectus(Optional<LocalDate> from, Optional<LocalDate> to) {
+        fmpIposProspectusService.param("from", from);
+        fmpIposProspectusService.param("to", to);
         return fmpIposProspectusService.download();
     }
 }

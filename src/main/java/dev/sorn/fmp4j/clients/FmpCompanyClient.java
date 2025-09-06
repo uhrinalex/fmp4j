@@ -9,13 +9,14 @@ import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpCompanyClient {
 
+    // Alphabetical order
     protected final FmpService<FmpCompany[]> fmpCompanyService;
 
     public FmpCompanyClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this.fmpCompanyService = new FmpCompanyService(fmpConfig, fmpHttpClient);
     }
 
-    public synchronized FmpCompany[] company(FmpSymbol symbol) {
+    public synchronized FmpCompany[] bySymbol(FmpSymbol symbol) {
         fmpCompanyService.param("symbol", symbol);
         return fmpCompanyService.download();
     }

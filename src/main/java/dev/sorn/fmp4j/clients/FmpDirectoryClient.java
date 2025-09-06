@@ -10,19 +10,20 @@ import dev.sorn.fmp4j.services.FmpStockListService;
 
 public class FmpDirectoryClient {
 
-    protected final FmpService<FmpStock[]> fmpStockListService;
+    // Alphabetical order
     protected final FmpService<FmpEtf[]> fmpEtfListService;
+    protected final FmpService<FmpStock[]> fmpStockListService;
 
     public FmpDirectoryClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
-        this.fmpStockListService = new FmpStockListService(fmpConfig, fmpHttpClient);
         this.fmpEtfListService = new FmpEtfListService(fmpConfig, fmpHttpClient);
-    }
-
-    public synchronized FmpStock[] stocks() {
-        return fmpStockListService.download();
+        this.fmpStockListService = new FmpStockListService(fmpConfig, fmpHttpClient);
     }
 
     public synchronized FmpEtf[] etfs() {
         return fmpEtfListService.download();
+    }
+
+    public synchronized FmpStock[] stocks() {
+        return fmpStockListService.download();
     }
 }

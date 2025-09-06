@@ -16,6 +16,7 @@ import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpEtfClient {
+    // Alphabetical order
     protected final FmpService<FmpEtfAssetExposure[]> etfAssetExposureService;
     protected final FmpService<FmpEtfCountryWeighting[]> etfCountryWeightingService;
     protected final FmpService<FmpEtfHolding[]> etfHoldingService;
