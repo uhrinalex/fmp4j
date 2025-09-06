@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpCik;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ public record FmpIposProspectus(
         LocalDate acceptedDate,
         LocalDate filingDate,
         LocalDate ipoDate,
-        String cik,
+        FmpCik cik,
         Double pricePublicPerShare,
         Double pricePublicTotal,
         Double discountsAndCommissionsPerShare,
@@ -20,5 +21,5 @@ public record FmpIposProspectus(
         String url)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 }

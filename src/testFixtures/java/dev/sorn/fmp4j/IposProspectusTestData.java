@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpCik.cik;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpIposProspectus;
@@ -12,7 +13,7 @@ public interface IposProspectusTestData {
                 LocalDate.parse("2025-02-03"),
                 LocalDate.parse("2025-02-03"),
                 LocalDate.parse("2022-03-20"),
-                "0001883788",
+                cik("0001883788"),
                 0.78,
                 4649936.72,
                 0.04,

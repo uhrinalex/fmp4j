@@ -13,23 +13,36 @@ import dev.sorn.fmp4j.services.FmpSearchByIsinService;
 import dev.sorn.fmp4j.services.FmpSearchByNameService;
 import dev.sorn.fmp4j.services.FmpSearchBySymbolService;
 import dev.sorn.fmp4j.services.FmpService;
+import dev.sorn.fmp4j.types.FmpCik;
+import dev.sorn.fmp4j.types.FmpCusip;
 import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSymbol;
 
 public class FmpSearchClient {
 
+    // Alphabetical order
+    protected final FmpService<FmpSearchByCik[]> fmpSearchByCikService;
+    protected final FmpService<FmpSearchByCusip[]> fmpSearchByCusipService;
+    protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
     protected final FmpService<FmpSearchByName[]> fmpSearchByNameService;
     protected final FmpService<FmpSearchBySymbol[]> fmpSearchBySymbolService;
-    protected final FmpService<FmpSearchByIsin[]> fmpSearchByIsinService;
-    protected final FmpService<FmpSearchByCusip[]> fmpSearchByCusipService;
-    protected final FmpService<FmpSearchByCik[]> fmpSearchByCikService;
 
     public FmpSearchClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
+        this.fmpSearchByCikService = new FmpSearchByCikService(fmpConfig, fmpHttpClient);
+        this.fmpSearchByCusipService = new FmpSearchByCusipService(fmpConfig, fmpHttpClient);
         this.fmpSearchByIsinService = new FmpSearchByIsinService(fmpConfig, fmpHttpClient);
         this.fmpSearchByNameService = new FmpSearchByNameService(fmpConfig, fmpHttpClient);
         this.fmpSearchBySymbolService = new FmpSearchBySymbolService(fmpConfig, fmpHttpClient);
-        this.fmpSearchByCusipService = new FmpSearchByCusipService(fmpConfig, fmpHttpClient);
-        this.fmpSearchByCikService = new FmpSearchByCikService(fmpConfig, fmpHttpClient);
+    }
+
+    public synchronized FmpSearchByCik[] byCik(FmpCik cik) {
+        fmpSearchByCikService.param("cik", cik);
+        return fmpSearchByCikService.download();
+    }
+
+    public synchronized FmpSearchByCusip[] byCusip(FmpCusip cusip) {
+        fmpSearchByCusipService.param("cusip", cusip);
+        return fmpSearchByCusipService.download();
     }
 
     public synchronized FmpSearchByIsin[] byIsin(FmpIsin isin) {
@@ -42,18 +55,8 @@ public class FmpSearchClient {
         return fmpSearchByNameService.download();
     }
 
-    public synchronized FmpSearchByCusip[] byCusip(String cusip) {
-        fmpSearchByCusipService.param("cusip", cusip);
-        return fmpSearchByCusipService.download();
-    }
-
     public synchronized FmpSearchBySymbol[] bySymbol(FmpSymbol query) {
         fmpSearchBySymbolService.param("query", query);
         return fmpSearchBySymbolService.download();
-    }
-
-    public synchronized FmpSearchByCik[] byCik(String cik) {
-        fmpSearchByCikService.param("cik", cik);
-        return fmpSearchByCikService.download();
     }
 }
