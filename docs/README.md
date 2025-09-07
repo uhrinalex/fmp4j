@@ -28,27 +28,32 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 **Gradle (build.gradle)**
 
 ```groovy
-implementation 'dev.sorn:fmp4j:0.2.0'
+implementation 'dev.sorn:fmp4j:0.2.1'
 ```
 
 **Maven (pom.xml)**
 
 ```xml
-
 <dependency>
     <groupId>dev.sorn</groupId>
     <artifactId>fmp4j</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
+```
+
+**Python**
+
+```sh
+pip install fmp4j==0.2.1
 ```
 
 ### Configuration
 
-Create `src/main/resources/fmp4j.properties`:
+Set environment variables
 
-```properties
-fmp4j.apiKey=yourfmpapikey
-fmp4j.baseUrl=https://financialmodelingprep.com/stable
+```sh
+FMP_API_KEY=yourfmpapikey
+FMP_BASE_URL=https://financialmodelingprep.com/stable
 ```
 
 #### Spring Boot Bean

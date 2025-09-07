@@ -146,7 +146,6 @@ clean {
     delete "${buildDir}/generated-sources"
 }
 
-
 tasks.withType(Javadoc).configureEach {
     exclude fileTree("${buildDir}/generated-sources/**")
     options.addStringOption('Xdoclint:none', '-quiet')
