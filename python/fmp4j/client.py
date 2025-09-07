@@ -1,22 +1,47 @@
 import os
+import urllib.request
 from pathlib import Path
-
 import jpype
 import jpype.imports
 from jpype.types import *
+from .version import __version__
 
-jar_path = os.environ.get("FMP_JAR_PATH")
+def get_jar_path():
+    # Check environment variable first
+    # env_jar_path = os.environ.get('FMP_JAR_PATH')
+    # if env_jar_path:
+    #     return env_jar_path
 
-if not jar_path:
-    raise EnvironmentError("FMP_JAR_PATH environment variable is not set.")
+    # Determine cache directory
+    home = Path.home()
+    cache_dir = home / '.fmp4j' / 'jar'
+    cache_dir.mkdir(parents=True, exist_ok=True)
 
-jar_file = Path(jar_path).resolve()
-if not jar_file.exists():
-    raise FileNotFoundError(f"Could not find JAR file at {jar_file}")
+    jar_name = f'fmp4j-{__version__}-all.jar'
+    jar_path = cache_dir / jar_name
+
+    # Download if not exists
+    if not jar_path.exists():
+        maven_url = f"https://repo1.maven.org/maven2/dev/sorn/fmp4j/{__version__}/{jar_name}"
+        try:
+            print(f"Downloading {jar_name} from Maven Central...")
+            urllib.request.urlretrieve(maven_url, jar_path)
+            print("Download completed.")
+        except Exception as e:
+            raise RuntimeError(f"Failed to download JAR from {maven_url}: {e}")
+
+    return str(jar_path)
+
+# Start JVM with downloaded JAR
+jar_path = get_jar_path()
 
 if not jpype.isJVMStarted():
-    jpype.startJVM("-Djava.awt.headless=true", classpath=[str(jar_file)], convertStrings=True)
-    print(f"✅ JVM started with classpath: {jar_file}")
+    jpype.startJVM(
+        "-Djava.awt.headless=true",
+        classpath=[jar_path],
+        convertStrings=True
+    )
+    print(f"✅ JVM started with classpath: {jar_path}")
 
 # Alphabetical order
 import datetime
