@@ -59,6 +59,8 @@ from dev.sorn.fmp4j.types.FmpIsin import isin as to_isin
 from dev.sorn.fmp4j.types.FmpLimit import limit as to_limit
 from dev.sorn.fmp4j.types.FmpPeriod import period as to_period
 from dev.sorn.fmp4j.types.FmpSymbol import symbol as to_symbol
+from jpype import JImplements, JOverride
+from dev.sorn.fmp4j.cfg import FmpConfig
 
 def to_local_date(value):
     if value is None:
@@ -72,6 +74,20 @@ def to_local_date(value):
 
 def to_optional(value):
     return Optional.of(value) if value is not None else Optional.empty()
+
+@JImplements(FmpConfig)
+class PythonFmpConfig:
+    def __init__(self, api_key, base_url):
+        self._api_key = api_key
+        self._base_url = base_url
+
+    @JOverride
+    def fmpApiKey(self):
+        return self._api_key
+
+    @JOverride
+    def fmpBaseUrl(self):
+        return self._base_url
 
 class Fmp4jClient:
     def __init__(self):

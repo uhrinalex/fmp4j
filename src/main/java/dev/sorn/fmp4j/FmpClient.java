@@ -1,9 +1,9 @@
 package dev.sorn.fmp4j;
 
-import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
+import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.clients.FmpCalendarClient;
 import dev.sorn.fmp4j.clients.FmpChartClient;
 import dev.sorn.fmp4j.clients.FmpCompanyClient;
@@ -35,7 +35,7 @@ public class FmpClient {
     protected final FmpStatementClient fmpStatementClient;
 
     public FmpClient() {
-        this(FMP_CONFIG, FMP_HTTP_CLIENT);
+        this(new FmpConfigImpl(), FMP_HTTP_CLIENT);
     }
 
     public FmpClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {

@@ -3,13 +3,13 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dev.sorn.fmp4j.FinancialGrowthTestData;
 import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
@@ -20,7 +20,7 @@ class FmpSecFilingsSearchBySymbolServiceTest implements FinancialGrowthTestData 
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
     private final FmpService<FmpSecFilingsSearchBySymbol[]> service =
-            new FmpSecFilingsSearchBySymbolService(FMP_CONFIG, http);
+            new FmpSecFilingsSearchBySymbolService(new FmpConfigImpl(), http);
 
     @Test
     void relative_url() {

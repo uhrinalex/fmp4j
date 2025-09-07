@@ -3,13 +3,13 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.cfg.FmpConfigImpl.FMP_CONFIG;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dev.sorn.fmp4j.FinancialStatementAsReportedTestData;
 import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.types.FmpSymbol;
@@ -29,7 +29,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
     @ValueSource(strings = {"income", "balance-sheet", "cash-flow"})
     void relative_url(String type) {
         // given
-        var service = new FmpFinancialStatementAsReportedService(FMP_CONFIG, http, type);
+        var service = new FmpFinancialStatementAsReportedService(new FmpConfigImpl(), http, type);
 
         // when
         var relativeUrl = service.relativeUrl();
@@ -42,7 +42,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
     @ValueSource(strings = {"income", "balance-sheet", "cash-flow"})
     void required_params(String type) {
         // given
-        var service = new FmpFinancialStatementAsReportedService(FMP_CONFIG, http, type);
+        var service = new FmpFinancialStatementAsReportedService(new FmpConfigImpl(), http, type);
 
         // when
         var params = service.requiredParams();
@@ -55,7 +55,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
     @ValueSource(strings = {"income", "balance-sheet", "cash-flow"})
     void optional_params(String type) {
         // given
-        var service = new FmpFinancialStatementAsReportedService(FMP_CONFIG, http, type);
+        var service = new FmpFinancialStatementAsReportedService(new FmpConfigImpl(), http, type);
 
         // when
         var params = service.optionalParams();
@@ -68,7 +68,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
     @MethodSource("reportCompanyProvider")
     void successful_download(String type, FmpSymbol symbol, String period) {
         // given
-        var service = new FmpFinancialStatementAsReportedService(FMP_CONFIG, http, type);
+        var service = new FmpFinancialStatementAsReportedService(new FmpConfigImpl(), http, type);
         var limit = 2;
         service.param("symbol", symbol);
         httpStub.configureResponse()
