@@ -6,8 +6,4 @@ public class FmpConfigException extends RuntimeException {
     public FmpConfigException(String message, Object... args) {
         super(format(message, args));
     }
-
-    public FmpConfigException(Throwable t, String message, Object... args) {
-        super(format(message, args), t);
-    }
 }
