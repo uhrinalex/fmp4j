@@ -31,6 +31,10 @@ public abstract class FmpService<R> {
 
     protected abstract Set<String> optionalParams();
 
+    protected R filter(R r) {
+        return r;
+    }
+
     public final void param(String key, Object value) {
         if (!requiredParams().contains(key) && !optionalParams().contains(key)) {
             throw new FmpServiceException("'%s' is not a recognized query param for endpoint [%s]", key, url());
@@ -49,6 +53,6 @@ public abstract class FmpService<R> {
                 throw new FmpServiceException("'%s' is a required query param for endpoint [%s]", req, url());
             }
         }
-        return http.get(typeRef, url(), headers(), params);
+        return filter(http.get(typeRef, url(), headers(), params));
     }
 }

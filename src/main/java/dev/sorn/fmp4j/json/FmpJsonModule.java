@@ -2,6 +2,7 @@ package dev.sorn.fmp4j.json;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import dev.sorn.fmp4j.types.FmpIsin;
+import dev.sorn.fmp4j.types.FmpSymbol;
 
 public final class FmpJsonModule extends SimpleModule {
 
@@ -10,5 +11,6 @@ public final class FmpJsonModule extends SimpleModule {
     public FmpJsonModule() {
         super(FMP_JSON_MODULE_NAME);
         this.addDeserializer(FmpIsin.class, new FmpJsonBlankAsNullStringDeserializer<>(FmpIsin::isin));
+        this.addDeserializer(FmpSymbol.class, new FmpSymbolDeserializer());
     }
 }

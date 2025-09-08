@@ -64,4 +64,21 @@ class FmpStockListServiceTest {
         range(0, 2).forEach(i -> assertInstanceOf(FmpStock.class, result[i]));
         range(0, 2).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
+
+    @Test
+    void partial_successful_download() {
+        // given
+        httpStub.configureResponse()
+                .body(jsonTestResource("stable/stock-list/contains_invalid.json"))
+                .statusCode(200)
+                .apply();
+
+        // when
+        var result = service.download();
+
+        // then
+        assertEquals(2, result.length);
+        range(0, 2).forEach(i -> assertInstanceOf(FmpStock.class, result[i]));
+        range(0, 2).forEach(i -> assertAllFieldsNonNull(result[i]));
+    }
 }
