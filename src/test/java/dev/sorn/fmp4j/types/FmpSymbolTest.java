@@ -275,6 +275,9 @@ class FmpSymbolTest {
                 "GIG-SDB.ST",
                 "IMP-A-SDB.ST",
                 "DE000A2NBN90.SG",
+                "SYIHRLMESGADKK.CO",
+                "SPIMIXMINRISKKLA",
+                " GVT&D.NS",
                 "A",
                 "0",
                 "0123456789",
@@ -299,8 +302,8 @@ class FmpSymbolTest {
                 "4F_L", // illegal char
                 "GOOＧ", // illegal char (unicode)
                 "SBER.ΜE", // illegal char (unicode)
-                "ABCDEFGHIJKLMN", // too long
-                "01234567890123", // too long numeric
+                "ABCDEFGHIJKLMNOPQ", // too long
+                "01234567890123456", // too long numeric
                 "A1B2.XYZ12", // suffix too long
                 "MSFT.", // suffix missing characters
                 "ABC.X!", // suffix illegal char

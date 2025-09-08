@@ -40,3 +40,4 @@ bin/
 
 ## Large test fixtures
 /src/testFixtures/resources/stable/financial-statement-symbol-list/
+/src/testFixtures/resources/stable/stock-list/full.json
