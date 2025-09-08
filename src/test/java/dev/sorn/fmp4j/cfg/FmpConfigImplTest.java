@@ -26,7 +26,7 @@ class FmpConfigImplTest {
 
         // then
         assertNotNull(fmpApiKey);
-        assertEquals("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6", fmpApiKey);
+        assertEquals("AB****************************y6", fmpApiKey.value());
     }
 
     @Test

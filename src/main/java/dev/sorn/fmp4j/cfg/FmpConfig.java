@@ -1,7 +1,9 @@
 package dev.sorn.fmp4j.cfg;
 
+import dev.sorn.fmp4j.types.FmpApiKey;
+
 public interface FmpConfig {
-    String fmpApiKey();
+    FmpApiKey fmpApiKey();
 
     String fmpBaseUrl();
 }
