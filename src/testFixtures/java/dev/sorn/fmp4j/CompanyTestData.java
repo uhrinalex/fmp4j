@@ -4,6 +4,7 @@ import static dev.sorn.fmp4j.types.FmpCik.cik;
 import static dev.sorn.fmp4j.types.FmpCurrency.USD;
 import static dev.sorn.fmp4j.types.FmpCusip.cusip;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
+import static dev.sorn.fmp4j.types.FmpSector.sector;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpCompany;
@@ -33,7 +34,7 @@ public interface CompanyTestData {
                 "https://www.apple.com",
                 "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discov...",
                 "Mr. Timothy D. Cook",
-                "Technology",
+                sector("Technology"),
                 "US",
                 "164000",
                 "(408) 996-1010",
