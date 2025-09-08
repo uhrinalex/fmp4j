@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptySet;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
@@ -26,5 +27,10 @@ public class FmpStockListService extends FmpService<FmpStock[]> {
     @Override
     protected Set<String> optionalParams() {
         return emptySet();
+    }
+
+    @Override
+    protected FmpStock[] filter(FmpStock[] stocks) {
+        return stream(stocks).filter(s -> s.symbol() != null).toArray(FmpStock[]::new);
     }
 }
