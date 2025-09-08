@@ -70,6 +70,7 @@ import dev.sorn.fmp4j.models.FmpSecFilingsSearchBySymbol;
 import dev.sorn.fmp4j.models.FmpStock;
 import dev.sorn.fmp4j.models.FmpStockPriceChange;
 import dev.sorn.fmp4j.models.FmpTreasuryRate;
+import dev.sorn.fmp4j.types.FmpApiKey;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.net.URI;
 import java.time.LocalDate;
@@ -86,7 +87,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class FmpClientTest {
     private static final String BASE_URL = "https://financialmodelingprep.com/stable";
-    private static final String API_KEY = "424242";
+    private static final FmpApiKey API_KEY = new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6");
     private final FmpConfig fmpConfig = mock(FmpConfig.class);
     private final FmpHttpClient fmpHttpClient = mock(FmpHttpClient.class);
     private FmpClient fmpClient;

@@ -15,6 +15,7 @@
     <suppress files=".*[\\/]generated-sources[\\/].*" checks=".*"/>
 
     <!-- Alphabetically sorted -->
+    <suppress files="FmpApiKey.java" checks="MagicNumber"/> <!-- value() -->
     <suppress files="FmpClient.java" checks="ParameterNumber"/> <!-- constructor() -->
     <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- getJsonList() -->
     <suppress files="FmpIncomeStatementGrowth.java" checks="AbbreviationAsWordInName"/> <!-- growthEBITDA -->

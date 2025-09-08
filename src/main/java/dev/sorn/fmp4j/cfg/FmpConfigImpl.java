@@ -3,15 +3,17 @@ package dev.sorn.fmp4j.cfg;
 import static java.lang.System.getProperty;
 import static java.lang.System.getenv;
 
+import dev.sorn.fmp4j.types.FmpApiKey;
+
 public final class FmpConfigImpl implements FmpConfig {
     public static final String FMP4J_API_KEY_ENV = "FMP_API_KEY";
     public static final String FMP4J_BASE_URL_ENV = "FMP_BASE_URL";
 
-    private final String fmpApiKey;
+    private final FmpApiKey fmpApiKey;
     private final String fmpBaseUrl;
 
     public FmpConfigImpl() {
-        fmpApiKey = getRequiredEnv(FMP4J_API_KEY_ENV);
+        fmpApiKey = new FmpApiKey(getRequiredEnv(FMP4J_API_KEY_ENV));
         fmpBaseUrl = getRequiredEnv(FMP4J_BASE_URL_ENV);
     }
 
@@ -27,7 +29,7 @@ public final class FmpConfigImpl implements FmpConfig {
     }
 
     @Override
-    public String fmpApiKey() {
+    public FmpApiKey fmpApiKey() {
         return fmpApiKey;
     }
 

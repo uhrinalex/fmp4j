@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.types.FmpApiKey;
 import org.junit.jupiter.api.BeforeEach;
 
 class FmpChartClientTest {
@@ -14,7 +15,7 @@ class FmpChartClientTest {
 
     @BeforeEach
     void setUp() {
-        when(cfg.fmpApiKey()).thenReturn("abc123");
+        when(cfg.fmpApiKey()).thenReturn(new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
         client = new FmpChartClient(cfg, http);
     }
 }
