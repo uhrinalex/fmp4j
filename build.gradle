@@ -226,7 +226,7 @@ tasks.register('runPythonTests', Exec) {
     workingDir pythonDir
     environment "FMP_JAR_PATH", testJarPath
     environment "PYTHONPATH", "${pythonDir}:${venvDir}/lib/python3.13/site-packages"
-    commandLine pytestPath, '-s', '-p', 'no:faulthandler', 'tests'
+    commandLine pytestPath, '-s', '-p', 'no:faulthandler', '--maxfail=1', 'tests'
     doFirst {
         println "PYTHONPATH: ${environment['PYTHONPATH']}"
         println "JAR path: ${testJarPath}"

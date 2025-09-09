@@ -6,9 +6,11 @@ import static java.util.Objects.requireNonNull;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
+import dev.sorn.fmp4j.json.FmpJsonException;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -33,10 +35,27 @@ public class FmpHttpClientImpl implements FmpHttpClient {
     @Override
     public <T> T get(TypeReference<T> type, URI uri, Map<String, String> headers, Map<String, Object> queryParams) {
         try {
-            HttpGet request = buildRequest(uri, headers, queryParams);
-            String responseBody = executeRequest(request);
+            final var request = buildRequest(uri, headers, queryParams);
+            final var responsePair = executeRequest(request);
+            final var statusCode = responsePair.getLeft();
+            final var responseBody = responsePair.getRight();
+            if (statusCode == 401 || statusCode == 403) {
+                throw new FmpUnauthorizedException(
+                        "Unauthorized for type [%s], uri [%s], headers [%s], queryParams [%s];\nresponseBody: %s",
+                        type.getType(), uri, headers, queryParams, responseBody);
+            }
             return deserializer.fromJson(responseBody, type);
-        } catch (IOException | ParseException | RuntimeException e) {
+        } catch (FmpUnauthorizedException e) {
+            throw e;
+        } catch (FmpJsonException e) {
+            throw new FmpHttpException(
+                    e,
+                    "JSON deserialization failed for type [%s], uri [%s], headers [%s], queryParams [%s]",
+                    type.getType(),
+                    uri,
+                    headers,
+                    queryParams);
+        } catch (ParseException | IOException | RuntimeException e) {
             throw new FmpHttpException(e, "HTTP request failed: %s", uri);
         }
     }
@@ -50,9 +69,9 @@ public class FmpHttpClientImpl implements FmpHttpClient {
         return request;
     }
 
-    protected String executeRequest(HttpGet request) throws IOException, ParseException {
+    protected Pair<Integer, String> executeRequest(HttpGet request) throws IOException, ParseException {
         try (ClassicHttpResponse response = http.executeOpen(null, request, null)) {
-            return EntityUtils.toString(response.getEntity());
+            return Pair.of(response.getCode(), EntityUtils.toString(response.getEntity()));
         }
     }
 }

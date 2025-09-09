@@ -23,6 +23,8 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -126,5 +128,47 @@ class FmpHttpClientTest {
         var e = assertThrows(
                 FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, null, null));
         assertEquals("HTTP request failed: https://financialmodelingprep.com/stable", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {401, 403})
+    void throws_unauthorized_for_code(int code) throws IOException {
+        // given
+        var headers = Map.<String, String>of("Authorization", "Bearer token");
+        var params = Map.<String, Object>of("param1", "value1");
+
+        // when
+        when(httpResponse.getCode()).thenReturn(code);
+        when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
+        when(httpResponse.getEntity()).thenReturn(new StringEntity("{}"));
+
+        // then
+        var e = assertThrows(
+                FmpUnauthorizedException.class,
+                () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
+        assertEquals(
+                "Unauthorized for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Authorization=Bearer token}], queryParams [{param1=value1}];\nresponseBody: {}",
+                e.getMessage());
+    }
+
+    @Test
+    void deserialization_of_wrong_type_throws_correct_exception() throws IOException {
+        // given
+        var code = 200;
+        var res = "{\"wrong\": \"type\"}";
+        var headers = Map.<String, String>of("Authorization", "Bearer token");
+        var params = Map.<String, Object>of("param1", "value1");
+
+        // when
+        when(httpResponse.getCode()).thenReturn(code);
+        when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
+        when(httpResponse.getEntity()).thenReturn(new StringEntity(res));
+
+        // then
+        var e = assertThrows(
+                FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
+        assertEquals(
+                "JSON deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Authorization=Bearer token}], queryParams [{param1=value1}]",
+                e.getMessage());
     }
 }

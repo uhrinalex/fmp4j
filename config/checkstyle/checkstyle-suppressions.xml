@@ -18,6 +18,7 @@
     <suppress files="FmpApiKey.java" checks="MagicNumber"/> <!-- value() -->
     <suppress files="FmpClient.java" checks="ParameterNumber"/> <!-- constructor() -->
     <suppress files="FmpHttpClientImpl.java" checks="AvoidInlineConditionals"/> <!-- getJsonList() -->
+    <suppress files="FmpHttpClientImpl.java" checks="MagicNumber"/> <!-- get() -->
     <suppress files="FmpIncomeStatementGrowth.java" checks="AbbreviationAsWordInName"/> <!-- growthEBITDA -->
     <suppress files="FmpIsin.java" checks="MagicNumber"/> <!-- isValidLuhn() -->
     <suppress files="FmpIsin.java" checks="AvoidInlineConditionals"/> <!-- isValidLuhn() -->

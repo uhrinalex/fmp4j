@@ -25,7 +25,7 @@ setup(
     author_email="sorn@sorn.dev",
     packages=find_packages(),
     package_data={
-        "fmp4j": find_package_data("fmp4j") + ["version.py"]
+        "fmp4j": find_package_data("fmp4j", "typings") + ["version.py"]
     },
     install_requires=[
         "jpype1>=1.4.1",

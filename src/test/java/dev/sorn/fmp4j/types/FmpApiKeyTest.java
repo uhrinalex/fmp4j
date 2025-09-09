@@ -15,16 +15,26 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class FmpApiKeyTest {
     @Test
-    void sensitive_data_is_masked() {
+    void value_returns_raw_value() {
         // given
         var apiKey = new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6");
 
         // when
         var val = apiKey.value();
+
+        // then
+        assertEquals("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6", val);
+    }
+
+    @Test
+    void toString_masked() {
+        // given
+        var apiKey = new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6");
+
+        // when
         var str = apiKey.toString();
 
         // then
-        assertEquals("AB****************************y6", val);
         assertEquals("AB****************************y6", str);
     }
 

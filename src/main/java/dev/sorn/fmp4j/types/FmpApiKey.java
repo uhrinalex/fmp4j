@@ -23,7 +23,7 @@ public class FmpApiKey implements FmpValueObject<String> {
 
     @Override
     public String value() {
-        return value.substring(0, 2) + "*".repeat(value.length() - 4) + value.substring(value.length() - 2);
+        return value;
     }
 
     @Override
@@ -47,6 +47,6 @@ public class FmpApiKey implements FmpValueObject<String> {
 
     @Override
     public String toString() {
-        return value();
+        return value.substring(0, 2) + "*".repeat(value.length() - 4) + value.substring(value.length() - 2);
     }
 }
