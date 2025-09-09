@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import dev.sorn.fmp4j.TestObject;
 import dev.sorn.fmp4j.TestObjectValue;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
+import dev.sorn.fmp4j.types.FmpApiKey;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -44,7 +45,7 @@ class FmpHttpClientTest {
     void get_successful_request_object() throws Exception {
         // given
         var headers = Map.<String, String>of("Authorization", "Bearer token");
-        var params = Map.<String, Object>of("param1", "value1");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
         var jsonResponse =
                 """
             {
@@ -71,8 +72,8 @@ class FmpHttpClientTest {
     @Test
     void get_successful_request_array() throws IOException {
         // given
-        var headers = Map.<String, String>of("Authorization", "Bearer token");
-        var params = Map.<String, Object>of("param1", "value1");
+        var headers = Map.<String, String>of("some", "header");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
         var jsonResponse =
                 """
             [
@@ -109,7 +110,7 @@ class FmpHttpClientTest {
     @Test
     void get_handles_execution_exception() throws Exception {
         // given
-        var params = Map.<String, Object>of("param", "value");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
         when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenThrow(new IOException("Connection failed"));
 
         // when // then
@@ -134,8 +135,8 @@ class FmpHttpClientTest {
     @ValueSource(ints = {401, 403})
     void throws_unauthorized_for_code(int code) throws IOException {
         // given
-        var headers = Map.<String, String>of("Authorization", "Bearer token");
-        var params = Map.<String, Object>of("param1", "value1");
+        var headers = Map.<String, String>of("some", "header");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
 
         // when
         when(httpResponse.getCode()).thenReturn(code);
@@ -147,7 +148,7 @@ class FmpHttpClientTest {
                 FmpUnauthorizedException.class,
                 () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
         assertEquals(
-                "Unauthorized for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Authorization=Bearer token}], queryParams [{param1=value1}];\nresponseBody: {}",
+                "Unauthorized for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{some=header}], queryParams [{apikey=AB****************************y6}];\nresponseBody: {}",
                 e.getMessage());
     }
 
@@ -156,8 +157,8 @@ class FmpHttpClientTest {
         // given
         var code = 200;
         var res = "{\"wrong\": \"type\"}";
-        var headers = Map.<String, String>of("Authorization", "Bearer token");
-        var params = Map.<String, Object>of("param1", "value1");
+        var headers = Map.of("some", "header");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
 
         // when
         when(httpResponse.getCode()).thenReturn(code);
@@ -168,7 +169,7 @@ class FmpHttpClientTest {
         var e = assertThrows(
                 FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
         assertEquals(
-                "JSON deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Authorization=Bearer token}], queryParams [{param1=value1}]",
+                "JSON deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{some=header}], queryParams [{apikey=AB****************************y6}]",
                 e.getMessage());
     }
 }

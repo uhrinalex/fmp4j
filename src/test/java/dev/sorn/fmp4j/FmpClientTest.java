@@ -1195,7 +1195,7 @@ class FmpClientTest {
         return new HashMap<>() {
             {
                 putAll(customParams);
-                put("apikey", API_KEY.value());
+                put("apikey", API_KEY);
             }
         };
     }

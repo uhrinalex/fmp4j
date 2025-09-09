@@ -4,10 +4,15 @@ import static dev.sorn.fmp4j.types.FmpApiKey.FMP_API_KEY_PATTERN;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.sorn.fmp4j.exceptions.FmpInvalidApiKey;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -155,5 +160,27 @@ class FmpApiKeyTest {
 
         // then
         assertFalse(eq);
+    }
+
+    @Test
+    void transient_field_should_not_be_serialized() throws Exception {
+        // given
+        var original = new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6");
+
+        // when: serialize
+        var baos = new ByteArrayOutputStream();
+        try (ObjectOutputStream out = new ObjectOutputStream(baos)) {
+            out.writeObject(original);
+        }
+
+        // and: deserialize
+        FmpApiKey deserialized;
+        try (var in = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()))) {
+            deserialized = (FmpApiKey) in.readObject();
+        }
+
+        // then
+        assertEquals("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6", original.value());
+        assertNull(deserialized.value(), "transient field should not be serialized");
     }
 }

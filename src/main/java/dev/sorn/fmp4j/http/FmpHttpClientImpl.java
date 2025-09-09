@@ -7,8 +7,10 @@ import static java.util.Objects.requireNonNull;
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.json.FmpJsonDeserializer;
 import dev.sorn.fmp4j.json.FmpJsonException;
+import dev.sorn.fmp4j.types.FmpApiKey;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.hc.client5.http.classic.HttpClient;
@@ -61,8 +63,11 @@ public class FmpHttpClientImpl implements FmpHttpClient {
     }
 
     protected HttpGet buildRequest(URI uri, Map<String, String> headers, Map<String, Object> queryParams) {
-        final URI finalUri = uriWithParams(uri, queryParams);
-        final HttpGet request = new HttpGet(finalUri);
+        final var copy = new HashMap<>(queryParams);
+        final var key = (FmpApiKey) queryParams.get("apikey");
+        copy.put("apikey", key.value());
+        final var finalUri = uriWithParams(uri, copy);
+        final var request = new HttpGet(finalUri);
         if (headers != null) {
             headers.forEach(request::addHeader);
         }

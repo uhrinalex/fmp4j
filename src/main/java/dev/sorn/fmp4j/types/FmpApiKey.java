@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class FmpApiKey implements FmpValueObject<String> {
     public static final Pattern FMP_API_KEY_PATTERN = Pattern.compile("^[A-Za-z\\d]{32}$");
 
-    private final String value;
+    private final transient String value;
 
     public FmpApiKey(String value) {
         if (value == null || value.isBlank()) {

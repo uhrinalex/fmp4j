@@ -18,7 +18,7 @@ public abstract class FmpService<R> {
         this.cfg = cfg;
         this.http = http;
         this.typeRef = typeRef;
-        this.params.put("apikey", cfg.fmpApiKey().value());
+        this.params.put("apikey", cfg.fmpApiKey());
     }
 
     protected abstract String relativeUrl();
