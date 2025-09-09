@@ -4,7 +4,6 @@ import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 import static java.util.Objects.compare;
 
-import dev.sorn.fmp4j.exceptions.FmpInvalidSymbolException;
 import dev.sorn.fmp4j.exceptions.FmpInvalidYearException;
 import java.io.Serial;
 
@@ -71,7 +70,7 @@ public final class FmpYear implements Comparable<FmpYear>, FmpValueObject<Intege
     @Override
     public int compareTo(FmpYear that) {
         if (that == null) {
-            throw new FmpInvalidSymbolException("'that.value' is required");
+            throw new FmpInvalidYearException("'that.value' is required");
         }
         return compare(this.value, that.value, Integer::compareTo);
     }

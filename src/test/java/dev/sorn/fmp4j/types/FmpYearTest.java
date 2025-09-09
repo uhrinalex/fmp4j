@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dev.sorn.fmp4j.exceptions.FmpInvalidSymbolException;
 import dev.sorn.fmp4j.exceptions.FmpInvalidYearException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -146,7 +145,7 @@ class FmpYearTest {
         var y2 = (FmpYear) null;
 
         // when // then
-        var e = assertThrows(FmpInvalidSymbolException.class, () -> y1.compareTo(y2));
+        var e = assertThrows(FmpInvalidYearException.class, () -> y1.compareTo(y2));
         assertEquals("'that.value' is required", e.getMessage());
     }
 
