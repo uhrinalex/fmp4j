@@ -8,6 +8,7 @@ import static dev.sorn.fmp4j.types.FmpCusip.cusip;
 import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
+import static dev.sorn.fmp4j.types.FmpPage.page;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
@@ -982,9 +983,11 @@ class FmpClientTest {
         var symbols = Set.of(symbol("BTCUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/crypto";
+        var page = page(0);
+        var limit = limit(100);
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var params = buildParams(Map.of("symbols", symbols, "page", page, "limit", limit));
         var file = format(
                 "stable/%s/?symbols=%s.json",
                 endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
@@ -1005,9 +1008,11 @@ class FmpClientTest {
         symbols.add(symbol("ETHUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/crypto";
+        var page = page(0);
+        var limit = limit(100);
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var params = buildParams(Map.of("symbols", symbols, "page", page, "limit", limit));
         var file = format(
                 "stable/%s/?symbols=%s.json",
                 endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
@@ -1026,9 +1031,11 @@ class FmpClientTest {
         var symbols = Set.of(symbol("EURUSD"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/forex";
+        var page = page(0);
+        var limit = limit(100);
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var params = buildParams(Map.of("symbols", symbols, "page", page, "limit", limit));
         var file = format(
                 "stable/%s/?symbols=%s.json",
                 endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
@@ -1047,9 +1054,11 @@ class FmpClientTest {
         var symbols = Set.of(symbol("AAPL"));
         var typeRef = typeRef(FmpNews[].class);
         var endpoint = "news/stock";
+        var page = page(0);
+        var limit = limit(100);
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
-        var params = buildParams(Map.of("symbols", symbols, "page", 0, "limit", 100));
+        var params = buildParams(Map.of("symbols", symbols, "page", page, "limit", limit));
         var file = format(
                 "stable/%s/?symbols=%s.json",
                 endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
@@ -1144,7 +1153,7 @@ class FmpClientTest {
         var symbol = symbol("AAPL");
         var from = LocalDate.parse("2024-01-01");
         var to = LocalDate.parse("2025-01-01");
-        var page = 0;
+        var page = page(0);
         var limit = limit(2);
         var typeRef = typeRef(FmpSecFilingsSearchBySymbol[].class);
         var endpoint = "sec-filings-search/symbol";
@@ -1152,7 +1161,8 @@ class FmpClientTest {
         var headers = defaultHeaders();
         var params = buildParams(Map.of("symbol", symbol, "from", from, "to", to, "page", page, "limit", limit));
         var file = format(
-                "stable/%s/?symbol=%s&from=%s&to=%s&page=%d&limit=%s.json", endpoint, symbol, from, to, page, limit);
+                "stable/%s/?symbol=%s&from=%s&to=%s&page=%d&limit=%s.json",
+                endpoint, symbol, from, to, page.value(), limit);
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
