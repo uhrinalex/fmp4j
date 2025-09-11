@@ -39,7 +39,7 @@ class FmpPageTest {
     @Test
     void exceeds_maximum_page() {
         // given
-        var p = 20000;
+        var p = 10001;
 
         // when // then
         var e = assertThrows(FmpInvalidPageException.class, () -> page(p));
