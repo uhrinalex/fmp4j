@@ -3,9 +3,10 @@ package dev.sorn.fmp4j.types;
 import static java.util.Arrays.stream;
 
 import dev.sorn.fmp4j.exceptions.FmpInvalidExchangeException;
+import java.util.Optional;
 
 public enum FmpExchange implements FmpValueObject<String> {
-    AMEX("AMEX", "New York Stock Exchange Arca", "US", "N/A"),
+    AMEX("AMEX", "New York Stock Exchange Arca", "US", null),
     AMS("AMS", "Euronext Amsterdam", "NL", ".AS"),
     AQS("AQS", "Aquis Stock Exchange", "UK", ".AQ"),
     ASX("ASX", "Australian Securities Exchange", "AU", ".AX"),
@@ -17,16 +18,16 @@ public enum FmpExchange implements FmpValueObject<String> {
     BUD("BUD", "Budapest Stock Exchange", "HU", ".BD"),
     BUE("BUE", "Buenos Aires Stock Exchange", "AR", ".BA"),
     BVC("BVC", "Colombia Stock Exchange", "CO", ".CL"),
-    CBOE("CBOE", "Chicago Board Options Exchange", "US", "N/A"),
+    CBOE("CBOE", "Chicago Board Options Exchange", "US", null),
     CNQ("CNQ", "Canadian Securities Exchange", "CA", ".CN"),
     CPH("CPH", "NASDAQ Copenhagen", "DK", ".CO"),
     DFM("DFM", "Dubai Financial Market", "AE", ".AE"),
     DOH("DOH", "Qatar Stock Exchange", "QA", ".QA"),
     DUB("DUB", "Euronext Dublin", "IE", ".IR"),
     DUS("DUS", "Dusseldorf Stock Exchange", "DE", ".DU"),
-    DXE("DXE", "CBOE Europe", "", ".XD"),
+    DXE("DXE", "CBOE Europe", null, ".XD"),
     EGX("EGX", "Egyptian Exchange", "EG", ".CA"),
-    EURONEXT("EURONEXT", "Euronext", "", ""),
+    EURONEXT("EURONEXT", "Euronext", null, null),
     HAM("HAM", "Hamburg Stock Exchange", "DE", ".HM"),
     HEL("HEL", "NASDAQ Helsinki", "FI", ".HE"),
     HKSE("HKSE", "Hong Kong Stock Exchange", "HK", ".HK"),
@@ -41,19 +42,19 @@ public enum FmpExchange implements FmpValueObject<String> {
     KOE("KOE", "KOSDAQ", "KR", ".KQ"),
     KSC("KSC", "Korea Exchange", "KR", ".KS"),
     KUW("KUW", "Kuwait Stock Exchange", "KW", ".KW"),
-    LIS("LIS", "Euronext Lisbon", "", ".LS"),
+    LIS("LIS", "Euronext Lisbon", null, ".LS"),
     LSE("LSE", "London Stock Exchange", "UK", ".L"),
     MCX("MCX", "Moscow Stock Exchange", "RU", ".ME"),
     MEX("MEX", "Mexican Stock Exchange", "MX", ".MX"),
     MIL("MIL", "Italian Stock Exchange", "IT", ".MI"),
     MUN("MUN", "Munich Stock Exchange", "DE", ".MU"),
-    NASDAQ("NASDAQ", "NASDAQ", "US", "N/A"),
+    NASDAQ("NASDAQ", "NASDAQ", "US", null),
     NEO("NEO", "CBOE CA", "CA", ".NE"),
     NSE("NSE", "National Stock Exchange of India", "IN", ".NS"),
-    NYSE("NYSE", "New York Stock Exchange", "US", "N/A"),
+    NYSE("NYSE", "New York Stock Exchange", "US", null),
     NZE("NZE", "New Zealand Exchange", "NZ", ".NZ"),
     OSL("OSL", "Oslo Stock Exchange", "NO", ".OL"),
-    OTC("OTC", "Other OTC", "US", "N/A"),
+    OTC("OTC", "Other OTC", "US", null),
     PAR("PAR", "Euronext Paris", "FR", ".PA"),
     PRA("PRA", "Prague Stock Exchange", "CZ", ".PR"),
     RIS("RIS", "NASDAQ Riga", "LV", ".RG"),
@@ -72,7 +73,7 @@ public enum FmpExchange implements FmpValueObject<String> {
     TLV("TLV", "Tel Aviv Stock Exchange", "IL", ".TA"),
     TSX("TSX", "Toronto Stock Exchange", "CA", ".TO"),
     TSXV("TSXV", "Toronto Stock Exchange Ventures", "CA", ".V"),
-    TWO("TWO", "Taiwan Stock Exchange", "", ".TWO"),
+    TWO("TWO", "Taiwan Stock Exchange", null, ".TWO"),
     VIE("VIE", "Vienna Stock Exchange", "AT", ".VI"),
     WSE("WSE", "Warsaw Stock Exchange", "PL", ".WA"),
     XETRA("XETRA", "Deutsche Börse", "DE", ".F");
@@ -96,13 +97,37 @@ public enum FmpExchange implements FmpValueObject<String> {
                 .orElseThrow(() -> new FmpInvalidExchangeException("[%s] is not a valid exchange", shortName));
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public Optional<String> getCountryCode() {
+        if (countryCode == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(countryCode);
+        }
+    }
+
+    public Optional<String> getSuffixSymbol() {
+        if (suffixSymbol == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(suffixSymbol);
+        }
+    }
+
     @Override
     public String value() {
-        return shortName;
+        return name;
     }
 
     @Override
     public String toString() {
-        return String.format("%s:%s:%s:%s", shortName, name, countryCode, suffixSymbol);
+        return value();
     }
 }

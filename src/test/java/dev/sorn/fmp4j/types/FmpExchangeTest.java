@@ -3,8 +3,11 @@ package dev.sorn.fmp4j.types;
 import static dev.sorn.fmp4j.types.FmpExchange.exchange;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.sorn.fmp4j.exceptions.FmpInvalidExchangeException;
+import java.util.Arrays;
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -89,7 +92,7 @@ class FmpExchangeTest {
         var p = exchange(shortName);
 
         // then
-        assertEquals(shortName, p.value());
+        assertEquals(shortName, p.getShortName());
     }
 
     @Test
@@ -102,8 +105,30 @@ class FmpExchangeTest {
         assertEquals("[ANEX] is not a valid exchange", e.getMessage());
     }
 
+    @Test
+    void should_not_null_country_code() {
+        // country codes is Optional<Strinng>, it can not be null
+        var nullCountryCodes = Arrays.stream(FmpExchange.values())
+                .map(FmpExchange::getCountryCode)
+                .filter(Objects::isNull)
+                .toList();
+
+        assertTrue(nullCountryCodes.isEmpty(), "The list should be empty");
+    }
+
+    @Test
+    void should_not_null_suf() {
+        // suffix symbol is Optional<Strinng>, it can not be null
+        var nullSuffixSymbol = Arrays.stream(FmpExchange.values())
+                .map(FmpExchange::getSuffixSymbol)
+                .filter(Objects::isNull)
+                .toList();
+
+        assertTrue(nullSuffixSymbol.isEmpty(), "The list should be empty");
+    }
+
     @ParameterizedTest
-    @CsvSource({"AMEX,AMEX:New York Stock Exchange Arca:US:N/A", "AMS,AMS:Euronext Amsterdam:NL:.AS"})
+    @CsvSource({"AMEX,New York Stock Exchange Arca", "AMS,Euronext Amsterdam"})
     void valid_toString(String shortName, String expectedToString) {
         FmpExchange e = exchange(shortName);
         assertEquals(expectedToString, e.toString());
