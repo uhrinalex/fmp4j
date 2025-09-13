@@ -35,9 +35,10 @@ sure to read the full [documentation](https://github.com/sorndotdev/fmp4j/tree/m
 - [ ] consider edge cases (max, min, patterns, ...)
 - [ ] implements `equals()`
 - [ ] implements `hashCode()`
-- [ ] has `serialVersionUID`
+- [ ] implements `toString()` should return `value()` (or masked value where appropriate)
 - [ ] has static factory method matching the value object name
 - [ ] has private constructor
+- [ ] is final class
 - [ ] where appropriate, use enums
 - [ ] where appropriate, implements `Comparable` interface
 
