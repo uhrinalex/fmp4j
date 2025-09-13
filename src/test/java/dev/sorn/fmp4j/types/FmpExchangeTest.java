@@ -92,7 +92,7 @@ class FmpExchangeTest {
         var p = exchange(shortName);
 
         // then
-        assertEquals(shortName, p.getShortName());
+        assertEquals(shortName, p.shortName());
     }
 
     @Test
@@ -109,7 +109,7 @@ class FmpExchangeTest {
     void should_not_null_country_code() {
         // country codes is Optional<Strinng>, it can not be null
         var nullCountryCodes = Arrays.stream(FmpExchange.values())
-                .map(FmpExchange::getCountryCode)
+                .map(FmpExchange::countryCode)
                 .filter(Objects::isNull)
                 .toList();
 
@@ -120,7 +120,7 @@ class FmpExchangeTest {
     void should_not_null_suf() {
         // suffix symbol is Optional<Strinng>, it can not be null
         var nullSuffixSymbol = Arrays.stream(FmpExchange.values())
-                .map(FmpExchange::getSuffixSymbol)
+                .map(FmpExchange::suffixSymbol)
                 .filter(Objects::isNull)
                 .toList();
 

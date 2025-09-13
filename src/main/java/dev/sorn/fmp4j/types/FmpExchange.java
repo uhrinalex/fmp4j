@@ -79,13 +79,13 @@ public enum FmpExchange implements FmpValueObject<String> {
     XETRA("XETRA", "Deutsche Börse", "DE", ".F");
 
     private final String shortName;
-    private final String name;
+    private final String fullName;
     private final String countryCode;
     private final String suffixSymbol;
 
-    FmpExchange(String shortName, String name, String countryCode, String suffixSymbol) {
+    FmpExchange(String shortName, String fullName, String countryCode, String suffixSymbol) {
         this.shortName = shortName;
-        this.name = name;
+        this.fullName = fullName;
         this.countryCode = countryCode;
         this.suffixSymbol = suffixSymbol;
     }
@@ -97,33 +97,25 @@ public enum FmpExchange implements FmpValueObject<String> {
                 .orElseThrow(() -> new FmpInvalidExchangeException("[%s] is not a valid exchange", shortName));
     }
 
-    public String getName() {
-        return name;
+    public String fullName() {
+        return fullName;
     }
 
-    public String getShortName() {
+    public String shortName() {
         return shortName;
     }
 
-    public Optional<String> getCountryCode() {
-        if (countryCode == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(countryCode);
-        }
+    public Optional<String> countryCode() {
+        return Optional.ofNullable(countryCode);
     }
 
-    public Optional<String> getSuffixSymbol() {
-        if (suffixSymbol == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(suffixSymbol);
-        }
+    public Optional<String> suffixSymbol() {
+        return Optional.ofNullable(suffixSymbol);
     }
 
     @Override
     public String value() {
-        return name;
+        return fullName;
     }
 
     @Override
