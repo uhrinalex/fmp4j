@@ -49,6 +49,23 @@ class FmpSearchBySymbolServiceTest {
     }
 
     @Test
+    void ignores_exchange_full_name_in_response() {
+        // given
+        var query = "ADYEN2";
+        service.param("query", query);
+        httpStub.configureResponse()
+                .body(jsonTestResource("stable/search-symbol/?query=%s.json", query))
+                .statusCode(200)
+                .apply();
+
+        // when
+        var result = service.download();
+
+        // then
+        assertEquals("Euronext Amsterdam", result[0].exchange().fullName());
+    }
+
+    @Test
     void successful_download() {
         // given
         var query = "ADYEN";

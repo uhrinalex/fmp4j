@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.types;
 
+import static dev.sorn.fmp4j.types.FmpExchange.TWO;
 import static dev.sorn.fmp4j.types.FmpExchange.exchange;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,91 +9,105 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import dev.sorn.fmp4j.exceptions.FmpInvalidExchangeException;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class FmpExchangeTest {
     @ParameterizedTest
-    @CsvSource({
-        "AMEX",
-        "AMS",
-        "AQS",
-        "ASX",
-        "ATH",
-        "BER",
-        "BME",
-        "BRU",
-        "BSE",
-        "BUD",
-        "BUE",
-        "BVC",
-        "CBOE",
-        "CNQ",
-        "CPH",
-        "DFM",
-        "DOH",
-        "DUB",
-        "DUS",
-        "DXE",
-        "EGX",
-        "EURONEXT",
-        "HAM",
-        "HEL",
-        "HKSE",
-        "HOSE",
-        "ICE",
-        "IOB",
-        "IST",
-        "JKT",
-        "JNB",
-        "JPX",
-        "KLS",
-        "KOE",
-        "KSC",
-        "KUW",
-        "LIS",
-        "LSE",
-        "MCX",
-        "MEX",
-        "MIL",
-        "MUN",
-        "NASDAQ",
-        "NEO",
-        "NSE",
-        "NYSE",
-        "NZE",
-        "OSL",
-        "OTC",
-        "PAR",
-        "PRA",
-        "RIS",
-        "SAO",
-        "SAU",
-        "SES",
-        "SET",
-        "SGO",
-        "SHH",
-        "SHZ",
-        "SIX",
-        "STO",
-        "STU",
-        "TAI",
-        "TAL",
-        "TLV",
-        "TSX",
-        "TSXV",
-        "TWO",
-        "VIE",
-        "WSE",
-        "XETRA"
-    })
+    @MethodSource
     void valid_exchange(String shortName) {
         // when
         var p = exchange(shortName);
 
         // then
-        assertEquals(shortName, p.shortName());
+        assertEquals(shortName, p.name());
+    }
+
+    private static Stream<String> valid_exchange() {
+        return Stream.of(
+                "AMEX",
+                "AMS",
+                "AQS",
+                "ASX",
+                "ATH",
+                "BER",
+                "BME",
+                "BRU",
+                "BSE",
+                "BUD",
+                "BUE",
+                "BVC",
+                "CBOE",
+                "CNQ",
+                "CPH",
+                "DFM",
+                "DOH",
+                "DUB",
+                "DUS",
+                "DXE",
+                "EGX",
+                "EURONEXT",
+                "HAM",
+                "HEL",
+                "HKSE",
+                "HOSE",
+                "ICE",
+                "IOB",
+                "IST",
+                "JKT",
+                "JNB",
+                "JPX",
+                "KLS",
+                "KOE",
+                "KSC",
+                "KUW",
+                "LIS",
+                "LSE",
+                "MCX",
+                "MEX",
+                "MIL",
+                "MUN",
+                "NASDAQ",
+                "NEO",
+                "NSE",
+                "NYSE",
+                "NZE",
+                "OSL",
+                "OTC",
+                "PAR",
+                "PRA",
+                "RIS",
+                "SAO",
+                "SAU",
+                "SES",
+                "SET",
+                "SGO",
+                "SHH",
+                "SHZ",
+                "SIX",
+                "STO",
+                "STU",
+                "TAI",
+                "TAL",
+                "TLV",
+                "TSX",
+                "TSXV",
+                "TWO",
+                "VIE",
+                "WSE",
+                "XETRA");
+    }
+
+    @Test
+    void lower_case_code_exchange() {
+        // when
+        var p = exchange("two");
+
+        // then
+        assertEquals(TWO.name(), p.name());
     }
 
     @Test
@@ -107,7 +122,6 @@ class FmpExchangeTest {
 
     @Test
     void should_not_null_country_code() {
-        // country codes is Optional<Strinng>, it can not be null
         var nullCountryCodes = Arrays.stream(FmpExchange.values())
                 .map(FmpExchange::countryCode)
                 .filter(Objects::isNull)
@@ -117,8 +131,7 @@ class FmpExchangeTest {
     }
 
     @Test
-    void should_not_null_suf() {
-        // suffix symbol is Optional<Strinng>, it can not be null
+    void should_not_null_suffixSymbol() {
         var nullSuffixSymbol = Arrays.stream(FmpExchange.values())
                 .map(FmpExchange::suffixSymbol)
                 .filter(Objects::isNull)
