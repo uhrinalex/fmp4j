@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpExchange;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 
@@ -17,11 +18,11 @@ public record FmpFullQuote(
         Long marketCap,
         Double priceAvg50,
         Double priceAvg200,
-        String exchange,
+        FmpExchange exchange,
         Double open,
         Double previousClose,
         Long timestamp)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 }

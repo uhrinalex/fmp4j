@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j.models;
 
+import dev.sorn.fmp4j.types.FmpExchange;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
@@ -10,12 +11,12 @@ public record FmpIposCalendar(
         LocalDate date,
         ZonedDateTime daa,
         String company,
-        String exchange,
+        FmpExchange exchange,
         String actions,
         Long shares,
         String priceRange,
         Long marketCap)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 }

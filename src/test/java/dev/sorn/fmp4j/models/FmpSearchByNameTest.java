@@ -7,6 +7,7 @@ import static dev.sorn.fmp4j.types.FmpCurrency.USD;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import dev.sorn.fmp4j.types.FmpExchange;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class FmpSearchByNameTest {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = new FmpSearchByName(symbol("AAPL"), "Apple Inc.", USD, "NASDAQ Global Select", "NASDAQ");
+        var before = new FmpSearchByName(symbol("AAPL"), "Apple Inc.", USD, FmpExchange.NASDAQ);
 
         // when
         var after = (FmpSearchByName) deserialize(serialize(before));
@@ -26,7 +27,7 @@ class FmpSearchByNameTest {
     @Test
     void serializes() throws IOException {
         // given
-        var o = new FmpSearchByName(symbol("AAPL"), "Apple Inc.", USD, "NASDAQ Global Select", "NASDAQ");
+        var o = new FmpSearchByName(symbol("AAPL"), "Apple Inc.", USD, FmpExchange.NASDAQ);
 
         // when // then
         verifySerialization(o);
