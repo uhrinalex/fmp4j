@@ -1,10 +1,10 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.types.FmpExchange.NASDAQ;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpFullQuote;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
-import dev.sorn.fmp4j.types.FmpExchange;
 
 public interface QuoteTestData {
     default FmpFullQuote aFullQuote() {
@@ -22,7 +22,7 @@ public interface QuoteTestData {
                 3500823120000L,
                 240.2278,
                 219.98755,
-                FmpExchange.NASDAQ,
+                NASDAQ,
                 227.2,
                 228.01,
                 1738702801L);

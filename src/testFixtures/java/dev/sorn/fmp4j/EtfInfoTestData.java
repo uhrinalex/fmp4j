@@ -2,6 +2,17 @@ package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.types.FmpCurrency.USD;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
+import static dev.sorn.fmp4j.types.FmpSector.BASIC_MATERIALS;
+import static dev.sorn.fmp4j.types.FmpSector.COMMUNICATION_SERVICES;
+import static dev.sorn.fmp4j.types.FmpSector.CONSUMER_CYCLICAL;
+import static dev.sorn.fmp4j.types.FmpSector.CONSUMER_DEFENSIVE;
+import static dev.sorn.fmp4j.types.FmpSector.ENERGY;
+import static dev.sorn.fmp4j.types.FmpSector.FINANCIAL_SERVICES;
+import static dev.sorn.fmp4j.types.FmpSector.HEALTHCARE;
+import static dev.sorn.fmp4j.types.FmpSector.INDUSTRIALS;
+import static dev.sorn.fmp4j.types.FmpSector.REAL_ESTATE;
+import static dev.sorn.fmp4j.types.FmpSector.TECHNOLOGY;
+import static dev.sorn.fmp4j.types.FmpSector.UTILITIES;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
 import dev.sorn.fmp4j.models.FmpEtfInfo;
@@ -31,16 +42,16 @@ public interface EtfInfoTestData {
                 503,
                 ZonedDateTime.parse("2025-08-17T21:15:43.242Z"),
                 List.of(
-                        new SectorExposure("Basic Materials", 1.63),
-                        new SectorExposure("Communication Services", 9.92),
-                        new SectorExposure("Consumer Cyclical", 10.52),
-                        new SectorExposure("Consumer Defensive", 5.35),
-                        new SectorExposure("Energy", 2.91),
-                        new SectorExposure("Financial Services", 13.26),
-                        new SectorExposure("Healthcare", 8.8),
-                        new SectorExposure("Industrials", 7.77),
-                        new SectorExposure("Real Estate", 1.99),
-                        new SectorExposure("Technology", 35.4),
-                        new SectorExposure("Utilities", 2.45)));
+                        new SectorExposure(BASIC_MATERIALS, 1.63),
+                        new SectorExposure(COMMUNICATION_SERVICES, 9.92),
+                        new SectorExposure(CONSUMER_CYCLICAL, 10.52),
+                        new SectorExposure(CONSUMER_DEFENSIVE, 5.35),
+                        new SectorExposure(ENERGY, 2.91),
+                        new SectorExposure(FINANCIAL_SERVICES, 13.26),
+                        new SectorExposure(HEALTHCARE, 8.8),
+                        new SectorExposure(INDUSTRIALS, 7.77),
+                        new SectorExposure(REAL_ESTATE, 1.99),
+                        new SectorExposure(TECHNOLOGY, 35.4),
+                        new SectorExposure(UTILITIES, 2.45)));
     }
 }
