@@ -955,7 +955,7 @@ class FmpClientTest {
         var result = fmpClient.etf().holdings(symbol);
 
         // then
-        assertValidResult(result, holdings, FmpEtfHolding.class, Set.of("isin"));
+        assertValidResult(result, holdings, FmpEtfHolding.class, Set.of("asset", "isin"));
     }
 
     @Test

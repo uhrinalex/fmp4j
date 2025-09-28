@@ -10,7 +10,7 @@ public interface EtfHoldingTestData {
     default FmpEtfHolding anEtfHolding() {
         return new FmpEtfHolding(
                 symbol("FUSD.L"),
-                "DLB",
+                symbol("DLB"),
                 "DOLBY LABORATORIES A",
                 isin("US25659T1079"),
                 "25659T107",

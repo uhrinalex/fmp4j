@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public record FmpEtfHolding(
         FmpSymbol symbol,
-        String asset,
+        FmpSymbol asset,
         String name,
         FmpIsin isin,
         String securityCusip,
@@ -18,5 +18,5 @@ public record FmpEtfHolding(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime updatedAt)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 }
