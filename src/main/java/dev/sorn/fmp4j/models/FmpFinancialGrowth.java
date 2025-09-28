@@ -52,7 +52,7 @@ public record FmpFinancialGrowth(
         Double tenYBottomLineNetIncomeGrowthPerShare,
         Double fiveYBottomLineNetIncomeGrowthPerShare,
         Double threeYBottomLineNetIncomeGrowthPerShare)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 4L;
 }

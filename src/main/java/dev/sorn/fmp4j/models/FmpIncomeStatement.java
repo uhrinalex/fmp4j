@@ -50,7 +50,7 @@ public record FmpIncomeStatement(
         Double epsDiluted,
         Long weightedAverageShsOut,
         Long weightedAverageShsOutDil)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 5L;
 }

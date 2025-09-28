@@ -72,7 +72,7 @@ public record FmpBalanceSheetStatement(
         Long totalInvestments,
         Long totalDebt,
         Long netDebt)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 5L;
 }

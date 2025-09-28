@@ -64,7 +64,7 @@ public record FmpBalanceSheetStatementGrowth(
         Double growthCapitalLeaseObligationsCurrent,
         Double growthAdditionalPaidInCapital,
         Double growthTreasuryStock)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 2L;
 }

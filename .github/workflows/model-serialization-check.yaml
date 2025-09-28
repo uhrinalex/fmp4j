@@ -17,13 +17,19 @@ jobs:
         run: |
           MODEL_DIR="src/main/java/dev/sorn/fmp4j/models"
           FIXTURE_DIR="src/testFixtures/resources/models/serialization"
-          
+
           # Find all Java classes in models directory
           while IFS= read -r -d '' file; do
             class_name=$(basename "$file" .java)
 
             # Skip FmpModel interface
             if [[ "$class_name" == "FmpModel" ]]; then
+              echo "⏩ Skipping interface: $class_name"
+              continue
+            fi
+
+            # Skip FmpStatement interface
+            if [[ "$class_name" == "FmpStatement" ]]; then
               echo "⏩ Skipping interface: $class_name"
               continue
             fi

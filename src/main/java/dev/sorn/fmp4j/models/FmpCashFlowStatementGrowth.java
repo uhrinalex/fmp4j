@@ -50,7 +50,7 @@ public record FmpCashFlowStatementGrowth(
         Double growthPreferredDividendsPaid,
         Double growthIncomeTaxesPaid,
         Double growthInterestPaid)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 2L;
 }

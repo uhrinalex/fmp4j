@@ -58,7 +58,7 @@ public record FmpCashFlowStatement(
         Long freeCashFlow,
         Long incomeTaxesPaid,
         Long interestPaid)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 5L;
 }

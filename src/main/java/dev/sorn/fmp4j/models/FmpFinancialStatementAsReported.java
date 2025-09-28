@@ -15,7 +15,7 @@ public record FmpFinancialStatementAsReported(
         FmpCurrency reportedCurrency,
         LocalDate date,
         Map<String, Number> data)
-        implements FmpModel {
+        implements FmpModel, FmpStatement {
     @Serial
     private static final long serialVersionUID = 4L;
 }
