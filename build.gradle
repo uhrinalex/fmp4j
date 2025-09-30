@@ -55,7 +55,7 @@ test {
     useJUnitPlatform()
     testLogging {
         events "failed", "skipped"
-        exceptionFormat "full"
+        exceptionFormat = "full"
         showStandardStreams = true
         showStackTraces = true
     }

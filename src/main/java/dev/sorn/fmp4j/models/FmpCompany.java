@@ -4,6 +4,7 @@ import dev.sorn.fmp4j.types.FmpCik;
 import dev.sorn.fmp4j.types.FmpCurrency;
 import dev.sorn.fmp4j.types.FmpCusip;
 import dev.sorn.fmp4j.types.FmpExchange;
+import dev.sorn.fmp4j.types.FmpIndustry;
 import dev.sorn.fmp4j.types.FmpIsin;
 import dev.sorn.fmp4j.types.FmpSector;
 import dev.sorn.fmp4j.types.FmpSymbol;
@@ -27,7 +28,7 @@ public record FmpCompany(
         FmpIsin isin,
         FmpCusip cusip,
         FmpExchange exchange,
-        String industry,
+        FmpIndustry industry,
         String website,
         String description,
         String ceo,
@@ -48,5 +49,5 @@ public record FmpCompany(
         Boolean isFund)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 8L;
 }

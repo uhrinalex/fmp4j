@@ -2,6 +2,7 @@ package dev.sorn.fmp4j.models;
 
 import dev.sorn.fmp4j.types.FmpCurrency;
 import dev.sorn.fmp4j.types.FmpIsin;
+import dev.sorn.fmp4j.types.FmpSector;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
@@ -29,10 +30,12 @@ public record FmpEtfInfo(
         List<SectorExposure> sectorsList)
         implements FmpModel {
     @Serial
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 6L;
 
-    public record SectorExposure(String industry, Double weight) implements FmpModel {
+    // The first parameter is sector information, however FMP API wrongly returns as "industry"
+    // API sample return in stable/etf/info/%3Fsymbol=SPY.json
+    public record SectorExposure(FmpSector industry, Double weight) implements FmpModel {
         @Serial
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 3L;
     }
 }
