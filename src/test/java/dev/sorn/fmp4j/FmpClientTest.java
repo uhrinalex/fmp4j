@@ -56,6 +56,7 @@ import dev.sorn.fmp4j.models.FmpIposDisclosure;
 import dev.sorn.fmp4j.models.FmpIposProspectus;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpLatestEarningsCallTranscript;
 import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
@@ -1191,6 +1192,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 2, FmpTreasuryRate.class);
+    }
+
+    @Test
+    void latestEarningsCallTranscript() {
+        // given
+        var page = page(0);
+        var limit = limit(2);
+
+        var typeRef = typeRef(FmpLatestEarningsCallTranscript[].class);
+        var endpoint = "earning-call-transcript-latest";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("page", page, "limit", limit));
+        var file = format("stable/%s/?page=%s&limit=%s.json", endpoint, page, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.latestEarningsCallTranscript().transcripts(limit, page);
+
+        // then
+        assertValidResult(result, 1, FmpLatestEarningsCallTranscript.class);
     }
 
     private URI buildUri(String endpoint) {
