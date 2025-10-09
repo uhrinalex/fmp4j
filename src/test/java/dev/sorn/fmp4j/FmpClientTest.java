@@ -1212,7 +1212,7 @@ class FmpClientTest {
         var result = fmpClient.latestEarningsCallTranscript().transcripts(limit, page);
 
         // then
-        assertValidResult(result, 1, FmpLatestEarningsCallTranscript.class);
+        assertValidResult(result, 2, FmpLatestEarningsCallTranscript.class);
     }
 
     private URI buildUri(String endpoint) {

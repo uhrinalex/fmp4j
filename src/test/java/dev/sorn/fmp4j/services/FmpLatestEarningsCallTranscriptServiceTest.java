@@ -1,9 +1,12 @@
 package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
+import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
 import static java.lang.String.format;
+import static java.util.Collections.emptySet;
+import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,7 +42,7 @@ class FmpLatestEarningsCallTranscriptServiceTest implements LatestEarningsCallTr
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("limit"), params);
+        assertEquals(Set.of("limit", "page"), params);
     }
 
     @Test
@@ -48,13 +51,13 @@ class FmpLatestEarningsCallTranscriptServiceTest implements LatestEarningsCallTr
         var params = service.optionalParams();
 
         // then
-        assertEquals(Set.of("page"), params);
+        assertEquals(emptySet(), params);
     }
 
     @Test
     void successful_download() {
         // given
-        var limit = "2";
+        var limit = 2;
         var page = "0";
         var endpoint = "earning-call-transcript-latest";
         service.param("limit", limit);
@@ -68,8 +71,9 @@ class FmpLatestEarningsCallTranscriptServiceTest implements LatestEarningsCallTr
         var result = service.download();
 
         // then
-        assertEquals(1, result.length);
+        assertEquals(limit, result.length);
         assertEquals(aLatestEarningCallTranscript(), result[0]);
+        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
 
     @Test

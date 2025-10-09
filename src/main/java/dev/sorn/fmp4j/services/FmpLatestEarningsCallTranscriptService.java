@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import static java.util.Collections.emptySet;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
@@ -19,11 +20,11 @@ public class FmpLatestEarningsCallTranscriptService extends FmpService<FmpLatest
 
     @Override
     protected Set<String> requiredParams() {
-        return Set.of("limit");
+        return Set.of("limit", "page");
     }
 
     @Override
     protected Set<String> optionalParams() {
-        return Set.of("page");
+        return emptySet();
     }
 }
