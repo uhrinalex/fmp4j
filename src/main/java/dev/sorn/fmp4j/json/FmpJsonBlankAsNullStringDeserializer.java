@@ -16,7 +16,7 @@ public class FmpJsonBlankAsNullStringDeserializer<T> extends JsonDeserializer<T>
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         String text = p.getText();
-        if (text == null || text.isBlank()) {
+        if (text == null || text.isBlank() || text.equals("null")) {
             return null;
         }
         return factory.apply(text);
