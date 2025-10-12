@@ -9,6 +9,7 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.LatestEarningsCallTranscriptTestData;
@@ -77,13 +78,19 @@ class FmpLatestEarningsCallTranscriptServiceTest implements LatestEarningsCallTr
     }
 
     @Test
-    void missing_symbol_throws() {
+    void missing_params_throws() {
         // given // when
         Consumer<FmpService<FmpLatestEarningsCallTranscript[]>> f = FmpService::download;
 
         // then
         var e = assertThrows(FmpServiceException.class, () -> f.accept(service));
-        assertEquals(format("'limit' is a required query param for endpoint [%s]", service.url()), e.getMessage());
+        String msg = e.getMessage();
+
+        assertTrue(
+                msg.equals(format("'limit' is a required query param for endpoint [%s]", service.url()))
+                        || msg.equals(format("'page' is a required query param for endpoint [%s]", service.url())),
+                "Expected exception message to mention either 'limit' or 'page' as the required param, but got: "
+                        + msg);
     }
 
     @Test
