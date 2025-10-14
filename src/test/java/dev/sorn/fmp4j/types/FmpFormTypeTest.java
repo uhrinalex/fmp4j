@@ -20,10 +20,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class FmpFormTypeTest {
+
     @Test
     void null_formType_throws() {
         // given
         var value = (String) null;
+
+        // when // then
+        var e = assertThrows(FmpInvalidFormTypeException.class, () -> formType(value));
+        assertEquals("Form type must not be null or blank.", e.getMessage());
+    }
+
+    @Test
+    void blank_formType_throws() {
+        // given
+        var value = "   ";
 
         // when // then
         var e = assertThrows(FmpInvalidFormTypeException.class, () -> formType(value));
@@ -167,6 +178,31 @@ class FmpFormTypeTest {
 
         // then
         assertEquals(0, cmp);
+    }
+
+    @Test
+    void equals_same_instance_true() {
+        // given
+        var ft = formType("10-Q");
+
+        // when
+        var eq = ft.equals(ft);
+
+        // then
+        assertTrue(eq);
+    }
+
+    @Test
+    void equals_different_type_false() {
+        // given
+        var ft = formType("10-Q");
+        var other = "10-Q";
+
+        // when
+        var eq = ft.equals(other);
+
+        // then
+        assertFalse(eq);
     }
 
     @ParameterizedTest

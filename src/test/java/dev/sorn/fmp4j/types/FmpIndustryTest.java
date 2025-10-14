@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import dev.sorn.fmp4j.exceptions.FmpInvalidIndustryException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,5 +44,15 @@ class FmpIndustryTest {
 
         // then
         assertAll(() -> assertThrows(FmpInvalidIndustryException.class, invalid));
+    }
+
+    // toString test
+    @Test
+    void testToString() {
+        // given
+        var industry = FmpIndustry.STEEL;
+
+        // then
+        assertEquals("Steel", industry.toString());
     }
 }
