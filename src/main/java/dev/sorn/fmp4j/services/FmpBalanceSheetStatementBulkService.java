@@ -1,12 +1,13 @@
 package dev.sorn.fmp4j.services;
 
+import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
-
-import java.util.Set;
-
-import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
+import dev.sorn.fmp4j.types.FmpPeriod;
+import dev.sorn.fmp4j.types.FmpYear;
+import java.util.Map;
 
 public class FmpBalanceSheetStatementBulkService extends FmpService<FmpBalanceSheetStatement[]> {
     public FmpBalanceSheetStatementBulkService(FmpConfig cfg, FmpHttpClient http) {
@@ -19,12 +20,17 @@ public class FmpBalanceSheetStatementBulkService extends FmpService<FmpBalanceSh
     }
 
     @Override
-    protected Set<String> requiredParams() {
-        return Set.of("year", "period");
+    protected Map<String, Class<?>> requiredParams() {
+        return Map.of("year", FmpYear.class, "period", FmpPeriod.class);
     }
 
     @Override
-    protected Set<String> optionalParams() {
-        return Set.of();
+    protected Map<String, Class<?>> optionalParams() {
+        return Map.of();
+    }
+
+    @Override
+    protected Map<String, String> headers() {
+        return Map.of("Content-Type", "text/csv");
     }
 }

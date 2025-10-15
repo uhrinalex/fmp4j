@@ -3,7 +3,7 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,8 +12,11 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.types.FmpLimit;
+import dev.sorn.fmp4j.types.FmpPeriod;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -48,7 +51,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("symbol"), params);
+        assertEquals(Map.of("symbol", FmpSymbol.class), params);
     }
 
     @ParameterizedTest
@@ -61,7 +64,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
         var params = service.optionalParams();
 
         // then
-        assertEquals(Set.of("period", "limit"), params);
+        assertEquals(Map.of("period", FmpPeriod.class, "limit", FmpLimit.class), params);
     }
 
     @ParameterizedTest

@@ -3,7 +3,10 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.types.FmpLimit.limit;
+import static dev.sorn.fmp4j.types.FmpPeriod.period;
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,10 +16,14 @@ import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.models.FmpIncomeStatement;
+import dev.sorn.fmp4j.types.FmpLimit;
+import dev.sorn.fmp4j.types.FmpPeriod;
+import dev.sorn.fmp4j.types.FmpSymbol;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
@@ -38,7 +45,7 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("symbol"), params);
+        assertEquals(Map.of("symbol", FmpSymbol.class), params);
     }
 
     @Test
@@ -47,13 +54,13 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
         var params = service.optionalParams();
 
         // then
-        assertEquals(Set.of("period", "limit"), params);
+        assertEquals(Map.of("period", FmpPeriod.class, "limit", FmpLimit.class), params);
     }
 
     @Test
     void successful_download() {
         // given
-        var symbol = "AAPL";
+        var symbol = symbol("AAPL");
         service.param("symbol", symbol);
         httpStub.configureResponse()
                 .body(jsonTestResource("stable/income-statement/?symbol=%s.json", symbol))
@@ -70,12 +77,12 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"annual", "quarter"})
-    void successful_download_with_optional_period_and_limit(String period) {
+    @CsvSource({"AAPL,annual,3", "AAPL,quarter,3", "GLIBK,quarter,1"})
+    void successful_download_with_optional_period_and_limit(String symbol, String period, int limit) {
         // given
-        var symbol = "AAPL";
-        var limit = 3;
-        service.param("symbol", symbol);
+        service.param("symbol", symbol(symbol));
+        service.param("period", period(period));
+        service.param("limit", limit(limit));
         httpStub.configureResponse()
                 .body(jsonTestResource(
                         "stable/income-statement/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
@@ -87,6 +94,6 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
 
         // then
         assertEquals(limit, result.length);
-        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i]));
+        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i], Set.of("cik")));
     }
 }

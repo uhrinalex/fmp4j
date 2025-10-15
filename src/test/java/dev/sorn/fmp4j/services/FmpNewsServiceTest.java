@@ -3,7 +3,7 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,8 +12,11 @@ import dev.sorn.fmp4j.NewsTestData;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.types.FmpLimit;
+import dev.sorn.fmp4j.types.FmpPage;
 import dev.sorn.fmp4j.types.FmpSymbol;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.Map;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -45,7 +48,7 @@ class FmpNewsServiceTest implements NewsTestData {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("symbols"), params);
+        assertEquals(Map.of("symbols", FmpSymbol.class), params);
     }
 
     @ParameterizedTest
@@ -58,7 +61,9 @@ class FmpNewsServiceTest implements NewsTestData {
         var params = service.optionalParams();
 
         // then
-        assertEquals(Set.of("from", "to", "page", "limit"), params);
+        assertEquals(
+                Map.of("from", LocalDate.class, "to", LocalDate.class, "page", FmpPage.class, "limit", FmpLimit.class),
+                params);
     }
 
     @ParameterizedTest

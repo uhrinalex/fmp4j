@@ -473,7 +473,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#earnings-tr
 
 |    | Since | Endpoint                          |
 |:--:|:-----:|-----------------------------------|
-| ❌️ |   -   | `/earning-call-transcript-latest` |
+| ✅️ | 0.3.0 | `/earning-call-transcript-latest` |
 | ❌️ |   -   | `/earning-call-transcript`        |
 | ❌️ |   -   | `/earning-call-transcript-dates`  |
 | ❌️ |   -   | `/earnings-transcript-list`       |
@@ -511,7 +511,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#bulk
 | ❌️ |   -   | `/earnings-surprises-bulk`             |
 | ❌️ |   -   | `/income-statement-bulk`               |
 | ❌️ |   -   | `/income-statement-growth-bulk`        |
-| ❌️ |   -   | `/balance-sheet-statement-bulk`        |
+| ❌️ | 0.3.0 | `/balance-sheet-statement-bulk`        |
 | ❌️ |   -   | `/balance-sheet-statement-growth-bulk` |
 | ❌️ |   -   | `/cash-flow-statement-bulk`            |
 | ❌️ |   -   | `/cash-flow-statement-growth-bulk`     |
