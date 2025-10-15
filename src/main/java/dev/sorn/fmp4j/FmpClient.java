@@ -4,6 +4,7 @@ import static dev.sorn.fmp4j.http.FmpHttpClientImpl.FMP_HTTP_CLIENT;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
+import dev.sorn.fmp4j.clients.FmpBulkClient;
 import dev.sorn.fmp4j.clients.FmpCalendarClient;
 import dev.sorn.fmp4j.clients.FmpChartClient;
 import dev.sorn.fmp4j.clients.FmpCompanyClient;
@@ -22,6 +23,7 @@ public class FmpClient {
     protected final FmpHttpClient fmpHttpClient;
 
     // Alphabetical order
+    protected final FmpBulkClient fmpBulkClient;
     protected final FmpCalendarClient fmpCalendarClient;
     protected final FmpChartClient fmpChartClient;
     protected final FmpCompanyClient fmpCompanyClient;
@@ -44,6 +46,7 @@ public class FmpClient {
                 fmpHttpClient,
 
                 // Alphabetical order
+                new FmpBulkClient(fmpConfig, fmpHttpClient),
                 new FmpCalendarClient(fmpConfig, fmpHttpClient),
                 new FmpChartClient(fmpConfig, fmpHttpClient),
                 new FmpCompanyClient(fmpConfig, fmpHttpClient),
@@ -62,6 +65,7 @@ public class FmpClient {
             FmpHttpClient fmpHttpClient,
 
             // Alphabetical order
+            FmpBulkClient fmpBulkClient,
             FmpCalendarClient fmpCalendarClient,
             FmpChartClient fmpChartClient,
             FmpCompanyClient fmpCompanyClient,
@@ -74,6 +78,7 @@ public class FmpClient {
             FmpSecFilingsSearchClient fmpSecFilingsSearchClient,
             FmpStatementClient fmpStatementClient) {
         // Alphabetical order
+        this.fmpBulkClient = fmpBulkClient;
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
         this.fmpEconomicsClient = fmpEconomicsClient;
@@ -87,6 +92,10 @@ public class FmpClient {
         this.fmpSecFilingsSearchClient = fmpSecFilingsSearchClient;
         this.fmpSearchClient = fmpSearchClient;
         this.fmpStatementClient = fmpStatementClient;
+    }
+
+    public FmpBulkClient companies() {
+        return fmpBulkClient;
     }
 
     public FmpCalendarClient calendar() {

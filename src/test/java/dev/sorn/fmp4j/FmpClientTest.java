@@ -9,6 +9,7 @@ import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
+import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
@@ -193,6 +194,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpSearchByCik.class);
+    }
+
+    @Test
+    void companies() {
+        // given
+        var part = part("0");
+        var typeRef = typeRef(FmpCompany[].class);
+        var endpoint = "profile-bulk";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("part", part));
+        var file = format("stable/%s/?part=%s.json", endpoint, part);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.companies().byPart(part);
+
+        // then
+        assertValidResult(result, 1, FmpCompany.class);
     }
 
     @Test
