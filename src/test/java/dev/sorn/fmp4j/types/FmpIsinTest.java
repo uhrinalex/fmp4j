@@ -183,6 +183,15 @@ class FmpIsinTest {
         assertEquals(0, cmp);
     }
 
+    @Test
+    void isValidLuhn_covers_both_branches() {
+        var left = isin("US0378331005");
+        assertEquals("US0378331005", left.value());
+
+        var right = isin("GB00B03MLX29");
+        assertEquals("GB00B03MLX29", right.value());
+    }
+
     @ParameterizedTest
     @MethodSource("validIsins")
     void valid_isins(String value) {
@@ -203,6 +212,17 @@ class FmpIsinTest {
         var e = assertThrows(FmpInvalidIsinException.class, () -> f.apply(value));
         assertEquals(
                 format("'value' [%s] does not match pattern [%s]", value, FMP_ISIN_PATTERN.pattern()), e.getMessage());
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidIsinBecauseCheckDigit")
+    void invalid_isins_due_to_check_digit(String value) {
+        // given // when
+        Function<String, FmpIsin> f = FmpIsin::isin;
+
+        // then
+        var e = assertThrows(FmpInvalidIsinException.class, () -> f.apply(value));
+        assertEquals(format("'value' [%s] has invalid check digit", value), e.getMessage());
     }
 
     private static Stream<String> validIsins() {

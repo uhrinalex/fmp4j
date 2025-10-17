@@ -16,7 +16,7 @@ import dev.sorn.fmp4j.models.FmpIncomeStatement;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
@@ -70,12 +70,12 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"annual", "quarter"})
-    void successful_download_with_optional_period_and_limit(String period) {
+    @CsvSource({"AAPL,annual,3", "AAPL,quarter,3", "GLIBK,quarter,1"})
+    void successful_download_with_optional_period_and_limit(String symbol, String period, int limit) {
         // given
-        var symbol = "AAPL";
-        var limit = 3;
         service.param("symbol", symbol);
+        service.param("period", period);
+        service.param("limit", limit);
         httpStub.configureResponse()
                 .body(jsonTestResource(
                         "stable/income-statement/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
@@ -87,6 +87,6 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
 
         // then
         assertEquals(limit, result.length);
-        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i]));
+        range(0, limit).forEach(i -> assertAllFieldsNonNull(result[i], Set.of("cik")));
     }
 }

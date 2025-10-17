@@ -43,6 +43,19 @@ class FmpSymbolDeserializerTest {
     }
 
     @Test
+    void deserialize_whitespace_symbol_returns_null() throws IOException {
+        // given
+        var whitespace = "   ";
+
+        // when
+        when(p.getText()).thenReturn(whitespace);
+        var result = deserializer.deserialize(p, ctx);
+
+        // then
+        assertNull(result);
+    }
+
+    @Test
     void deserialize_invalid_symbol_returns_null() throws IOException {
         // given
         var invalid = "$INVALID";

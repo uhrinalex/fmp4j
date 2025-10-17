@@ -473,7 +473,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#earnings-tr
 
 |    | Since | Endpoint                          |
 |:--:|:-----:|-----------------------------------|
-| ❌️ |   -   | `/earning-call-transcript-latest` |
+| ✅️ | 0.3.0 | `/earning-call-transcript-latest` |
 | ❌️ |   -   | `/earning-call-transcript`        |
 | ❌️ |   -   | `/earning-call-transcript-dates`  |
 | ❌️ |   -   | `/earnings-transcript-list`       |

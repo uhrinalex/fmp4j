@@ -15,8 +15,10 @@ import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
 import static java.lang.String.join;
+import static java.lang.System.setProperty;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.cfg.FmpConfig;
+import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatementGrowth;
@@ -57,6 +60,7 @@ import dev.sorn.fmp4j.models.FmpIposDisclosure;
 import dev.sorn.fmp4j.models.FmpIposProspectus;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
+import dev.sorn.fmp4j.models.FmpLatestEarningsCallTranscript;
 import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
@@ -99,6 +103,16 @@ class FmpClientTest {
         when(fmpConfig.fmpBaseUrl()).thenReturn(BASE_URL);
         when(fmpConfig.fmpApiKey()).thenReturn(API_KEY);
         fmpClient = new FmpClient(fmpConfig, fmpHttpClient);
+    }
+
+    @Test
+    void testConstructor_doesNotThrowAndCreatesInstance() {
+        setProperty(FmpConfigImpl.FMP4J_API_KEY_ENV, "ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6");
+        setProperty(FmpConfigImpl.FMP4J_BASE_URL_ENV, "https://financialmodelingprep.com/stable");
+
+        assertDoesNotThrow(() -> new FmpClient());
+        FmpClient client = new FmpClient();
+        assertNotNull(client);
     }
 
     @Test
@@ -1092,6 +1106,37 @@ class FmpClientTest {
     }
 
     @Test
+    void cryptoNews_withFromTo() {
+        // given
+        var symbols = Set.of(symbol("BTCUSD"));
+        var from = Optional.of(LocalDate.of(2025, 1, 1));
+        var to = Optional.of(LocalDate.of(2025, 1, 31));
+        var page = page(0);
+        var limit = limit(100);
+        var endpoint = "news/crypto";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+
+        var params = buildParams(Map.of(
+                "symbols", symbols,
+                "from", from.get(),
+                "to", to.get(),
+                "page", page,
+                "limit", limit));
+
+        var file = format(
+                "stable/%s/?symbols=%s.json",
+                endpoint, join(",", symbols.stream().map(FmpSymbol::value).toList()));
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef(FmpNews[].class));
+        var result = fmpClient.news().crypto(symbols, from, to, Optional.of(page), Optional.of(limit));
+
+        // then
+        assertValidResult(result, 2, FmpNews.class, emptySet());
+    }
+
+    @Test
     void etfSectorWeightings() {
         // given
         var symbol = symbol("SPY");
@@ -1211,6 +1256,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 2, FmpTreasuryRate.class);
+    }
+
+    @Test
+    void latestEarningsCallTranscript() {
+        // given
+        var page = page(0);
+        var limit = limit(2);
+
+        var typeRef = typeRef(FmpLatestEarningsCallTranscript[].class);
+        var endpoint = "earning-call-transcript-latest";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("page", page, "limit", limit));
+        var file = format("stable/%s/?page=%s&limit=%s.json", endpoint, page, limit);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.latestEarningsCallTranscript().transcripts(limit, page);
+
+        // then
+        assertValidResult(result, 2, FmpLatestEarningsCallTranscript.class);
     }
 
     private URI buildUri(String endpoint) {

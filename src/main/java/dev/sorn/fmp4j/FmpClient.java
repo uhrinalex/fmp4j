@@ -9,6 +9,7 @@ import dev.sorn.fmp4j.clients.FmpCalendarClient;
 import dev.sorn.fmp4j.clients.FmpChartClient;
 import dev.sorn.fmp4j.clients.FmpCompanyClient;
 import dev.sorn.fmp4j.clients.FmpDirectoryClient;
+import dev.sorn.fmp4j.clients.FmpEarningsCallTranscriptClient;
 import dev.sorn.fmp4j.clients.FmpEconomicsClient;
 import dev.sorn.fmp4j.clients.FmpEtfClient;
 import dev.sorn.fmp4j.clients.FmpNewsClient;
@@ -28,6 +29,7 @@ public class FmpClient {
     protected final FmpChartClient fmpChartClient;
     protected final FmpCompanyClient fmpCompanyClient;
     protected final FmpDirectoryClient fmpDirectoryClient;
+    protected final FmpEarningsCallTranscriptClient fmpEarningsCallTranscriptClient;
     protected final FmpEconomicsClient fmpEconomicsClient;
     protected final FmpEtfClient fmpEtfClient;
     protected final FmpNewsClient fmpNewsClient;
@@ -51,6 +53,7 @@ public class FmpClient {
                 new FmpChartClient(fmpConfig, fmpHttpClient),
                 new FmpCompanyClient(fmpConfig, fmpHttpClient),
                 new FmpDirectoryClient(fmpConfig, fmpHttpClient),
+                new FmpEarningsCallTranscriptClient(fmpConfig, fmpHttpClient),
                 new FmpEconomicsClient(fmpConfig, fmpHttpClient),
                 new FmpEtfClient(fmpConfig, fmpHttpClient),
                 new FmpNewsClient(fmpConfig, fmpHttpClient),
@@ -70,6 +73,7 @@ public class FmpClient {
             FmpChartClient fmpChartClient,
             FmpCompanyClient fmpCompanyClient,
             FmpDirectoryClient fmpDirectoryClient,
+            FmpEarningsCallTranscriptClient fmpEarningsCallTranscriptClient,
             FmpEconomicsClient fmpEconomicsClient,
             FmpEtfClient fmpEtfClient,
             FmpNewsClient fmpNewsClient,
@@ -81,12 +85,13 @@ public class FmpClient {
         this.fmpBulkClient = fmpBulkClient;
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
-        this.fmpEconomicsClient = fmpEconomicsClient;
         this.fmpCalendarClient = fmpCalendarClient;
         this.fmpChartClient = fmpChartClient;
         this.fmpCompanyClient = fmpCompanyClient;
         this.fmpDirectoryClient = fmpDirectoryClient;
         this.fmpEtfClient = fmpEtfClient;
+        this.fmpEarningsCallTranscriptClient = fmpEarningsCallTranscriptClient;
+        this.fmpEconomicsClient = fmpEconomicsClient;
         this.fmpNewsClient = fmpNewsClient;
         this.fmpQuoteClient = fmpQuoteClient;
         this.fmpSecFilingsSearchClient = fmpSecFilingsSearchClient;
@@ -112,6 +117,10 @@ public class FmpClient {
 
     public FmpDirectoryClient directory() {
         return fmpDirectoryClient;
+    }
+
+    public FmpEarningsCallTranscriptClient latestEarningsCallTranscript() {
+        return fmpEarningsCallTranscriptClient;
     }
 
     public FmpEconomicsClient economics() {
