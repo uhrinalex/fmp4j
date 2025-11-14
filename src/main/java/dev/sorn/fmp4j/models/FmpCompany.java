@@ -27,7 +27,7 @@ public record FmpCompany(
         FmpCik cik,
         FmpIsin isin,
         FmpCusip cusip,
-        String exchangeFullName,
+        // String exchangeFullName,
         FmpExchange exchange,
         FmpIndustry industry,
         String website,

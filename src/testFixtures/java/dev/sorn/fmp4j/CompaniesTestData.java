@@ -30,7 +30,7 @@ public interface CompaniesTestData {
                 cik("0000320193"),
                 isin("US0378331005"),
                 cusip("037833100"),
-                NYSE.fullName(),
+                // NYSE.fullName(),
                 NYSE,
                 CONSUMER_ELECTRONICS,
                 "https://www.apple.com",
