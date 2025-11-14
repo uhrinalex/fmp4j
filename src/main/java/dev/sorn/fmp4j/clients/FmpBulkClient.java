@@ -10,14 +10,14 @@ import dev.sorn.fmp4j.types.FmpPart;
 public class FmpBulkClient {
 
     // Alphabetical order
-    protected final FmpService<FmpCompany[]> fmpSearchByPartService;
+    protected final FmpService<FmpCompany[]> fmpByPartService;
 
     public FmpBulkClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
-        this.fmpSearchByPartService = new FmpCompaniesService(fmpConfig, fmpHttpClient);
+        this.fmpByPartService = new FmpCompaniesService(fmpConfig, fmpHttpClient);
     }
 
     public synchronized FmpCompany[] byPart(FmpPart part) {
-        fmpSearchByPartService.param("part", part);
-        return fmpSearchByPartService.download();
+        fmpByPartService.param("part", part);
+        return fmpByPartService.download();
     }
 }

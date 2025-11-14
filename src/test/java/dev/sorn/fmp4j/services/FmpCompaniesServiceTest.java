@@ -3,8 +3,8 @@ package dev.sorn.fmp4j.services;
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
-import static dev.sorn.fmp4j.json.FmpJsonDeserializerImpl.FMP_JSON_DESERIALIZER;
-import static java.util.Collections.emptySet;
+import static dev.sorn.fmp4j.csv.FmpCsvDeserializer.FMP_CSV_DESERIALIZER;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
@@ -13,12 +13,13 @@ import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
 import dev.sorn.fmp4j.models.FmpCompany;
-import java.util.Set;
+import dev.sorn.fmp4j.types.FmpPart;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class FmpCompaniesServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
-    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
+    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER, FMP_CSV_DESERIALIZER);
     private final FmpService<FmpCompany[]> service = new FmpCompaniesService(new FmpConfigImpl(), http);
 
     @Test
@@ -36,7 +37,7 @@ class FmpCompaniesServiceTest {
         var params = service.requiredParams();
 
         // then
-        assertEquals(Set.of("part"), params);
+        assertEquals(Map.of("part", FmpPart.class), params);
     }
 
     @Test
@@ -45,16 +46,17 @@ class FmpCompaniesServiceTest {
         var params = service.optionalParams();
 
         // then
-        assertEquals(emptySet(), params);
+        assertEquals(Map.of(), params);
     }
 
     @Test
     void successful_download() {
         // given
-        var part = "0";
+        var part = FmpPart.part("0");
+
         service.param("part", part);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/profile-bulk/?part=%s.json", part))
+                .body(jsonTestResource("stable/profile-bulk/?part=%s.csv", part))
                 .statusCode(200)
                 .apply();
 

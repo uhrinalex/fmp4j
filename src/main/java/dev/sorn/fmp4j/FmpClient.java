@@ -99,7 +99,7 @@ public class FmpClient {
         this.fmpStatementClient = fmpStatementClient;
     }
 
-    public FmpBulkClient companies() {
+    public FmpBulkClient bulk() {
         return fmpBulkClient;
     }
 
