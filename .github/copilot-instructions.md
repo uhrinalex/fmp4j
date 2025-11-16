@@ -7,8 +7,10 @@ Do not introduce new abstractions or unrelated refactors.
 
 # Coding Style
 
-- Match the established code style
-- No unrelated changes
+- Make minimal, focused edits.
+- Make the code descriptive, so that comments become unnecessary.
+- Follow the style of the existing codebase.
+- No unrelated changes.
 - Prefer static imports:
     - `ZERO` instead of `BigDecimal.ZERO`
     - `emptyMap()` instead of `Map.of()`
@@ -16,8 +18,18 @@ Do not introduce new abstractions or unrelated refactors.
 - Prefer value objects from `dev.sorn.fmp4j.types`
 - For value objects/types, create a static factory method named after the type
   - Example: `symbol(String)` instead of `FmpSymbol.of(String)`
+- All models are Java 16+ records
 - All models must implement FmpModel and define `serialVersionUID`
   - `serialVersionUID` must be incremented if a model is changed
+
+## New API Endpoints
+
+- Only implement FMP stable endpoints
+- Add required and optional parameters as per FMP docs
+- Use appropriate value types from `dev.sorn.fmp4j.types`
+- Prefer reusing existing models for exact matches
+- Prefix new models with `Fmp`
+- Service naming: `Fmp<Model>Service`
 
 # Test Guidelines
 
@@ -76,6 +88,6 @@ Use BDD-like comment blocks:
 
 ## FMP Response Fixtures
 
-* Use real FMP responses from `testFixtures/resources/stable`
-* Filenames mirror endpoint paths
-* Use `%3F` instead of `/` for Windows compatibility
+* Always use real FMP responses from `testFixtures/resources/stable`
+  * Always use `%3F` instead of `?` for Windows-compatible filenames.
+  * Filenames mirror endpoint paths.
