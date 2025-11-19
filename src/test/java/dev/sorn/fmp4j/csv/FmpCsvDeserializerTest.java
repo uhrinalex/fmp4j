@@ -51,7 +51,7 @@ class FmpCsvDeserializerTest {
     }
 
     @Test
-    void deserialize_array_withNullValues() {
+    void deserialize_array_with_null_values() {
         // given
         var csv =
                 """
@@ -97,7 +97,7 @@ class FmpCsvDeserializerTest {
     }
 
     @Test
-    void deserialize_array_emptyContent() {
+    void deserialize_array_empty_content() {
         // given
         var csv = """
             symbol,name,price,quantity
@@ -111,7 +111,7 @@ class FmpCsvDeserializerTest {
     }
 
     @Test
-    void deserialize_array_failsOnMalformedCsv() {
+    void deserialize_array_fails_on_malformed_csv() {
         // given
         var malformedCsv =
                 """
@@ -133,7 +133,7 @@ class FmpCsvDeserializerTest {
     }
 
     @Test
-    void deserialize_array_withTrailingComma() {
+    void deserialize_array_with_trailing_comma() {
         // given
         var csv = """
             symbol,name,price,quantity,
@@ -152,7 +152,7 @@ class FmpCsvDeserializerTest {
     }
 
     @Test
-    void deserialize_array_withEmptyStringAsNull() {
+    void deserialize_array_with_empty_string_as_null() {
         // given
         var csv = """
             symbol,name,price,quantity

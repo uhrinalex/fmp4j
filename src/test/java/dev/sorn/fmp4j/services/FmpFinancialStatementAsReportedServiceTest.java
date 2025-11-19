@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,7 +75,7 @@ class FmpFinancialStatementAsReportedServiceTest implements FinancialStatementAs
         var limit = 2;
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource(
+                .body(testResource(
                         "stable/%s-statement-as-reported/?symbol=%s&period=%s&limit=%d.json",
                         type, symbol, period, limit))
                 .statusCode(200)

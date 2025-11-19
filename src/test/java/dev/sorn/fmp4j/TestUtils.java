@@ -1,5 +1,6 @@
 package dev.sorn.fmp4j;
 
+import static dev.sorn.fmp4j.csv.FmpCsvDeserializer.FMP_CSV_DESERIALIZER;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static java.lang.String.format;
 import static java.util.Collections.emptySet;
@@ -26,25 +27,34 @@ public final class TestUtils {
         throw new AssertionError(TestUtils.class.getSimpleName() + " cannot be instantiated.");
     }
 
+    public static <T> T csvTestResource(TypeReference<T> typeRef, String filename, Object... args) {
+        final var csv = testResource(filename, args);
+        return FMP_CSV_DESERIALIZER.deserialize(csv, typeRef);
+    }
+
     public static <T> T jsonTestResource(TypeReference<T> typeRef, String filename, Object... args) {
-        final var json = jsonTestResource(filename, args);
+        final var json = testResource(filename, args);
         return FMP_JSON_DESERIALIZER.deserialize(json, typeRef);
     }
 
-    public static String jsonTestResource(String filename, Object... args) {
-        var encoded = format(filename, args)
+    public static String testResource(String filename, Object... args) {
+        var encoded = encodeFilename(filename, args);
+        try (var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(encoded)) {
+            return new String(inputStream.readAllBytes());
+        } catch (NullPointerException | IOException e) {
+            System.out.printf("Failed reading: %s", encoded);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String encodeFilename(String filename, Object[] args) {
+        return format(filename, args)
                 .replace("?", "%3F")
                 .replace(":", "%3A")
                 .replace("*", "%2A")
                 .replace("<", "%3C")
                 .replace(">", "%3E")
                 .replace("|", "%7C");
-        try (final var inputStream = TestUtils.class.getClassLoader().getResourceAsStream(encoded)) {
-            return new String(inputStream.readAllBytes());
-        } catch (NullPointerException | IOException e) {
-            System.out.printf("Failed reading: %s", encoded);
-            throw new RuntimeException(e);
-        }
     }
 
     public static byte[] serialize(Object o) throws IOException {

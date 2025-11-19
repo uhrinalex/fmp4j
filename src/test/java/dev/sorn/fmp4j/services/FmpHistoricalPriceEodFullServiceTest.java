@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.util.Collections.emptySet;
@@ -63,8 +63,7 @@ class FmpHistoricalPriceEodFullServiceTest {
         service.param("from", from);
         service.param("to", to);
         httpStub.configureResponse()
-                .body(jsonTestResource(
-                        "stable/historical-price-eod/full/?symbol=%s&from=%s&to=%s.json", symbol, from, to))
+                .body(testResource("stable/historical-price-eod/full/?symbol=%s&from=%s&to=%s.json", symbol, from, to))
                 .statusCode(200)
                 .apply();
 
