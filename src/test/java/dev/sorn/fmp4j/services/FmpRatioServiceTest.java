@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.util.stream.IntStream.range;
@@ -60,7 +60,7 @@ class FmpRatioServiceTest implements RatioTestData {
         var symbol = symbol("AAPL");
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/ratios/?symbol=%s.json", symbol))
+                .body(testResource("stable/ratios/?symbol=%s.json", symbol))
                 .statusCode(200)
                 .apply();
 
@@ -81,7 +81,7 @@ class FmpRatioServiceTest implements RatioTestData {
         var limit = 3;
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/ratios/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
+                .body(testResource("stable/ratios/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
                 .statusCode(200)
                 .apply();
 

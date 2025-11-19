@@ -1,7 +1,7 @@
 package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +54,7 @@ class FmpRatioTtmServiceTest implements RatioTtmTestData {
         var symbol = symbol("AAPL");
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/ratios-ttm/?symbol=%s.json", symbol))
+                .body(testResource("stable/ratios-ttm/?symbol=%s.json", symbol))
                 .statusCode(200)
                 .apply();
 
