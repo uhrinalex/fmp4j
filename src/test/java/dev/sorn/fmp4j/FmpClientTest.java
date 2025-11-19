@@ -36,6 +36,7 @@ import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatementGrowth;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatementGrowth;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
@@ -498,10 +499,10 @@ class FmpClientTest {
     void companies() {
         // given
         var part = part("0");
-        var typeRef = typeRef(FmpCompany[].class);
+        var typeRef = typeRef(FmpCompanies[].class);
         var endpoint = "profile-bulk";
         var uri = buildUri(endpoint);
-        var headers = defaultHeaders();
+        var headers = Map.of("Content-Type", "text/csv");
         var params = buildParams(Map.of("part", part));
         var file = format("stable/%s/%%3Fpart=%s.csv", endpoint, part);
 
@@ -510,7 +511,7 @@ class FmpClientTest {
         var result = fmpClient.bulk().byPart(part);
 
         // then
-        assertValidResult(result, 1, FmpCompany.class);
+        assertValidResult(result, 1, FmpCompanies.class);
     }
 
     @ParameterizedTest

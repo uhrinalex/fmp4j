@@ -9,12 +9,12 @@ import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpSector.sector;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 
-import dev.sorn.fmp4j.models.FmpCompany;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import java.time.LocalDate;
 
 public interface CompaniesTestData {
-    default FmpCompany aCompanies() {
-        return new FmpCompany(
+    default FmpCompanies aCompanies() {
+        return new FmpCompanies(
                 symbol("AAPL"),
                 232.8,
                 3500823120000L,
@@ -30,7 +30,7 @@ public interface CompaniesTestData {
                 cik("0000320193"),
                 isin("US0378331005"),
                 cusip("037833100"),
-                // NYSE.fullName(),
+                NYSE.fullName(),
                 NYSE,
                 CONSUMER_ELECTRONICS,
                 "https://www.apple.com",

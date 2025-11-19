@@ -11,7 +11,7 @@ import dev.sorn.fmp4j.types.FmpSymbol;
 import java.io.Serial;
 import java.time.LocalDate;
 
-public record FmpCompany(
+public record FmpCompanies(
         FmpSymbol symbol,
         Double price,
         Long marketCap,
@@ -27,6 +27,7 @@ public record FmpCompany(
         FmpCik cik,
         FmpIsin isin,
         FmpCusip cusip,
+        String exchangeFullName,
         FmpExchange exchange,
         FmpIndustry industry,
         String website,

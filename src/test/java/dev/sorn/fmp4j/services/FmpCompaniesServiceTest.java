@@ -12,7 +12,7 @@ import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.http.FmpHttpClientImpl;
-import dev.sorn.fmp4j.models.FmpCompany;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.types.FmpPart;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 class FmpCompaniesServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER, FMP_CSV_DESERIALIZER);
-    private final FmpService<FmpCompany[]> service = new FmpCompaniesService(new FmpConfigImpl(), http);
+    private final FmpService<FmpCompanies[]> service = new FmpCompaniesService(new FmpConfigImpl(), http);
 
     @Test
     void relative_url() {
@@ -65,7 +65,7 @@ class FmpCompaniesServiceTest {
 
         // then
         assertEquals(1, result.length);
-        assertInstanceOf(FmpCompany.class, result[0]);
+        assertInstanceOf(FmpCompanies.class, result[0]);
         assertAllFieldsNonNull(result[0]);
     }
 }
