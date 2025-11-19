@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.csv.FmpCsvDeserializer.FMP_CSV_DESERIALIZER;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
@@ -32,7 +32,7 @@ class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTe
 
     @Test
     void relative_url() {
-        // when
+        // given // when
         var relativeUrl = service.relativeUrl();
 
         // then
@@ -41,7 +41,7 @@ class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTe
 
     @Test
     void required_params() {
-        // when
+        // given // when
         var params = service.requiredParams();
 
         // then
@@ -50,7 +50,7 @@ class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTe
 
     @Test
     void optional_params() {
-        // when
+        // given // when
         var params = service.optionalParams();
 
         // then
@@ -66,7 +66,7 @@ class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTe
         service.param("year", year);
         service.param("period", period);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/balance-sheet-statement-bulk/?year=%s&period=%s.csv", year, period))
+                .body(testResource("stable/balance-sheet-statement-bulk/?year=%s&period=%s.csv", year, period))
                 .statusCode(200)
                 .apply();
 

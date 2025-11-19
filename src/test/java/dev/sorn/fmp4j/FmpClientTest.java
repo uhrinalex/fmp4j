@@ -624,7 +624,7 @@ class FmpClientTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"quarter"})
-    void balanceSheetStatementsBulkCsv(String periodType) {
+    void balanceSheetStatementsBulk(String periodType) {
         // given
         var period = period(periodType);
         var year = year("2023");
@@ -634,15 +634,14 @@ class FmpClientTest {
         var headers = Map.of("Content-Type", "text/csv");
         var params = buildParams(Map.of("year", year, "period", period));
 
-        // mock CSV file
-        var file = String.format("stable/%s/%%3Fyear=%s&period=%s.csv", endpoint, year, period);
+        var file = String.format("stable/%s/?year=%s&period=%s.csv", endpoint, year, period);
 
         // when
-        mockHttpGetCsv(uri, headers, params, file, typeRef);
+        mockHttpGet(uri, headers, params, file, typeRef);
         var result = fmpClient.bulk().balanceSheetStatements(year, period);
 
         // then
-        assertValidResult(result, 1, FmpBalanceSheetStatement.class);
+        assertValidResult(result, 2, FmpBalanceSheetStatement.class);
     }
 
     @Test
