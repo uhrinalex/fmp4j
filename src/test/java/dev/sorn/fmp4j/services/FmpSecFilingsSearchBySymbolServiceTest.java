@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
@@ -70,7 +70,7 @@ class FmpSecFilingsSearchBySymbolServiceTest implements FinancialGrowthTestData 
         service.param("page", page);
         service.param("limit", limit);
         httpStub.configureResponse()
-                .body(jsonTestResource(
+                .body(testResource(
                         "stable/sec-filings-search/symbol/?symbol=%s&from=%s&to=%s&page=%d&limit=%d.json",
                         symbol, from, to, page.value(), limit.value()))
                 .statusCode(200)

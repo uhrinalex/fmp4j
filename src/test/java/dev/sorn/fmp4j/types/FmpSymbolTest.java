@@ -1,8 +1,8 @@
 package dev.sorn.fmp4j.types;
 
 import static dev.sorn.fmp4j.TestUtils.deserialize;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.TestUtils.serialize;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static dev.sorn.fmp4j.types.FmpSymbol.FMP_SYMBOL_PATTERN;
@@ -224,7 +224,7 @@ class FmpSymbolTest {
         // 8. Run test
 
         // given
-        var res = jsonTestResource("stable/financial-statement-symbol-list/full.json");
+        var res = testResource("stable/financial-statement-symbol-list/full.json");
         var symbols = FMP_JSON_DESERIALIZER.deserialize(res, typeRef(String[].class));
 
         var failedSymbols = new ArrayList<String>();

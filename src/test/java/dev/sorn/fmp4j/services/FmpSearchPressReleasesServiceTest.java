@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,7 +56,7 @@ class FmpSearchPressReleasesServiceTest implements FmpSearchPressReleaseTestData
         var symbol = symbol("V");
         service.param("symbols", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/news/press-releases/?symbols=%s.json", symbol))
+                .body(testResource("stable/news/press-releases/?symbols=%s.json", symbol))
                 .statusCode(200)
                 .apply();
 

@@ -1,12 +1,11 @@
 package dev.sorn.fmp4j.csv;
 
+import static com.fasterxml.jackson.dataformat.csv.CsvSchema.emptySchema;
+import static java.util.stream.IntStream.range;
+
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import dev.sorn.fmp4j.deserialize.FmpDeserializer;
 import dev.sorn.fmp4j.json.FmpJsonModule;
 import java.io.IOException;
@@ -36,19 +35,15 @@ public final class FmpCsvDeserializer implements FmpDeserializer {
     @Override
     public <T> T deserialize(String content, TypeReference<T> type) {
         try {
-            String cleanedCsv = removeByteOrderMark(content);
-            JavaType javaType = CSV_MAPPER.getTypeFactory().constructType(type.getType());
-
-            JavaType componentType = javaType.getContentType();
-            CsvSchema schema = CsvSchema.emptySchema().withHeader().withNullValue("");
-            ObjectReader reader = CSV_MAPPER.readerFor(componentType).with(schema);
-            MappingIterator<?> iterator = reader.readValues(new StringReader(cleanedCsv));
-            var list = iterator.readAll();
-
-            Object array = Array.newInstance(componentType.getRawClass(), list.size());
-            for (int i = 0; i < list.size(); i++) {
-                Array.set(array, i, list.get(i));
-            }
+            final var cleanedCsv = removeByteOrderMark(content);
+            final var javaType = CSV_MAPPER.getTypeFactory().constructType(type.getType());
+            final var componentType = javaType.getContentType();
+            final var schema = emptySchema().withHeader().withNullValue("");
+            final var reader = CSV_MAPPER.readerFor(componentType).with(schema);
+            final var iterator = reader.readValues(new StringReader(cleanedCsv));
+            final var list = iterator.readAll();
+            final var array = Array.newInstance(componentType.getRawClass(), list.size());
+            range(0, list.size()).forEach(i -> Array.set(array, i, list.get(i)));
             return (T) array;
         } catch (IOException e) {
             throw new FmpCsvException(

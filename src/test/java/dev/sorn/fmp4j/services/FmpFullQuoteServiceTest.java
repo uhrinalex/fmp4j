@@ -1,7 +1,7 @@
 package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.lang.String.format;
@@ -59,7 +59,7 @@ class FmpFullQuoteServiceTest implements QuoteTestData {
         var symbol = symbol("AAPL");
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/quote/?symbol=AAPL.json"))
+                .body(testResource("stable/quote/?symbol=AAPL.json"))
                 .statusCode(200)
                 .apply();
 
