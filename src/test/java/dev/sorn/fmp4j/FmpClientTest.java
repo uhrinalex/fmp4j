@@ -14,6 +14,7 @@ import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+import static dev.sorn.fmp4j.types.FmpYear.year;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.lang.System.setProperty;
@@ -619,6 +620,28 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit.value(), FmpBalanceSheetStatement.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"quarter"})
+    void balanceSheetStatementsBulk(String periodType) {
+        // given
+        var period = period(periodType);
+        var year = year("2023");
+        var typeRef = new com.fasterxml.jackson.core.type.TypeReference<FmpBalanceSheetStatement[]>() {};
+        var endpoint = "balance-sheet-statement-bulk";
+        var uri = buildUri(endpoint);
+        var headers = Map.of("Content-Type", "text/csv");
+        var params = buildParams(Map.of("year", year, "period", period));
+
+        var file = String.format("stable/%s/?year=%s&period=%s.csv", endpoint, year, period);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.bulk().balanceSheetStatements(year, period);
+
+        // then
+        assertValidResult(result, 2, FmpBalanceSheetStatement.class);
     }
 
     @Test
