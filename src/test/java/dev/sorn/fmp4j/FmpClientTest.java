@@ -9,6 +9,7 @@ import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
+import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
@@ -29,11 +30,13 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
+import dev.sorn.fmp4j.csv.FmpCsvDeserializer;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatementGrowth;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatementGrowth;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
@@ -78,6 +81,7 @@ import dev.sorn.fmp4j.models.FmpStockPriceChange;
 import dev.sorn.fmp4j.models.FmpTreasuryRate;
 import dev.sorn.fmp4j.types.FmpApiKey;
 import dev.sorn.fmp4j.types.FmpSymbol;
+import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -489,6 +493,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpCompany.class);
+    }
+
+    @Test
+    void companies() {
+        // given
+        var part = part("0");
+        var typeRef = typeRef(FmpCompanies[].class);
+        var endpoint = "profile-bulk";
+        var uri = buildUri(endpoint);
+        var headers = Map.of("Content-Type", "text/csv");
+        var params = buildParams(Map.of("part", part));
+        var file = format("stable/%s/%%3Fpart=%s.csv", endpoint, part);
+
+        // when
+        mockHttpGetCsv(uri, headers, params, file, typeRef);
+        var result = fmpClient.bulk().byPart(part);
+
+        // then
+        assertValidResult(result, 1, FmpCompanies.class);
     }
 
     @ParameterizedTest
@@ -1299,6 +1322,26 @@ class FmpClientTest {
     private synchronized <T> void mockHttpGet(
             URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
         when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(jsonTestResource(typeRef, file));
+    }
+
+    private synchronized <T> void mockHttpGetCsv(
+            URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
+        String csv = csvTestResource(file);
+
+        T deserialized = FmpCsvDeserializer.FMP_CSV_DESERIALIZER.deserialize(csv, typeRef);
+
+        when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(deserialized);
+    }
+
+    private String csvTestResource(String file) {
+        try (var is = getClass().getClassLoader().getResourceAsStream(file)) {
+            if (is == null) {
+                throw new IllegalArgumentException("CSV test file not found: " + file);
+            }
+            return new String(is.readAllBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read CSV test file: " + file, e);
+        }
     }
 
     private <T> void assertValidResult(T[] result, int expectedLength, Class<?> expectedType) {
