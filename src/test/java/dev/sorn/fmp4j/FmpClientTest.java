@@ -9,6 +9,7 @@ import static dev.sorn.fmp4j.types.FmpInterval.interval;
 import static dev.sorn.fmp4j.types.FmpIsin.isin;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
+import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
@@ -36,6 +37,7 @@ import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatementGrowth;
 import dev.sorn.fmp4j.models.FmpCashFlowStatement;
 import dev.sorn.fmp4j.models.FmpCashFlowStatementGrowth;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.models.FmpCompany;
 import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
@@ -492,6 +494,25 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, 1, FmpCompany.class);
+    }
+
+    @Test
+    void companies() {
+        // given
+        var part = part("0");
+        var typeRef = typeRef(FmpCompanies[].class);
+        var endpoint = "profile-bulk";
+        var uri = buildUri(endpoint);
+        var headers = Map.of("Content-Type", "text/csv");
+        var params = buildParams(Map.of("part", part));
+        var file = format("stable/%s/%%3Fpart=%s.csv", endpoint, part);
+
+        // when
+        mockHttpGetCsv(uri, headers, params, file, typeRef);
+        var result = fmpClient.bulk().byPart(part);
+
+        // then
+        assertValidResult(result, 1, FmpCompanies.class);
     }
 
     @ParameterizedTest

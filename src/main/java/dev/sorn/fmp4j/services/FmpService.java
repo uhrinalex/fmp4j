@@ -55,7 +55,6 @@ public abstract class FmpService<R> {
 
         if (value instanceof Collection<?> collection) {
             actualClass = collection.stream().map(Object::getClass).findFirst();
-            ;
         }
 
         if (value instanceof Optional<?> optional) {

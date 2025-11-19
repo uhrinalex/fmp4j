@@ -82,6 +82,7 @@ public class FmpClient {
             FmpSecFilingsSearchClient fmpSecFilingsSearchClient,
             FmpStatementClient fmpStatementClient) {
         // Alphabetical order
+        this.fmpBulkClient = fmpBulkClient;
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
         this.fmpBulkClient = fmpBulkClient;
