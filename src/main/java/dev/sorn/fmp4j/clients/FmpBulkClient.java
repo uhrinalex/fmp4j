@@ -2,10 +2,10 @@ package dev.sorn.fmp4j.clients;
 
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.http.FmpHttpClient;
-import dev.sorn.fmp4j.models.FmpCompanies;
-import dev.sorn.fmp4j.services.FmpCompaniesService;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
+import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.services.FmpBalanceSheetStatementBulkService;
+import dev.sorn.fmp4j.services.FmpCompaniesService;
 import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.types.FmpPart;
 import dev.sorn.fmp4j.types.FmpPeriod;

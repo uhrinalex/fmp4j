@@ -85,7 +85,6 @@ public class FmpClient {
         this.fmpBulkClient = fmpBulkClient;
         this.fmpConfig = fmpConfig;
         this.fmpHttpClient = fmpHttpClient;
-        this.fmpBulkClient = fmpBulkClient;
         this.fmpCalendarClient = fmpCalendarClient;
         this.fmpChartClient = fmpChartClient;
         this.fmpCompanyClient = fmpCompanyClient;
