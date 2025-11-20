@@ -8,12 +8,12 @@ import dev.sorn.fmp4j.services.FmpService;
 import dev.sorn.fmp4j.types.FmpLimit;
 import dev.sorn.fmp4j.types.FmpPage;
 
-public class FmpEarningsCallTranscriptClient {
+public class FmpEarningsClient {
 
     // Alphabetical order
     protected final FmpService<FmpLatestEarningsCallTranscript[]> fmpEarningsCallTranscriptService;
 
-    public FmpEarningsCallTranscriptClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
+    public FmpEarningsClient(FmpConfig fmpConfig, FmpHttpClient fmpHttpClient) {
         this.fmpEarningsCallTranscriptService = new FmpLatestEarningsCallTranscriptService(fmpConfig, fmpHttpClient);
     }
 

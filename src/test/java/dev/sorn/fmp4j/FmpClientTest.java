@@ -628,12 +628,11 @@ class FmpClientTest {
         // given
         var period = period(periodType);
         var year = year("2023");
-        var typeRef = new com.fasterxml.jackson.core.type.TypeReference<FmpBalanceSheetStatement[]>() {};
+        var typeRef = typeRef(FmpBalanceSheetStatement[].class);
         var endpoint = "balance-sheet-statement-bulk";
         var uri = buildUri(endpoint);
         var headers = Map.of("Content-Type", "text/csv");
         var params = buildParams(Map.of("year", year, "period", period));
-
         var file = String.format("stable/%s/?year=%s&period=%s.csv", endpoint, year, period);
 
         // when
@@ -1318,7 +1317,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.latestEarningsCallTranscript().transcripts(limit, page);
+        var result = fmpClient.earnings().transcripts(limit, page);
 
         // then
         assertValidResult(result, 2, FmpLatestEarningsCallTranscript.class);

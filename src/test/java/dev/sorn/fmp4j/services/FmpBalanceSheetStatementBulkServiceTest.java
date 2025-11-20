@@ -9,7 +9,6 @@ import static dev.sorn.fmp4j.types.FmpPeriod.period;
 import static dev.sorn.fmp4j.types.FmpYear.year;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.sorn.fmp4j.BalanceSheetStatementTestData;
 import dev.sorn.fmp4j.HttpClientStub;
@@ -74,7 +73,7 @@ class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTe
         var result = service.download();
 
         // then
-        assertTrue(result.length > 0);
+        assertEquals(2, result.length);
         range(0, result.length).forEach(i -> assertAllFieldsNonNull(result[i]));
     }
 }
