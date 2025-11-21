@@ -3,20 +3,20 @@ package dev.sorn.fmp4j.models;
 import static dev.sorn.fmp4j.TestUtils.deserialize;
 import static dev.sorn.fmp4j.TestUtils.serialize;
 import static dev.sorn.fmp4j.TestUtils.verifySerialization;
+import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dev.sorn.fmp4j.LatestEarningsCallTranscriptTestData;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
-class FmpLatestEarningsCallTranscriptTest implements LatestEarningsCallTranscriptTestData {
+class FmpEarningsCallTranscriptListTest {
     @Test
     void is_serializable() throws IOException, ClassNotFoundException {
         // given
-        var before = aLatestEarningCallTranscript();
+        var before = new FmpEarningsCallTranscriptList(symbol("XYZ"), "XYZ Corp.", 42);
 
         // when
-        var after = (FmpLatestEarningsCallTranscript) deserialize(serialize(before));
+        var after = (FmpEarningsCallTranscriptList) deserialize(serialize(before));
 
         // then
         assertEquals(before, after);
@@ -25,7 +25,7 @@ class FmpLatestEarningsCallTranscriptTest implements LatestEarningsCallTranscrip
     @Test
     void serializes() throws IOException {
         // given
-        var o = aLatestEarningCallTranscript();
+        var o = new FmpEarningsCallTranscriptList(symbol("XYZ"), "XYZ Corp.", 42);
 
         // when // then
         verifySerialization(o);

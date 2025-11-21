@@ -1,0 +1,77 @@
+package dev.sorn.fmp4j.services;
+
+import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
+import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
+import static dev.sorn.fmp4j.TestUtils.testResource;
+import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
+import static dev.sorn.fmp4j.types.FmpLimit.limit;
+import static dev.sorn.fmp4j.types.FmpPage.page;
+import static java.util.Collections.emptySet;
+import static java.util.stream.IntStream.range;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import dev.sorn.fmp4j.HttpClientStub;
+import dev.sorn.fmp4j.cfg.FmpConfigImpl;
+import dev.sorn.fmp4j.http.FmpHttpClient;
+import dev.sorn.fmp4j.http.FmpHttpClientImpl;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptLatest;
+import dev.sorn.fmp4j.types.FmpLimit;
+import dev.sorn.fmp4j.types.FmpPage;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
+
+class FmpEarningsCallTranscriptLatestServiceTest {
+    private final HttpClientStub httpStub = httpClientStub();
+    private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER);
+    private final FmpService<FmpEarningsCallTranscriptLatest[]> service =
+            new FmpEarningsCallTranscriptLatestService(new FmpConfigImpl(), http);
+
+    @Test
+    void relative_url() {
+        // given // when
+        var relativeUrl = service.relativeUrl();
+
+        // then
+        assertEquals("/earning-call-transcript-latest", relativeUrl);
+    }
+
+    @Test
+    void required_params() {
+        // given // when
+        var params = service.requiredParams();
+
+        // then
+        assertEquals(Map.of(), params);
+    }
+
+    @Test
+    void optional_params() {
+        // given // when
+        var params = service.optionalParams();
+
+        // then
+        assertEquals(Map.of("limit", FmpLimit.class, "page", FmpPage.class), params);
+    }
+
+    @Test
+    void successful_download() {
+        // given
+        var page = page(0);
+        var limit = limit(2);
+        service.param("page", page);
+        service.param("limit", limit);
+        httpStub.configureResponse()
+                .body(testResource("stable/earning-call-transcript-latest/?page=%s&limit=%s.json", page, limit))
+                .statusCode(200)
+                .apply();
+
+        // when
+        var result = service.download();
+
+        // then
+        assertEquals(2, result.length);
+        range(0, 2).forEach(i -> assertInstanceOf(FmpEarningsCallTranscriptLatest.class, result[i]));
+        range(0, 2).forEach(i -> assertAllFieldsNonNull(result[i], emptySet()));
+    }
+}

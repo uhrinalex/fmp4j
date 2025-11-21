@@ -1,4 +1,4 @@
-package dev.sorn.fmp4j.deserialize;
+package dev.sorn.fmp4j.http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 

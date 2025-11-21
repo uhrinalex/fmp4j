@@ -6,8 +6,8 @@ import dev.sorn.fmp4j.types.FmpYear;
 import java.io.Serial;
 import java.time.LocalDate;
 
-public record FmpLatestEarningsCallTranscript(LocalDate date, FmpSymbol symbol, FmpYear fiscalYear, FmpPeriod period)
-        implements FmpModel {
+public record FmpEarningsCallTranscript(
+        FmpSymbol symbol, FmpPeriod period, FmpYear year, LocalDate date, String content) implements FmpModel {
     @Serial
     private static final long serialVersionUID = 1L;
 }

@@ -6,7 +6,7 @@ import static java.util.stream.IntStream.range;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import dev.sorn.fmp4j.deserialize.FmpDeserializer;
+import dev.sorn.fmp4j.http.FmpDeserializer;
 import dev.sorn.fmp4j.json.FmpJsonModule;
 import java.io.IOException;
 import java.io.StringReader;

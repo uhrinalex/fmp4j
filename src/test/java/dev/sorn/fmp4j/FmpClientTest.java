@@ -12,6 +12,7 @@ import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
 import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
+import static dev.sorn.fmp4j.types.FmpQuarter.quarter;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
@@ -19,6 +20,7 @@ import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.lang.System.setProperty;
 import static java.util.Collections.emptySet;
+import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,6 +45,10 @@ import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
 import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscript;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptDate;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptLatest;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptList;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpEtfAssetExposure;
@@ -63,7 +69,6 @@ import dev.sorn.fmp4j.models.FmpIposDisclosure;
 import dev.sorn.fmp4j.models.FmpIposProspectus;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpLatestEarningsCallTranscript;
 import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
@@ -1303,12 +1308,51 @@ class FmpClientTest {
     }
 
     @Test
-    void latestEarningsCallTranscript() {
+    void earningCallTranscript() {
+        // given
+        var symbol = symbol("AAPL");
+        var year = year(2020);
+        var quarter = quarter(3);
+        var typeRef = typeRef(FmpEarningsCallTranscript[].class);
+        var endpoint = "earning-call-transcript";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "year", year, "quarter", quarter));
+        var file = format("stable/%s/?symbol=%s&year=%s&quarter=%s.json", endpoint, symbol, year, quarter);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().transcripts(symbol, year, quarter, empty());
+
+        // then
+        assertValidResult(result, 1, FmpEarningsCallTranscript.class);
+    }
+
+    @Test
+    void earningCallTranscriptDates() {
+        // given
+        var symbol = symbol("AAPL");
+        var typeRef = typeRef(FmpEarningsCallTranscriptDate[].class);
+        var endpoint = "earning-call-transcript-dates";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().dates(symbol);
+
+        // then
+        assertValidResult(result, 81, FmpEarningsCallTranscriptDate.class);
+    }
+
+    @Test
+    void earningCallTranscriptLatest() {
         // given
         var page = page(0);
         var limit = limit(2);
-
-        var typeRef = typeRef(FmpLatestEarningsCallTranscript[].class);
+        var typeRef = typeRef(FmpEarningsCallTranscriptLatest[].class);
         var endpoint = "earning-call-transcript-latest";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
@@ -1317,10 +1361,28 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.earnings().transcripts(limit, page);
+        var result = fmpClient.earnings().latest(Optional.of(limit), Optional.of(page));
 
         // then
-        assertValidResult(result, 2, FmpLatestEarningsCallTranscript.class);
+        assertValidResult(result, 2, FmpEarningsCallTranscriptLatest.class);
+    }
+
+    @Test
+    void earningsTranscriptList() {
+        // given
+        var typeRef = typeRef(FmpEarningsCallTranscriptList[].class);
+        var endpoint = "earnings-transcript-list";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().list();
+
+        // then
+        assertValidResult(result, 4, FmpEarningsCallTranscriptList.class);
     }
 
     private URI buildUri(String endpoint) {
