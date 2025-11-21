@@ -93,7 +93,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#directory
 | ❌️ |   -   | `/symbol-change`                   |
 | ✅️ | 0.1.0 | `/etf-list`                        |
 | ❌️ |   -   | `/actively-trading-list`           |
-| ❌️ |   -   | `/earnings-transcript-list`        |
+| ✅️ | 0.3.0 | `/earnings-transcript-list`        |
 | ❌️ |   -   | `/available-exchanges`             |
 | ❌️ |   -   | `/available-sectors`               |
 | ❌️ |   -   | `/available-industries`            |
@@ -468,9 +468,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#earnings-tr
 |    | Since | Endpoint                          |
 |:--:|:-----:|-----------------------------------|
 | ✅️ | 0.3.0 | `/earning-call-transcript-latest` |
-| ❌️ |   -   | `/earning-call-transcript`        |
-| ❌️ |   -   | `/earning-call-transcript-dates`  |
-| ❌️ |   -   | `/earnings-transcript-list`       |
+| ✅️ | 0.3.0 | `/earning-call-transcript`        |
+| ✅️ | 0.3.0 | `/earning-call-transcript-dates`  |
+| ✅️ | 0.3.0 | `/earnings-transcript-list`       |
 
 ### Senate
 
