@@ -9,8 +9,8 @@ import dev.sorn.fmp4j.types.FmpPeriod;
 import dev.sorn.fmp4j.types.FmpYear;
 import java.util.Map;
 
-public class FmpBalanceSheetStatementBulkService extends FmpService<FmpBalanceSheetStatement[]> {
-    public FmpBalanceSheetStatementBulkService(FmpConfig cfg, FmpHttpClient http) {
+public class FmpBulkBalanceSheetStatementService extends FmpService<FmpBalanceSheetStatement[]> {
+    public FmpBulkBalanceSheetStatementService(FmpConfig cfg, FmpHttpClient http) {
         super(cfg, http, typeRef(FmpBalanceSheetStatement[].class));
     }
 

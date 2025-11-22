@@ -513,7 +513,7 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.bulk().byPart(part);
+        var result = fmpClient.bulk().companies(part);
 
         // then
         assertValidResult(result, 1, FmpCompanies.class);

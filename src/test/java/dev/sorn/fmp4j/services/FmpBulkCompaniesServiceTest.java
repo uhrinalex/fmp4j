@@ -17,10 +17,10 @@ import dev.sorn.fmp4j.types.FmpPart;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-class FmpCompaniesServiceTest {
+class FmpBulkCompaniesServiceTest {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER, FMP_CSV_DESERIALIZER);
-    private final FmpService<FmpCompanies[]> service = new FmpCompaniesService(new FmpConfigImpl(), http);
+    private final FmpService<FmpCompanies[]> service = new FmpBulkCompaniesService(new FmpConfigImpl(), http);
 
     @Test
     void relative_url() {

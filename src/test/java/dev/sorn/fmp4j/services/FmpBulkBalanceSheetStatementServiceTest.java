@@ -23,11 +23,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class FmpBalanceSheetStatementBulkServiceTest implements BalanceSheetStatementTestData {
+class FmpBulkBalanceSheetStatementServiceTest implements BalanceSheetStatementTestData {
     private final HttpClientStub httpStub = httpClientStub();
     private final FmpHttpClient http = new FmpHttpClientImpl(httpStub, FMP_JSON_DESERIALIZER, FMP_CSV_DESERIALIZER);
     private final FmpService<FmpBalanceSheetStatement[]> service =
-            new FmpBalanceSheetStatementBulkService(new FmpConfigImpl(), http);
+            new FmpBulkBalanceSheetStatementService(new FmpConfigImpl(), http);
 
     @Test
     void relative_url() {
