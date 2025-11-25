@@ -19,7 +19,7 @@ class FmpExchangeTest {
     @ParameterizedTest
     @MethodSource
     void valid_exchange(String shortName) {
-        // when
+        // given // when
         var p = exchange(shortName);
 
         // then
@@ -103,7 +103,7 @@ class FmpExchangeTest {
 
     @Test
     void lower_case_code_exchange() {
-        // when
+        // given // when
         var p = exchange("two");
 
         // then

@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static java.util.Collections.emptySet;
@@ -66,7 +66,7 @@ class FmpEnterpriseValuesServiceTest {
         var limit = 3;
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource(
+                .body(testResource(
                         "stable/enterprise-values/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
                 .statusCode(200)
                 .apply();

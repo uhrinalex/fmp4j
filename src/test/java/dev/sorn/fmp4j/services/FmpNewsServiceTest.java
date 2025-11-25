@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,7 +77,7 @@ class FmpNewsServiceTest implements NewsTestData {
         var service = new FmpNewsService(new FmpConfigImpl(), http, type);
         service.param("symbols", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/news/%s/?symbols=%s.json", type, symbol))
+                .body(testResource("stable/news/%s/?symbols=%s.json", type, symbol))
                 .statusCode(200)
                 .apply();
 

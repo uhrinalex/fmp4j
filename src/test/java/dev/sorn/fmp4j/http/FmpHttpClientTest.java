@@ -153,11 +153,11 @@ class FmpHttpClientTest {
     }
 
     @Test
-    void deserialization_of_wrong_type_throws_correct_exception() throws IOException {
+    void json_deserialization_of_wrong_type_throws_correct_exception() throws IOException {
         // given
         var code = 200;
         var res = "{\"wrong\": \"type\"}";
-        var headers = Map.of("some", "header");
+        var headers = Map.of("Content-Type", "application/json");
         var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
 
         // when
@@ -169,7 +169,28 @@ class FmpHttpClientTest {
         var e = assertThrows(
                 FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
         assertEquals(
-                "JSON deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{some=header}], queryParams [{apikey=AB****************************y6}]",
+                "JSON deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Content-Type=application/json}], queryParams [{apikey=AB****************************y6}]",
+                e.getMessage());
+    }
+
+    @Test
+    void csv_deserialization_of_wrong_type_throws_correct_exception() throws IOException {
+        // given
+        var code = 200;
+        var res = "wrong,type\n1,2,3";
+        var headers = Map.of("Content-Type", "text/csv");
+        var params = Map.<String, Object>of("apikey", new FmpApiKey("ABCDEf0ghIjklmNO1pqRsT2u34VWx5y6"));
+
+        // when
+        when(httpResponse.getCode()).thenReturn(code);
+        when(httpClient.executeOpen(any(), any(HttpGet.class), any())).thenReturn(httpResponse);
+        when(httpResponse.getEntity()).thenReturn(new StringEntity(res));
+
+        // then
+        var e = assertThrows(
+                FmpHttpException.class, () -> client.get(typeRef(TestObject[].class), testUri, headers, params));
+        assertEquals(
+                "CSV deserialization failed for type [class [Ldev.sorn.fmp4j.TestObject;], uri [https://financialmodelingprep.com/stable], headers [{Content-Type=text/csv}], queryParams [{apikey=AB****************************y6}]",
                 e.getMessage());
     }
 }

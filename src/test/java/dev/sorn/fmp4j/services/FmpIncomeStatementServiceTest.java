@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
@@ -63,7 +63,7 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
         var symbol = symbol("AAPL");
         service.param("symbol", symbol);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/income-statement/?symbol=%s.json", symbol))
+                .body(testResource("stable/income-statement/?symbol=%s.json", symbol))
                 .statusCode(200)
                 .apply();
 
@@ -84,8 +84,7 @@ class FmpIncomeStatementServiceTest implements IncomeStatementTestData {
         service.param("period", period(period));
         service.param("limit", limit(limit));
         httpStub.configureResponse()
-                .body(jsonTestResource(
-                        "stable/income-statement/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
+                .body(testResource("stable/income-statement/?symbol=%s&period=%s&limit=%d.json", symbol, period, limit))
                 .statusCode(200)
                 .apply();
 

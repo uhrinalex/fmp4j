@@ -1,6 +1,7 @@
 package dev.sorn.fmp4j;
 
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
+import static dev.sorn.fmp4j.TestUtils.csvTestResource;
 import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
 import static dev.sorn.fmp4j.json.FmpJsonUtils.typeRef;
 import static dev.sorn.fmp4j.types.FmpCik.cik;
@@ -11,12 +12,15 @@ import static dev.sorn.fmp4j.types.FmpLimit.limit;
 import static dev.sorn.fmp4j.types.FmpPage.page;
 import static dev.sorn.fmp4j.types.FmpPart.part;
 import static dev.sorn.fmp4j.types.FmpPeriod.period;
+import static dev.sorn.fmp4j.types.FmpQuarter.quarter;
 import static dev.sorn.fmp4j.types.FmpStructure.FLAT;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
+import static dev.sorn.fmp4j.types.FmpYear.year;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.lang.System.setProperty;
 import static java.util.Collections.emptySet;
+import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +34,6 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.core.type.TypeReference;
 import dev.sorn.fmp4j.cfg.FmpConfig;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
-import dev.sorn.fmp4j.csv.FmpCsvDeserializer;
 import dev.sorn.fmp4j.http.FmpHttpClient;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatement;
 import dev.sorn.fmp4j.models.FmpBalanceSheetStatementGrowth;
@@ -42,6 +45,10 @@ import dev.sorn.fmp4j.models.FmpDividend;
 import dev.sorn.fmp4j.models.FmpDividendsCalendar;
 import dev.sorn.fmp4j.models.FmpEarning;
 import dev.sorn.fmp4j.models.FmpEarningsCalendar;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscript;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptDate;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptLatest;
+import dev.sorn.fmp4j.models.FmpEarningsCallTranscriptList;
 import dev.sorn.fmp4j.models.FmpEnterpriseValue;
 import dev.sorn.fmp4j.models.FmpEtf;
 import dev.sorn.fmp4j.models.FmpEtfAssetExposure;
@@ -62,7 +69,6 @@ import dev.sorn.fmp4j.models.FmpIposDisclosure;
 import dev.sorn.fmp4j.models.FmpIposProspectus;
 import dev.sorn.fmp4j.models.FmpKeyMetric;
 import dev.sorn.fmp4j.models.FmpKeyMetricTtm;
-import dev.sorn.fmp4j.models.FmpLatestEarningsCallTranscript;
 import dev.sorn.fmp4j.models.FmpNews;
 import dev.sorn.fmp4j.models.FmpPartialQuote;
 import dev.sorn.fmp4j.models.FmpRatio;
@@ -81,7 +87,6 @@ import dev.sorn.fmp4j.models.FmpStockPriceChange;
 import dev.sorn.fmp4j.models.FmpTreasuryRate;
 import dev.sorn.fmp4j.types.FmpApiKey;
 import dev.sorn.fmp4j.types.FmpSymbol;
-import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -504,11 +509,11 @@ class FmpClientTest {
         var uri = buildUri(endpoint);
         var headers = Map.of("Content-Type", "text/csv");
         var params = buildParams(Map.of("part", part));
-        var file = format("stable/%s/%%3Fpart=%s.csv", endpoint, part);
+        var file = format("stable/%s/?part=%s.csv", endpoint, part);
 
         // when
-        mockHttpGetCsv(uri, headers, params, file, typeRef);
-        var result = fmpClient.bulk().byPart(part);
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.bulk().companies(part);
 
         // then
         assertValidResult(result, 1, FmpCompanies.class);
@@ -620,6 +625,27 @@ class FmpClientTest {
 
         // then
         assertValidResult(result, limit.value(), FmpBalanceSheetStatement.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"quarter"})
+    void balanceSheetStatementsBulk(String periodType) {
+        // given
+        var period = period(periodType);
+        var year = year("2023");
+        var typeRef = typeRef(FmpBalanceSheetStatement[].class);
+        var endpoint = "balance-sheet-statement-bulk";
+        var uri = buildUri(endpoint);
+        var headers = Map.of("Content-Type", "text/csv");
+        var params = buildParams(Map.of("year", year, "period", period));
+        var file = String.format("stable/%s/?year=%s&period=%s.csv", endpoint, year, period);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.bulk().balanceSheetStatements(year, period);
+
+        // then
+        assertValidResult(result, 2, FmpBalanceSheetStatement.class);
     }
 
     @Test
@@ -1282,12 +1308,51 @@ class FmpClientTest {
     }
 
     @Test
-    void latestEarningsCallTranscript() {
+    void earningCallTranscript() {
+        // given
+        var symbol = symbol("AAPL");
+        var year = year(2020);
+        var quarter = quarter(3);
+        var typeRef = typeRef(FmpEarningsCallTranscript[].class);
+        var endpoint = "earning-call-transcript";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol, "year", year, "quarter", quarter));
+        var file = format("stable/%s/?symbol=%s&year=%s&quarter=%s.json", endpoint, symbol, year, quarter);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().transcripts(symbol, year, quarter, empty());
+
+        // then
+        assertValidResult(result, 1, FmpEarningsCallTranscript.class);
+    }
+
+    @Test
+    void earningCallTranscriptDates() {
+        // given
+        var symbol = symbol("AAPL");
+        var typeRef = typeRef(FmpEarningsCallTranscriptDate[].class);
+        var endpoint = "earning-call-transcript-dates";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of("symbol", symbol));
+        var file = format("stable/%s/?symbol=%s.json", endpoint, symbol);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().dates(symbol);
+
+        // then
+        assertValidResult(result, 81, FmpEarningsCallTranscriptDate.class);
+    }
+
+    @Test
+    void earningCallTranscriptLatest() {
         // given
         var page = page(0);
         var limit = limit(2);
-
-        var typeRef = typeRef(FmpLatestEarningsCallTranscript[].class);
+        var typeRef = typeRef(FmpEarningsCallTranscriptLatest[].class);
         var endpoint = "earning-call-transcript-latest";
         var uri = buildUri(endpoint);
         var headers = defaultHeaders();
@@ -1296,10 +1361,28 @@ class FmpClientTest {
 
         // when
         mockHttpGet(uri, headers, params, file, typeRef);
-        var result = fmpClient.latestEarningsCallTranscript().transcripts(limit, page);
+        var result = fmpClient.earnings().latest(Optional.of(limit), Optional.of(page));
 
         // then
-        assertValidResult(result, 2, FmpLatestEarningsCallTranscript.class);
+        assertValidResult(result, 2, FmpEarningsCallTranscriptLatest.class);
+    }
+
+    @Test
+    void earningsTranscriptList() {
+        // given
+        var typeRef = typeRef(FmpEarningsCallTranscriptList[].class);
+        var endpoint = "earnings-transcript-list";
+        var uri = buildUri(endpoint);
+        var headers = defaultHeaders();
+        var params = buildParams(Map.of());
+        var file = format("stable/%s/excerpt.json", endpoint);
+
+        // when
+        mockHttpGet(uri, headers, params, file, typeRef);
+        var result = fmpClient.earnings().list();
+
+        // then
+        assertValidResult(result, 4, FmpEarningsCallTranscriptList.class);
     }
 
     private URI buildUri(String endpoint) {
@@ -1321,26 +1404,12 @@ class FmpClientTest {
 
     private synchronized <T> void mockHttpGet(
             URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
-        when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(jsonTestResource(typeRef, file));
-    }
-
-    private synchronized <T> void mockHttpGetCsv(
-            URI uri, Map<String, String> headers, Map<String, Object> params, String file, TypeReference<T> typeRef) {
-        String csv = csvTestResource(file);
-
-        T deserialized = FmpCsvDeserializer.FMP_CSV_DESERIALIZER.deserialize(csv, typeRef);
-
-        when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(deserialized);
-    }
-
-    private String csvTestResource(String file) {
-        try (var is = getClass().getClassLoader().getResourceAsStream(file)) {
-            if (is == null) {
-                throw new IllegalArgumentException("CSV test file not found: " + file);
-            }
-            return new String(is.readAllBytes());
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read CSV test file: " + file, e);
+        if (file.endsWith(".json")) {
+            when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params)))
+                    .thenReturn(jsonTestResource(typeRef, file));
+        }
+        if (file.endsWith(".csv")) {
+            when(fmpHttpClient.get(any(), eq(uri), eq(headers), eq(params))).thenReturn(csvTestResource(typeRef, file));
         }
     }
 

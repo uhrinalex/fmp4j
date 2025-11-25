@@ -28,7 +28,7 @@ the [Financial Modeling Prep (FMP)](https://site.financialmodelingprep.com/) API
 **Gradle (build.gradle)**
 
 ```groovy
-implementation 'dev.sorn:fmp4j:0.2.3'
+implementation 'dev.sorn:fmp4j:0.3.0'
 ```
 
 **Maven (pom.xml)**
@@ -37,7 +37,7 @@ implementation 'dev.sorn:fmp4j:0.2.3'
 <dependency>
     <groupId>dev.sorn</groupId>
     <artifactId>fmp4j</artifactId>
-    <version>0.2.3</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -93,7 +93,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#directory
 | ❌️ |   -   | `/symbol-change`                   |
 | ✅️ | 0.1.0 | `/etf-list`                        |
 | ❌️ |   -   | `/actively-trading-list`           |
-| ❌️ |   -   | `/earnings-transcript-list`        |
+| ✅️ | 0.3.0 | `/earnings-transcript-list`        |
 | ❌️ |   -   | `/available-exchanges`             |
 | ❌️ |   -   | `/available-sectors`               |
 | ❌️ |   -   | `/available-industries`            |
@@ -468,9 +468,9 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#earnings-tr
 |    | Since | Endpoint                          |
 |:--:|:-----:|-----------------------------------|
 | ✅️ | 0.3.0 | `/earning-call-transcript-latest` |
-| ❌️ |   -   | `/earning-call-transcript`        |
-| ❌️ |   -   | `/earning-call-transcript-dates`  |
-| ❌️ |   -   | `/earnings-transcript-list`       |
+| ✅️ | 0.3.0 | `/earning-call-transcript`        |
+| ✅️ | 0.3.0 | `/earning-call-transcript-dates`  |
+| ✅️ | 0.3.0 | `/earnings-transcript-list`       |
 
 ### Senate
 
@@ -505,7 +505,7 @@ Copy of https://site.financialmodelingprep.com/developer/docs/stable#bulk
 | ❌️ |   -   | `/earnings-surprises-bulk`             |
 | ❌️ |   -   | `/income-statement-bulk`               |
 | ❌️ |   -   | `/income-statement-growth-bulk`        |
-| ❌️ |   -   | `/balance-sheet-statement-bulk`        |
+| ✅️ | 0.3.0 | `/balance-sheet-statement-bulk`        |
 | ❌️ |   -   | `/balance-sheet-statement-growth-bulk` |
 | ❌️ |   -   | `/cash-flow-statement-bulk`            |
 | ❌️ |   -   | `/cash-flow-statement-growth-bulk`     |

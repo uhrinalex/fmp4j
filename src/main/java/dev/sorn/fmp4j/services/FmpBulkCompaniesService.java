@@ -8,8 +8,8 @@ import dev.sorn.fmp4j.models.FmpCompanies;
 import dev.sorn.fmp4j.types.FmpPart;
 import java.util.Map;
 
-public class FmpCompaniesService extends FmpService<FmpCompanies[]> {
-    public FmpCompaniesService(FmpConfig cfg, FmpHttpClient http) {
+public class FmpBulkCompaniesService extends FmpService<FmpCompanies[]> {
+    public FmpBulkCompaniesService(FmpConfig cfg, FmpHttpClient http) {
         super(cfg, http, typeRef(FmpCompanies[].class));
     }
 

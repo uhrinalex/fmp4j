@@ -87,6 +87,7 @@ class FmpYearTest {
         // when
         var eq = y.equals(y);
 
+        // then
         assertTrue(eq);
     }
 
@@ -99,6 +100,7 @@ class FmpYearTest {
         // when
         var eq = y1.equals(y2);
 
+        // then
         assertTrue(eq);
     }
 
@@ -111,6 +113,7 @@ class FmpYearTest {
         // when
         var eq = y1.equals(y2);
 
+        // then
         assertFalse(eq);
     }
 
@@ -123,6 +126,7 @@ class FmpYearTest {
         // when
         var eq = y1.equals(y2);
 
+        // then
         assertFalse(eq);
     }
 
@@ -135,6 +139,7 @@ class FmpYearTest {
         // when
         var eq = y1.equals(y2);
 
+        // then
         assertFalse(eq);
     }
 

@@ -2,7 +2,7 @@ package dev.sorn.fmp4j.services;
 
 import static dev.sorn.fmp4j.HttpClientStub.httpClientStub;
 import static dev.sorn.fmp4j.TestUtils.assertAllFieldsNonNull;
-import static dev.sorn.fmp4j.TestUtils.jsonTestResource;
+import static dev.sorn.fmp4j.TestUtils.testResource;
 import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpCusip.cusip;
 import static java.util.stream.IntStream.range;
@@ -56,7 +56,7 @@ class FmpSearchByCusipServiceTest {
         var cusip = cusip("037833100");
         service.param("cusip", cusip);
         httpStub.configureResponse()
-                .body(jsonTestResource("stable/search-cusip/?cusip=%s.json", cusip))
+                .body(testResource("stable/search-cusip/?cusip=%s.json", cusip))
                 .statusCode(200)
                 .apply();
 
