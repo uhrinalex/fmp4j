@@ -51,6 +51,8 @@ sourceSets {
 
 test {
     useJUnitPlatform()
+    systemProperty 'FMP_API_KEY', System.getProperty('FMP_API_KEY', 'mvXN3qUB6LzTaISXPp9kdM1nTIRplVpL')
+    systemProperty 'FMP_BASE_URL', System.getProperty('FMP_BASE_URL', 'https://financialmodelingprep.com/api/v3')
     testLogging {
         events "failed", "skipped"
         exceptionFormat = "full"

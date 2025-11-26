@@ -7,10 +7,12 @@ import static dev.sorn.fmp4j.json.FmpJsonDeserializer.FMP_JSON_DESERIALIZER;
 import static dev.sorn.fmp4j.types.FmpQuarter.quarter;
 import static dev.sorn.fmp4j.types.FmpSymbol.symbol;
 import static dev.sorn.fmp4j.types.FmpYear.year;
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.stream.IntStream.range;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import dev.sorn.fmp4j.HttpClientStub;
 import dev.sorn.fmp4j.cfg.FmpConfigImpl;
@@ -22,6 +24,8 @@ import dev.sorn.fmp4j.types.FmpQuarter;
 import dev.sorn.fmp4j.types.FmpSymbol;
 import dev.sorn.fmp4j.types.FmpYear;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
 class FmpEarningsCallTranscriptServiceTest {
@@ -79,5 +83,61 @@ class FmpEarningsCallTranscriptServiceTest {
         assertEquals(1, result.length);
         range(0, 1).forEach(i -> assertInstanceOf(FmpEarningsCallTranscript.class, result[i]));
         range(0, 1).forEach(i -> assertAllFieldsNonNull(result[i], emptySet()));
+    }
+
+    @Test
+    void missing_symbol_throws() {
+        // given
+        service.param("year", year(2020));
+        service.param("quarter", quarter(3));
+
+        // when
+        Consumer<FmpService<FmpEarningsCallTranscript[]>> f = FmpService::download;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(service));
+        assertEquals(format("'symbol' is a required query param for endpoint [%s]", service.url()), e.getMessage());
+    }
+
+    @Test
+    void missing_year_throws() {
+        // given
+        service.param("symbol", symbol("AAPL"));
+        service.param("quarter", quarter(3));
+
+        // when
+        Consumer<FmpService<FmpEarningsCallTranscript[]>> f = FmpService::download;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(service));
+        assertEquals(format("'year' is a required query param for endpoint [%s]", service.url()), e.getMessage());
+    }
+
+    @Test
+    void missing_quarter_throws() {
+        // given
+        service.param("symbol", symbol("AAPL"));
+        service.param("year", year(2020));
+
+        // when
+        Consumer<FmpService<FmpEarningsCallTranscript[]>> f = FmpService::download;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(service));
+        assertEquals(format("'quarter' is a required query param for endpoint [%s]", service.url()), e.getMessage());
+    }
+
+    @Test
+    void unrecognized_param_throws() {
+        var key = "unknown";
+        var value = "value";
+
+        // given // when
+        BiConsumer<String, String> f = service::param;
+
+        // then
+        var e = assertThrows(FmpServiceException.class, () -> f.accept(key, value));
+        assertEquals(
+                format("'unknown' is not a recognized query param for endpoint [%s]", service.url()), e.getMessage());
     }
 }
